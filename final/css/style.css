@@ -1,0 +1,27 @@
+.bs-docs-footer {
+padding-top: 40px;
+padding-bottom: 40px;
+margin-top: 100px;
+color: #777;
+text-align: center;
+border-top: 1px solid #e5e5e5;
+
+}
+.bs-docs-footer p {
+margin-bottom: 0;
+}
+
+.form-control[disabled],
+.form-control[readonly],
+fieldset[disabled] .form-control {
+  cursor: pointer;
+  background-color: #eee;
+  opacity: 1;
+}
+
+.input-group {
+position: relative;
+display: table;
+border-collapse: separate;
+padding-bottom: 10px;
+}
