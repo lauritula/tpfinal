@@ -186,7 +186,8 @@ function diaFormato($dias){
 
 	<div class="well login-box">
 		<form id="busquedaVuelos" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" role="search">
-			<legend>Busqueda de vuelos</legend>
+			<legend>B&uacute;squeda de vuelos</legend>
+			<div  id="the-basics" >
 			<div class="form-group">
 				<label for="username-email">Ingrese su ciudad</label>
 				<input type="text" class=" typeahead form-control " name="origen" placeholder="origen">
@@ -194,6 +195,7 @@ function diaFormato($dias){
 			<div class="form-group">
 				<label for="password">Ingrese la ciudad de destino</label>
 				<input type="text" class=" typeahead form-control " name="destino" placeholder="destino">
+			</div>
 			</div>
 			<label for="password">Selecione la fecha de vuelo </label>
 			<div class="input-group date">				
