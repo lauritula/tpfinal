@@ -45,7 +45,7 @@ function tipoBusqueda($origen, $dias, $destino){
 		listado($resultadoVacio);
 	}	
 	if($dias && !$origen && !$destino){
-		$resultadoDias = sentenciaSQL("select * from frecuencias where dias ='$dias'");
+		$resultadoDias = sentenciaSQL("select * from frecuencias where dias LIKE '$dias'");
 		listado($resultadoDias);
 	}
 
@@ -58,11 +58,11 @@ function tipoBusqueda($origen, $dias, $destino){
 		listado($resultadoDestino);
 	}
 	if ($origen && $dias &&  $destino) {
-		$resultado = sentenciaSQL("select * from frecuencias where origen ='$origen' and dias ='$dias' and destino='$destino'");
+		$resultado = sentenciaSQL("select * from frecuencias where origen ='$origen' and dias LIKE '$dias' and destino='$destino'");
 		listado($resultado);
 	}
 	if (!$origen && $dias &&  $destino) {
-		$resultado = sentenciaSQL("select * from frecuencias where dias ='$dias' and destino='$destino'");
+		$resultado = sentenciaSQL("select * from frecuencias where dias LIKE '$dias' and destino='$destino'");
 		listado($resultado);
 	}
 	if ($origen && !$dias &&  $destino) {
@@ -70,7 +70,7 @@ function tipoBusqueda($origen, $dias, $destino){
 		listado($resultado);
 	}
 	if (!$origen && $dias &&  !$destino) {
-		$resultado = sentenciaSQL("select * from frecuencias where origen ='$origen' and dias ='$dias' ");
+		$resultado = sentenciaSQL("select * from frecuencias where origen ='$origen' and dias LIKE '$dias' ");
 		listado($resultado);
 	}
 }
@@ -97,25 +97,25 @@ function diaFormato($dias){
 	/*	$dias= substr($dias, 0,2);*/
 	switch ($dias) {
 		case 'Lunes':
-		return '1000000';
+		return '1______';
 		break;
 		case 'Martes':
-		return '0100000';
+		return '_1_____';
 		break;
 		case 'Miércoles':
-		return '0010000';
+		return '__1____';
 		break;
 		case 'Jueves':
-		return '0001000';
+		return '___1___';
 		break;
 		case 'Viernes':
-		return '0000100';
+		return '____1__';
 		break;
 		case 'Sábado':
-		return '0000010';
+		return '_____1_';
 		break;
 		case 'Domingo':
-		return '0000001';
+		return '______1';
 		break;
 
 		default:
