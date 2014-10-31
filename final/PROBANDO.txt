@@ -4,4 +4,7 @@ ea ea ea ya la cache :D
 <<<<<<< HEAD
 =======
 Hola Equipo!!
->>>>>>> origin/master
+>>>>>>> 
+--Hola Chicos! :)
+origin/master
+
