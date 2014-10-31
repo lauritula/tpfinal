@@ -1,3 +1,7 @@
 hola
 Prueba 2 :P
 ea ea ea ya la cache :D 
+<<<<<<< HEAD
+=======
+Hola Equipo!!
+>>>>>>> origin/master
