@@ -159,7 +159,7 @@ function diaFormato($dias){
 
 if(isset($_POST['buscarDia']))  {
 	conexion();
-	mysql_select_db("tpfinalv2") or die("no se puede selecionar la base de datos "); //seleccion
+	mysql_select_db("tpfinal") or die("no se puede selecionar la base de datos "); //seleccion
    /* variables*/
 	$dias=$_POST['dias']; 
 	$origen=$_POST['origen']; 
