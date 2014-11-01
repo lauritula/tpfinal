@@ -22,8 +22,8 @@ function listado($tipoDeBusqueda,$dias){
 	$lista ="";
 	while ( $fila  = mysql_fetch_assoc($tipoDeBusqueda)) {
 		$lista .= "	<tr><td>$dias</td>
-						<td>" .$fila['destino']."</td>
 						<td>" .$fila['origen']."</td>
+						<td>" .$fila['destino']."</td>
 						<td>
 							<select class='form-control' class='col-md-2'>
 								<option value='economico'>Economico</option>
