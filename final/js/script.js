@@ -42,6 +42,7 @@ $('#the-basics .typeahead').typeahead({
   name: 'states',
   displayKey: 'value',
   source: substringMatcher(states)
+  //remote: '/search.php?query=%QUERY' // base de datos 
 });
 /*CALENDARIO */
 $('.input-group.date').datepicker({
