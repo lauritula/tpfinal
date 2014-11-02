@@ -79,7 +79,7 @@ function tipoBusqueda($origen, $diasBinario, $destino,$dias){
 		$lista=listado($resultado,$dias);
 		return $lista;
 	}
-	return $lista;
+	
 
 }
 
