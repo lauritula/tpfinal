@@ -186,7 +186,7 @@ if (bandera == 1){
 });
 
 /*cambio de precio economy primera */
-
+/*
 $('.primera').hide();
  $( "#selector" ).change(function(){
     var selector=$('#selector').val();
@@ -200,5 +200,5 @@ $('.primera').hide();
      $('.economy').hide();
  }
  
- });
- /*..........................*/
+ });*/
+ /**/

@@ -20,20 +20,22 @@ function sentenciaSQL($sentencia){
 /* valoes de base de datos */
 function listado($tipoDeBusqueda,$dias){
 	$lista ="";
+	$contador= 1;
 	while ( $fila  = mysql_fetch_row($tipoDeBusqueda)) {
 		$lista .= "	<tr><td>$dias</td>
-						<td>".$fila[10].",".$fila[9].",".$fila[8]."(".$fila[1].")"."</td>
-						<td>".$fila[14].",".$fila[12].",".$fila[13]."(".$fila[2].")"."</td>
-						<td>
-							<select class='form-control' id='selector'style='width: 126px;' class='col-md-2'>
-								<option id='selectorEconomy' value='economico'>Economico</option>
-								<option id='selectorPrimera'value='primera'>Primera</option>
-							</select>
-						</td>
-						<td class='primera'>$".$fila[4]."</td>
-						<td class='economy'>$".$fila[5]."</td>
-						<td><button type='submit'  class=' btn btn-success btn-login-submit'>reservar  </button></td><input type='hidden' id='botonBusqueda'  NAME='buscarDia' value='Buscar'>
-					</tr>";
+		<td>".$fila[10].",".$fila[9].",".$fila[8]."(".$fila[1].")"."</td>
+		<td>".$fila[14].",".$fila[12].",".$fila[13]."(".$fila[2].")"."</td>
+		<td>
+		<div class='col-md-12'>
+		<input TYPE='radio' id='selectorPrimera' NAME='clase".$contador."' VALUE='primera' CHECKED > Primera $".$fila[4]."
+		</div>
+		<div class='col-md-12'>
+		<input TYPE='radio'  id='selectorEconomy' NAME='clase".$contador++."' VALUE='economico' > Economy $".$fila[5]."
+		</div>
+		</td>
+
+		<td><button type='submit'  class=' btn btn-success btn-login-submit'>reservar  </button></td><input type='hidden' id='botonBusqueda'  NAME='buscarDia' value='Buscar'>
+		</tr>";
 	}
 	return $lista;
 }
@@ -101,7 +103,7 @@ function between ($this, $that, $inthat)
 };
 function diaFormato($diasBinario){
 	$diasBinario= between('(',')',$diasBinario);
-  	switch ($diasBinario) {
+	switch ($diasBinario) {
 		case 'Lunes':
 		return '1______';
 		break;
@@ -147,19 +149,19 @@ function diaFormato($diasBinario){
 	<title>Vuelos disponibles</title>
 </head>
 <body>
-	<nav class="navbar navbar-inverse" role="navigation">
+	<nav class="navbar navbar-inverse col-md-12" role="navigation">
 		<ul  class="nav navbar-nav">
 			<li class="active"><a href="index.php">Home</a></li>
 		</ul>
 	</nav>
 
 	
-<?php 
+	<?php 
 
-if(isset($_POST['buscarDia']))  {
-	conexion();
+	if(isset($_POST['buscarDia']))  {
+		conexion();
 	mysql_select_db("tpfinal") or die("no se puede selecionar la base de datos "); //seleccion
-   /* variables*/
+	/* variables*/
 	$dias=$_POST['dias']; 
 	$origen=$_POST['origen']; 
 	$destino=$_POST['destino']; 
@@ -170,29 +172,29 @@ if(isset($_POST['buscarDia']))  {
 
 	/* formulario*/
 	echo "<div id='vuelosEncontrados' class='  login-box col-md-9 col-md-offset-1'>
-		<div class='col-md-12'>
-			
-			<form action=' method='post' role='search'>
-				<legend>Vuelos encontrados</legend>
-				<table class='table table-hover '>
-					<tr class='info'>
-						<td>Fecha de vuelo</td>
-						<td>Origen</td>
-						<td>Destino</td>
-						<td>Clase</td>
-						<td>Precio</td>
-						<td></td>
-					</tr>
-					
-						$lista
-						
-				</table>
-			</div>
-		</form>
+	<div class='col-md-12'>
+
+	<form action=' method='post' role='search'>
+	<legend>Vuelos encontrados</legend>
+	<table class='table table-hover '>
+	<tr class='info'>
+	<td>Fecha de vuelo</td>
+	<td>Origen</td>
+	<td>Destino</td>
+	<td>Clase</td>
+	<td>Precio</td>
+	<td></td>
+	</tr>
+
+	$lista
+
+	</table>
+	</div>
+	</form>
 	</div>
 
 	<div class='logged-in well'>
-		<h1>Su numero de reserva es  <div class='pull-right'></div></h1>
+	<h1>Su numero de reserva es  <div class='pull-right'></div></h1>
 	</div>";
 
 }
