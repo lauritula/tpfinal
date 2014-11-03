@@ -29,11 +29,7 @@ padding-bottom: 10px;
 /*menu busqueda */
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);
 body {
-/*    background: -webkit-linear-gradient(90deg, #FF512F 10%, #DD2476 90%);
-    background: -moz-linear-gradient(90deg, #FF512F 10%, #DD2476 90%);
-    background: -ms-linear-gradient(90deg, #FF512F 10%, #DD2476 90%);
-    background: -o-linear-gradient(90deg, #FF512F 10%, #DD2476 90%);
-    background: linear-gradient(90deg, #FF512F 10%, #DD2476 90%);*/
+  background-image: url('./imagenes/beach_01.jpg');
     font-family: 'Open Sans', sans-serif!important;
 }
 .well{
