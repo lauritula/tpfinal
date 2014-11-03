@@ -60,18 +60,20 @@ function sentenciaSQL($sentencia){
 		<form id="busquedaVuelos" action="vuelos.php" method="post" role="search">
 			<legend>B&uacute;squeda de vuelos</legend>
 			<div  id="the-basics" >
-			<div class="form-group">
+			<div class="form-group" id="origenError">
 				<label for="username-email">Ingrese su ciudad</label>
-				<input type="text" class=" typeahead form-control " name="origen" placeholder="origen">
+				<input type="text"  id="origen" class=" typeahead form-control " name="origen" placeholder="origen">
+				<span class="glyphicon glyphicon-remove form-control-feedback"></span>
 			</div>
-			<div class="form-group">
+			<div class="form-group" id="destinoError">
 				<label for="password">Ingrese la ciudad de destino</label>
-				<input type="text" class=" typeahead form-control " name="destino" placeholder="destino">
+				<input type="text"  id="destino" class=" typeahead form-control " name="destino" placeholder="destino">
+				<span class="glyphicon glyphicon-remove form-control-feedback"></span>
 			</div>
 			</div>
 			<label for="password">Selecione la fecha de vuelo </label>
-			<div class="input-group date">				
-				<input type="text" class="form-control" name="dias" readonly>
+			<div class="input-group date" id="calendarioError">				
+				<input id="calendario" type="text" class="form-control" name="dias" readonly>
 				<span class="  input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 			</div>
 			<div class="form-group text-center">

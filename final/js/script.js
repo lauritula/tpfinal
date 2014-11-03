@@ -152,7 +152,25 @@ $('.btn-login-submit').click(function(e){
   e.preventDefault();
 
   var element = $(this).parent().parent().parent();
-
+  var bandera = 1;
+  var destino=$('#destino').val();
+  var origen=$('#origen').val();
+  var calendario=$('#calendario').val();
+  if (destino) {
+  if (jQuery.inArray(destino,states)== -1 ) {
+   $("#destinoError").last().addClass( "has-error has-feedback" );
+   bandera = 0;
+  }}
+   if (origen){
+   if (jQuery.inArray(origen,states)== -1) {
+   $("#origenError").last().addClass( "has-error has-feedback" );
+   bandera = 0;
+  }}
+   if (!calendario) {
+   $("#calendarioError").last().addClass( "has-error has-feedback" );
+   bandera = 0;
+  }
+if (bandera == 1){
   
   $('.login-box').fadeOut(function(){
     $('.logged-in').fadeIn();
@@ -164,5 +182,5 @@ $('.btn-login-submit').click(function(e){
 
 
 }, 2000);
-
+}
 });
