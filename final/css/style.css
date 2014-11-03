@@ -1,10 +1,13 @@
+.navbar{
+  background: rgba(0, 0, 0, 0.62);
+}
 .bs-docs-footer {
 padding-top: 40px;
 padding-bottom: 40px;
 margin-top: 100px;
 color: #777;
 text-align: center;
-border-top: 1px solid #e5e5e5;
+/*border-top: 1px solid #e5e5e5;*/
 
 }
 .bs-docs-footer p {
@@ -23,23 +26,28 @@ fieldset[disabled] .form-control {
 position: relative;
 display: table;
 border-collapse: separate;
+
 padding-bottom: 10px;
 }
 
 /*menu busqueda */
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);
-body {
+#menuBusqueda {
   background-image: url('../imagenes/beach_01.jpg');
+  background-size: cover; 
     font-family: 'Open Sans', sans-serif!important;
 }
 .well{
-background-image: linear-gradient(to bottom,#6EA7FF 0,#CAD0CD 100%);
+ 
+  background: linear-gradient(to bottom,rgba(20, 99, 221, 0.64) 0,rgba(202, 208, 205, 0.85) 100%);
     border-radius:0!important;
     border:none!important;
 }
 
 .well.login-box {
     width:300px;
+    padding-bottom: 35px;
+
     margin:0 auto;
    
 }

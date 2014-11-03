@@ -40,7 +40,7 @@ function sentenciaSQL($sentencia){
 	
 	<title>Busqueda</title>
 </head>
-<body>
+<body id="menuBusqueda">
 	<nav class="navbar navbar-inverse" role="navigation">
 		<ul  class="nav navbar-nav">
 			<li><a href="">Home</a></li>

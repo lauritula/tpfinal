@@ -20,10 +20,10 @@ function sentenciaSQL($sentencia){
 /* valoes de base de datos */
 function listado($tipoDeBusqueda,$dias){
 	$lista ="";
-	while ( $fila  = mysql_fetch_assoc($tipoDeBusqueda)) {
+	while ( $fila  = mysql_fetch_row($tipoDeBusqueda)) {
 		$lista .= "	<tr><td>$dias</td>
-						<td>" .$fila['origen']."</td>
-						<td>" .$fila['destino']."</td>
+						<td>".$fila[10].",".$fila[9].",".$fila[8]."(".$fila[1].")"."</td>
+						<td>".$fila[14].",".$fila[12].",".$fila[13]."(".$fila[2].")"."</td>
 						<td>
 							<select class='form-control' class='col-md-2'>
 								<option value='economico'>Economico</option>
@@ -38,44 +38,45 @@ function listado($tipoDeBusqueda,$dias){
 	return $lista;
 }
 function tipoBusqueda($origen, $diasBinario, $destino,$dias){
+	$unionTabla = "select * from frecuencias f join aeropuerto a on f.origen = a.codAeropuerto join aeropuerto aDos on f.destino = aDos.codAeropuerto ";
 	if (!$dias && !$origen && !$destino) {
-		$resultado = sentenciaSQL("select * from frecuencias where 1");
+		$resultado = sentenciaSQL("$unionTabla where 1");
 		$lista=listado($resultado,$dias);
 		return $lista;
 	}	
 	if($dias && !$origen && !$destino){
-		$resultado = sentenciaSQL("select * from frecuencias where dias LIKE '$diasBinario'");
+		$resultado = sentenciaSQL("$unionTabla where dias LIKE '$diasBinario'");
 		$lista=listado($resultado,$dias);
 		return $lista;
 	}
 
 	if($origen && !$dias  && !$destino){
-		$resultado =  sentenciaSQL("select * from frecuencias where origen ='$origen'");
+		$resultado =  sentenciaSQL("$unionTabla where origen ='$origen'");
 		$lista=listado($resultado,$dias);
 		return $lista;
 	}
 	if (!$origen && !$dias &&  $destino) {
-		$resultado = sentenciaSQL("select * from frecuencias where destino ='$destino'");
+		$resultado = sentenciaSQL("$unionTabla where destino ='$destino'");
 		$lista=listado($resultado,$dias);
 		return $lista;
 	}
 	if ($origen && $dias &&  $destino) {
-		$resultado = sentenciaSQL("select * from frecuencias where origen ='$origen' and dias LIKE '$diasBinario' and destino='$destino'");
+		$resultado = sentenciaSQL("$unionTabla where origen ='$origen' and dias LIKE '$diasBinario' and destino='$destino'");
 		$lista=listado($resultado,$dias);
 		return $lista;
 	}
 	if (!$origen && $dias &&  $destino) {
-		$resultado = sentenciaSQL("select * from frecuencias where dias LIKE '$diasBinario' and destino='$destino'");
+		$resultado = sentenciaSQL("$unionTabla where dias LIKE '$diasBinario' and destino='$destino'");
 		$lista=listado($resultado,$dias);
 		return $lista;
 	}
 	if ($origen && !$dias &&  $destino) {
-		$resultado = sentenciaSQL("select * from frecuencias where origen ='$origen' and destino='$destino'");
+		$resultado = sentenciaSQL("$unionTabla where origen ='$origen' and destino='$destino'");
 		$lista=listado($resultado,$dias);
 		return $lista;
 	}
 	if (!$origen && $dias &&  !$destino) {
-		$resultado = sentenciaSQL("select * from frecuencias where origen ='$origen' and dias LIKE '$diasBinario' ");
+		$resultado = sentenciaSQL("$unionTabla where origen ='$origen' and dias LIKE '$diasBinario' ");
 		$lista=listado($resultado,$dias);
 		return $lista;
 	}
