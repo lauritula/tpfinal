@@ -1,4 +1,4 @@
--- phpMyAdmin SQL Dump
+﻿-- phpMyAdmin SQL Dump
 -- version 4.2.7.1
 -- http://www.phpmyadmin.net
 --
@@ -38,12 +38,12 @@ CREATE TABLE IF NOT EXISTS `aeropuerto` (
 --
 
 INSERT INTO `aeropuerto` (`codAeropuerto`, `ciudad`, `provincia`, `nombreAeropuerto`) VALUES
-('SAAC', 'Concordia', 'Entre Ríos', 'Aeropuerto Comodoro Pierrestegui'),
-('SAAJ', 'Junín', 'Buenos Aires', 'Aeropuerto de Junín'),
-('SAAK', 'Isla Martín García', 'Buenos Aires', 'Aeropuerto Isla Martín García'),
-('SAAP', 'Paraná', 'Entre Ríos', 'Aeropuerto General Justo José de Urquiza'),
+('SAAC', 'Concordia', 'Entre R&iacute;os', 'Aeropuerto Comodoro Pierrestegui'),
+('SAAJ', 'Jun&iacute;n', 'Buenos Aires', 'Aeropuerto de Jun&iacute;n'),
+('SAAK', 'Isla Mart&iacute;n Garc&iacute;a', 'Buenos Aires', 'Aeropuerto Isla Mart&iacute;n Garc&iacute;a'),
+('SAAP', 'Paraná', 'Entre R&iacute;os', 'Aeropuerto General Justo José de Urquiza'),
 ('SAAR', 'Rosario', 'Santa Fe', 'Aeropuerto Internacional Rosario Islas Malvinas'),
-('SAAU', 'Villaguay', 'Entre Ríos', 'Aeropuerto de Villaguay'),
+('SAAU', 'Villaguay', 'Entre R&iacute;os', 'Aeropuerto de Villaguay'),
 ('SAAV', 'Sauce Viejo', 'Santa Fe', 'Aeropuerto de Sauce Viejo'),
 ('SABE', 'Buenos Aires', 'CABA', 'Aeroparque Jorge Newbery'),
 ('SACC', 'La Cumbre', 'Córdoba', 'Aeropuerto La Cumbre'),
@@ -72,11 +72,11 @@ INSERT INTO `aeropuerto` (`codAeropuerto`, `ciudad`, `provincia`, `nombreAeropue
 ('SANE', 'Santiago del Estero', 'Santiago del Estero', 'Aeropuerto Vicecomodoro Ángel de la Paz Aragonés'),
 ('SANL', 'La Rioja', 'La Rioja', 'Aeropuerto Capitán Vicente Almandos Amonacide'),
 ('SANO', 'Chilecito', 'La Rioja', 'Aeropuerto Chilecito'),
-('SANR', 'Termas de Río Hondo', 'Santiago del Estero', 'Aeropuerto Internacional Termas de Río Hondo'),
-('SANT', 'San Miguel de Tucumán', 'Tucumán', 'Aeropuerto Internacional Teniente General Benjamín Matienzo'),
+('SANR', 'Termas de R&iacute;o Hondo', 'Santiago del Estero', 'Aeropuerto Internacional Termas de R&iacute;o Hondo'),
+('SANT', 'San Miguel de Tucumán', 'Tucumán', 'Aeropuerto Internacional Teniente General Benjam&iacute;n Matienzo'),
 ('SANU', 'San Juan', 'San Juan', 'Aeropuerto Domingo Faustino Sarmiento'),
 ('SANW', 'Ceres', 'Santa Fe', 'Aeropuerto Ceres'),
-('SAOC', 'Río Cuarto', 'Córdoba', 'Aeropuerto de Río Cuarto'),
+('SAOC', 'R&iacute;o Cuarto', 'Córdoba', 'Aeropuerto de R&iacute;o Cuarto'),
 ('SAOD', 'Villa Dolores', 'Córdoba', 'Aeropuerto de Villa Dolores'),
 ('SAOL', 'Laboulaye', 'Córdoba', 'Aeródromo de Laboulaye'),
 ('SAOR', 'Villa Reynolds', 'San Luis', 'Aeropuerto de Villa Reynolds'),
@@ -88,53 +88,53 @@ INSERT INTO `aeropuerto` (`codAeropuerto`, `ciudad`, `provincia`, `nombreAeropue
 ('SARI', 'Puerto Iguazú', 'Misiones', 'Aeropuerto Internacional de Puerto Iguazú'),
 ('SARL', 'Paso de los Libres', 'Corrientes', 'Aeropuerto Internacional de Paso de los Libres'),
 ('SARM', 'Monte Caseros', 'Corrientes', 'Aeropuerto de Monte Caseros'),
-('SARP', 'Posadas', 'Misiones', 'Aeropuerto Internacional Libertador General José de San Martín'),
-('SASA', 'Salta', 'Salta', 'Aeropuerto Internacional Martín Miguel de Güemes'),
+('SARP', 'Posadas', 'Misiones', 'Aeropuerto Internacional Libertador General José de San Mart&iacute;n'),
+('SASA', 'Salta', 'Salta', 'Aeropuerto Internacional Mart&iacute;n Miguel de Güemes'),
 ('SASJ', 'Perico', 'Jujuy', 'Aeropuerto Internacional Gobernador Horacio Guzmán'),
 ('SASO', 'San Ramón de la Nueva Orán', 'Salta', 'Aero Club Orán'),
 ('SAST', 'Tartagal', 'Salta', 'Aeropuerto de Tartagal'),
 ('SATC', 'Clorinda', 'Formosa', 'Aeropuerto Clorinda'),
-('SATK', 'Las Lomitas', 'Formosa', 'Aeródromo Alferez Armando Rodríguez'),
+('SATK', 'Las Lomitas', 'Formosa', 'Aeródromo Alferez Armando Rodr&iacute;guez'),
 ('SATR', 'Reconquista', 'Santa Fe', 'Aeropuerto Daniel Jurkic'),
 ('SATU', 'Curuzú Cuatiá', 'Corrientes', 'Aeropuerto de Curuzú Cuatiá'),
 ('SAVB', 'El Bolsón', 'Rio Negro', 'Aeropuerto de El Bolson'),
 ('SAVC', 'Comodoro Rivadavia', 'Chubut', 'Aeropuerto Internacional General Enrique Mosconi'),
 ('SAVE', 'Esquel', 'Chubut', 'Aeropuerto Brigadier General Antonio Parodi'),
 ('SAVH', 'Las Heras', 'Santa Cruz', 'Aeropuerto Las Heras'),
-('SAVJ', 'Ingeniero Jacobacci', 'Río Negro', 'Aeropuerto de Ingeniero Jacobacci'),
-('SAVR', 'Alto Río Senguer', 'Chubut', 'Aeropuerto Alto Río Senguer'),
+('SAVJ', 'Ingeniero Jacobacci', 'R&iacute;o Negro', 'Aeropuerto de Ingeniero Jacobacci'),
+('SAVR', 'Alto R&iacute;o Senguer', 'Chubut', 'Aeropuerto Alto R&iacute;o Senguer'),
 ('SAVT', 'Trelew', 'Chubut', 'Aeropuerto Almirante Marco Andrés Zar'),
-('SAVV', 'Viedma', 'Río Negro', 'Aeropuerto Gobernador Edgardo Castello'),
+('SAVV', 'Viedma', 'R&iacute;o Negro', 'Aeropuerto Gobernador Edgardo Castello'),
 ('SAVY', 'Puerto Madryn', 'Chubut', 'Aeropuerto El Tehuelche'),
 ('SAWA', 'El Calafate', 'Santa Cruz', 'Aeropuerto de Lago Argentino (Cerrado)'),
 ('SAWC', 'El Calafate', 'Santa Cruz', 'Aeropuerto Comandante Armando Tola'),
 ('SAWD', 'Puerto Deseado', 'Santa Cruz', 'Aeropuerto Puerto Deseado'),
-('SAWE', 'Río Grande', 'Tierra del Fuego', 'Aeropuerto Internacional Gob. Ramón Trejo Noel'),
-('SAWG', 'Río Gallegos', 'Santa Cruz', 'Aeropuerto Internacional Piloto Civil Norberto Fernández'),
+('SAWE', 'R&iacute;o Grande', 'Tierra del Fuego', 'Aeropuerto Internacional Gob. Ramón Trejo Noel'),
+('SAWG', 'R&iacute;o Gallegos', 'Santa Cruz', 'Aeropuerto Internacional Piloto Civil Norberto Fernández'),
 ('SAWH', 'Ushuaia', 'Tierra del Fuego', 'Aeropuerto de Ushuaia'),
 ('SAWJ', 'Puerto San Julián', 'Santa Cruz', 'Aeropuerto Capitán José Daniel Vázquez'),
 ('SAWP', 'Perito Moreno', 'Santa Cruz', 'Aeropuerto Perito Moreno'),
-('SAWT', 'Río Turbio', 'Santa Cruz', 'Aeropuerto Río Turbio'),
+('SAWT', 'R&iacute;o Turbio', 'Santa Cruz', 'Aeropuerto R&iacute;o Turbio'),
 ('SAWU', 'Puerto Santa Cruz', 'Santa Cruz', 'Aeropuerto de Puerto Santa Cruz'),
 ('SAZA', 'Azul', 'Buenos Aires', 'Aeropuerto de Azul'),
-('SAZB', 'Bahía Blanca', 'Buenos Aires', 'Aeropuerto Comandante Espora'),
+('SAZB', 'Bah&iacute;a Blanca', 'Buenos Aires', 'Aeropuerto Comandante Espora'),
 ('SAZC', 'Coronel Suárez', 'Buenos Aires', 'Aeropuerto Brigadier Hector Eduardo Ruiz'),
 ('SAZD', 'Dolores', 'Buenos Aires', 'Aeródromo de Dolores'),
-('SAZF', 'Olavarría', 'Buenos Aires', 'Aeropuerto de Olavarría'),
+('SAZF', 'Olavarr&iacute;a', 'Buenos Aires', 'Aeropuerto de Olavarr&iacute;a'),
 ('SAZG', 'General Pico', 'La Pampa', 'Aeropuerto de General Pico'),
 ('SAZH', 'Tres Arroyos', 'Buenos Aires', 'Aeropuerto Municipal Primer Teniente Héctor Ricardo Volponi'),
-('SAZI', 'Bolívar', 'Buenos Aires', 'Aeropuerto de Bolívar'),
+('SAZI', 'Bol&iacute;var', 'Buenos Aires', 'Aeropuerto de Bol&iacute;var'),
 ('SAZL', 'Santa Teresita', 'Buenos Aires', 'Aeropuerto de Santa Teresita'),
 ('SAZM', 'Mar del Plata', 'Buenos Aires', 'Aeropuerto Internacional Astor Piazolla'),
 ('SAZN', 'Neuquén', 'Neuquén', 'Aeropuerto Internacional Presidente Perón'),
 ('SAZO', 'Necochea', 'Buenos Aires', 'Aeropuerto Edgardo Hugo Yelpo'),
 ('SAZP', 'Pehuajó', 'Buenos Aires', 'Aeropuerto Comodoro P. Zanni'),
 ('SAZR', 'Santa Rosa', 'La Pampa', 'Aeropuerto de Santa Rosa'),
-('SAZS', 'Bariloche', 'Río Negro', 'Aeropuerto Internacional Teniente Luis Candelaria'),
+('SAZS', 'Bariloche', 'R&iacute;o Negro', 'Aeropuerto Internacional Teniente Luis Candelaria'),
 ('SAZT', 'Tandil', 'Buenos Aires', 'Aeropuerto de Tandil'),
 ('SAZV', 'Villa Gesell', 'Buenos Aires', 'Aeropuerto de Villa Gesell'),
 ('SAZW', 'Cutral-Co', 'Neuquén', 'Aeropuerto de Cutral-Co'),
-('SAZY', 'San Martín de los Andes', 'Neuquén', 'Aeropuerto Aviador Carlos Campos');
+('SAZY', 'San Mart&iacute;n de los Andes', 'Neuquén', 'Aeropuerto Aviador Carlos Campos');
 
 -- --------------------------------------------------------
 
@@ -513,7 +513,7 @@ CREATE TABLE IF NOT EXISTS `vuelos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Índices para tablas volcadas
+-- &iacute;ndices para tablas volcadas
 --
 
 --
