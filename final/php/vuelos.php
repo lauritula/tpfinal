@@ -80,7 +80,6 @@ function tipoBusqueda($origen, $diasBinario, $destino,$dias){
 		return $lista;
 	}
 
-
 }
 
 
@@ -99,11 +98,9 @@ function between ($this, $that, $inthat)
 {
 	return before ($that, after($this, $inthat));
 };
-function diaFormato($dias){
-	$dias= between('(',')',$dias);
-  	//echo "$dias";
-	/*	$dias= substr($dias, 0,2);*/
-	switch ($dias) {
+function diaFormato($diasBinario){
+	$diasBinario= between('(',')',$diasBinario);
+  	switch ($diasBinario) {
 		case 'Lunes':
 		return '1______';
 		break;
@@ -134,8 +131,9 @@ function diaFormato($dias){
 ?>
 <html>
 <head>
-	<title>Vuelos disponibles</title>
-		<script type="text/javascript" src="../js/jquery.js"></script>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	
+	<script type="text/javascript" src="../js/jquery.js"></script>
 	
 	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="../js/typeahead.min.js"></script>
@@ -145,7 +143,7 @@ function diaFormato($dias){
 	<link rel="stylesheet" type="text/css" href="../css/bootstrap-theme.min.css">
 
 	<link rel="stylesheet" type="text/css" href="../css/style.css">
-	
+	<title>Vuelos disponibles</title>
 </head>
 <body>
 	<nav class="navbar navbar-inverse" role="navigation">
@@ -165,7 +163,10 @@ if(isset($_POST['buscarDia']))  {
 	$origen=$_POST['origen']; 
 	$destino=$_POST['destino']; 
 	$diasBinario= diaFormato($dias);
-	$lista = tipoBusqueda($origen,$diasBinario,$destino,$dias);
+	$origenCodigo= between('(',')',$origen); // captura solo el codigo de aeropuerto 
+	$destinoCodigo= between('(',')',$destino); // captura solo el codigo de aeropuerto
+	$lista = tipoBusqueda($origenCodigo,$diasBinario,$destinoCodigo,$dias);
+
 	/* formulario*/
 	echo "<div id='vuelosEncontrados' class='  login-box col-md-8 col-md-offset-2'>
 		<div class='col-md-12'>
