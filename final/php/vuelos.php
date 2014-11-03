@@ -75,7 +75,7 @@ function tipoBusqueda($origen, $diasBinario, $destino,$dias){
 		$lista=listado($resultado,$dias);
 		return $lista;
 	}
-	if (!$origen && $dias &&  !$destino) {
+	if ($origen && $dias &&  !$destino) {
 		$resultado = sentenciaSQL("$unionTabla where origen ='$origen' and dias LIKE '$diasBinario' ");
 		$lista=listado($resultado,$dias);
 		return $lista;

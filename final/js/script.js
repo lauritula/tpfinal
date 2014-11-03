@@ -122,7 +122,7 @@ $('#the-basics .typeahead').typeahead({
 });
 /*CALENDARIO */
 $('.input-group.date').datepicker({
-  format: "mm/dd/yyyy (DD)",
+  format: "dd/mm/yyyy (DD)",
   language: "es",   
   todayHighlight: true  
 });
