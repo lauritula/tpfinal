@@ -184,3 +184,21 @@ if (bandera == 1){
 }, 2000);
 }
 });
+
+/*cambio de precio economy primera */
+
+$('.primera').hide();
+ $( "#selector" ).change(function(){
+    var selector=$('#selector').val();
+   
+    if (selector == "economico") {
+  $('.primera').hide();
+  $('.economy').show();
+  }
+   if (selector == "primera") {
+   $('.primera').show();
+     $('.economy').hide();
+ }
+ 
+ });
+ /*..........................*/

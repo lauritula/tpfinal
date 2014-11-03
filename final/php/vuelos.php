@@ -25,13 +25,13 @@ function listado($tipoDeBusqueda,$dias){
 						<td>".$fila[10].",".$fila[9].",".$fila[8]."(".$fila[1].")"."</td>
 						<td>".$fila[14].",".$fila[12].",".$fila[13]."(".$fila[2].")"."</td>
 						<td>
-							<select class='form-control' class='col-md-2'>
-								<option value='economico'>Economico</option>
-								<option value='primera'>Primera</option>
+							<select class='form-control' id='selector'style='width: 126px;' class='col-md-2'>
+								<option id='selectorEconomy' value='economico'>Economico</option>
+								<option id='selectorPrimera'value='primera'>Primera</option>
 							</select>
 						</td>
-						<td>$2000</td>
-						<td><input type='number'  class='form-control' style='width:50px;'></td>
+						<td class='primera'>$".$fila[4]."</td>
+						<td class='economy'>$".$fila[5]."</td>
 						<td><button type='submit'  class=' btn btn-success btn-login-submit'>reservar  </button></td><input type='hidden' id='botonBusqueda'  NAME='buscarDia' value='Buscar'>
 					</tr>";
 	}
@@ -169,7 +169,7 @@ if(isset($_POST['buscarDia']))  {
 	$lista = tipoBusqueda($origenCodigo,$diasBinario,$destinoCodigo,$dias);
 
 	/* formulario*/
-	echo "<div id='vuelosEncontrados' class='  login-box col-md-8 col-md-offset-2'>
+	echo "<div id='vuelosEncontrados' class='  login-box col-md-9 col-md-offset-1'>
 		<div class='col-md-12'>
 			
 			<form action=' method='post' role='search'>
@@ -181,7 +181,6 @@ if(isset($_POST['buscarDia']))  {
 						<td>Destino</td>
 						<td>Clase</td>
 						<td>Precio</td>
-						<td>Cantidad</td>
 						<td></td>
 					</tr>
 					
