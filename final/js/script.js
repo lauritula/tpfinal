@@ -147,11 +147,12 @@ varticalCenterStuff();
 
 
 
-
+/*busqueda de vuelos */
 $('.btn-login-submit').click(function(e){
   e.preventDefault();
 
   var element = $(this).parent().parent().parent();
+  /*validaciones*/
   var bandera = 1;
   var destino=$('#destino').val();
   var origen=$('#origen').val();
@@ -182,6 +183,50 @@ if (bandera == 1){
 
 
 }, 2000);
+}
+});
+/*cargar cliente */
+$('.btn-create-submit').click(function(e){
+  e.preventDefault();
+
+  var element = $(this).parent().parent().parent();
+  /*validaciones*/
+  var bandera = 1;
+  var nombreApellido=$('#nombreApellido').val();
+  var dni=$('#dni').val();
+  var email=$('#email').val();
+  var fechaNacimiento=$('#fechaNacimiento').val();
+  expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+ 
+  if (dni.length!=8) {
+   $("#dniError").last().addClass( "has-error has-feedback" );
+   bandera = 0;
+  }
+   
+   if (nombreApellido.length==0) {
+   $("#nombreApellidoError").last().addClass( "has-error has-feedback" );
+   bandera = 0;
+  }
+    if (!email.match(expr)) {
+   $("#emailError").last().addClass( "has-error has-feedback" );
+   bandera = 0;
+  }
+   if (!fechaNacimiento) {
+   $("#fechaNacimientoError").last().addClass( "has-error has-feedback" );
+   bandera = 0;
+  }
+if (bandera == 1){
+  
+  $('.create-box').fadeOut(function(){
+    $('.created-in').fadeIn();
+  });
+  
+/*  setTimeout(function(){
+    $('#busquedaVuelos #botonBusqueda').click(); // establece true el boton para cargar la pagina nueva 
+    $("#busquedaVuelos").submit(); // continua luego de 2 s
+
+
+}, 2000);*/
 }
 });
 

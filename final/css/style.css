@@ -75,13 +75,43 @@ padding-bottom: 10px;
   background-color:#3D9970;
 }
 
-
-
 /*Loged in*/
 .logged-in{
   display:none;
 }
 .logged-in h1{
+  margin:0;
+  font-weight:300;
+}
+/* crear cliente */
+
+.well.create-box {
+    width:300px;
+    padding-bottom: 35px;
+
+    margin:0 auto;
+   
+}
+.well.create-box legend {
+  font-size:26px;
+  text-align:center;
+  font-weight:300;
+}
+.well.create-box label {
+  font-weight:300;
+  font-size:16px;
+  
+}
+.well.create-box  {
+  box-shadow:none;
+  border-color:#ddd;
+  border-radius:0;
+}
+/*created in*/
+.created-in{
+  display:none;
+}
+.created-in h1{
   margin:0;
   font-weight:300;
 }

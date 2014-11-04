@@ -1,27 +1,65 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	
 	<script type="text/javascript" src="../js/jquery.js"></script>
-	
+	<script type="text/javascript" src="../js/moment.js"></script>
 	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="../js/typeahead.min.js"></script>
 	<script type="text/javascript" src="../js/bootstrap-datepicker.js"></script>
-	
+	<script type="text/javascript" src="../js/bootstrap-datepicker.es.js"></script>
 	<link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="../css/bootstrap-theme.min.css">
-
+	<link rel="stylesheet" type="text/css" href="../css/typeaheadjs.css">
 	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	
+	<link rel="stylesheet" type="text/css" href="../css/datepicker3.css">
+	<link href='http://fonts.googleapis.com/css?family=Roboto:700,500italic,300' rel='stylesheet' type='text/css'>
+	
 	<title>Reserva de vuelos</title>
 </head>
 <body>
-<nav class="navbar navbar-inverse col-md-12" role="navigation">
+<nav class="navbar navbar-inverse" role="navigation">
 		<ul  class="nav navbar-nav">
 			<li class="active"><a href="index.php">Home</a></li>
 		</ul>
+
 	</nav>
 
-
+<div class="well create-box">
+		<form id="busquedaVuelos" action="vuelos.php" method="post" role="search">
+			<legend>B&uacute;squeda de vuelos</legend>
+			<div  id="the-basics" >
+			<div class="form-group" id="nombreApellidoError">
+				<label for="username-email">Ingrese su Nombre y Apellido</label>
+				<input type="text"  id="nombreApellido" class="  form-control " name="nombreApellido" placeholder="nombreApellido">
+				<span class="glyphicon glyphicon-remove form-control-feedback"></span>
+			</div>
+			<div class="form-group" id="dniError">
+				<label for="password">Ingrese su dni (ej.12345678)</label>
+				<input type="text"  id="dni" class="  form-control " name="dni" placeholder="dni">
+				<span class="glyphicon glyphicon-remove form-control-feedback"></span>
+			</div>
+			<div class="form-group" id="emailError">
+				<label for="password">Ingrese su dni (ej.12345678)</label>
+				<input type="text"  id="email" class="  form-control " name="email" placeholder="email">
+				<span class="glyphicon glyphicon-remove form-control-feedback"></span>
+			</div>
+			</div>
+			<label for="password">Selecione la fecha de nacimiento </label>
+			<div class="input-group date" id="fechaNacimientoError">				
+				<input id="fechaNacimiento" type="text" class="form-control" name="dias" readonly>
+				<span class="  input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+			</div>
+			<div class="form-group text-center">
+				
+				<input type="submit"  class=" col-md-12 btn btn-info btn-create-submit"   />
+				<input type="hidden" id="botonBusqueda"  NAME="buscarDia" value="Buscar" />
+			</div>
+		</form>
+	</div>
+	<div class="created-in well">
+		<h1>Su vuelo a sido reservado, su numero de reserva es:  <div class="pull-right"></div></h1>
+	</div>
 
 
 
@@ -55,5 +93,7 @@ if(isset($_POST['reservar'.$x.'']))  {
 
 
 	</footer>
+
+	<script src="../js/script.js"></script>
 </body>
 </html>
