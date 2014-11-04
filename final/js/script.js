@@ -195,6 +195,7 @@ if (bandera == 1){
 }
 });
 /*cargar cliente */
+ $('.created-in').fadeIn();
 $('.btn-create-submit').click(function(e){
   e.preventDefault();
 
@@ -224,18 +225,11 @@ $('.btn-create-submit').click(function(e){
    $("#fechaNacimientoError").last().addClass( "has-error has-feedback" );
    bandera = 0;
   }
-if (bandera == 1){
+if (bandera == 1){ 
   
-  $('.create-box').fadeOut(function(){
-    $('.created-in').fadeIn();
-  });
-  
-/*  setTimeout(function(){
-    $('#busquedaVuelos #botonBusqueda').click(); // establece true el boton para cargar la pagina nueva 
+    $('#busquedaVuelos #cargarDatos').click(); // establece true el boton para cargar la pagina nueva 
     $("#busquedaVuelos").submit(); // continua luego de 2 s
 
-
-}, 2000);*/
 }
 });
 
