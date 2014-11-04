@@ -121,17 +121,20 @@ $('#the-basics .typeahead').typeahead({
   //remote: '/search.php?query=%QUERY'//
 });
 /*CALENDARIO */
-$('.input-group.date').datepicker({
-  format: "dd/mm/yyyy (DD)",
-  language: "es",   
-  todayHighlight: true  
-});   
-$('.input-group.date.nacimiento').datepicker({
+$('.input-group.nacimiento').datepicker({
   format: "dd/mm/yyyy (DD)",
   language: "es",  
+  endDate: "today",
    startView: 2, 
  
 });
+$('.input-group.date').datepicker({
+  format: "dd/mm/yyyy (DD)",
+  language: "es",   
+  startDate: "today",
+  todayHighlight: true  
+});   
+
 /*menu busqueda*/
 function varticalCenterStuff() {
   var windowHeight = $(window).height();

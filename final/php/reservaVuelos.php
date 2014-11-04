@@ -31,16 +31,16 @@
 			<div  id="the-basics" >
 			<div class="form-group" id="nombreApellidoError">
 				<label for="username-email">Ingrese su Nombre y Apellido</label>
-				<input type="text"  id="nombreApellido" class="  form-control " name="Nombre y Apellido" placeholder="nombreApellido">
+				<input type="text"  id="nombreApellido" class="  form-control " name="nombreApellido" placeholder="Nombre y Apellido">
 				<span class="glyphicon glyphicon-remove form-control-feedback"></span>
 			</div>
 			<div class="form-group" id="dniError">
-				<label for="password">Ingrese su dni (ej.12345678)</label>
-				<input type="text"  id="dni" class="  form-control " name="dni" placeholder="dni">
+				<label for="password">Ingrese su DNI (ej.12345678)</label>
+				<input type="text"  id="dni" class="  form-control " name="dni" placeholder="DNI">
 				<span class="glyphicon glyphicon-remove form-control-feedback"></span>
 			</div>
 			<div class="form-group" id="emailError">
-				<label for="password">Ingrese su dni (ej.12345678)</label>
+				<label for="password">Ingrese su E-mail</label>
 				<input type="text"  id="email" class="  form-control " name="email" placeholder="email">
 				<span class="glyphicon glyphicon-remove form-control-feedback"></span>
 			</div>
