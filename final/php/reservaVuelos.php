@@ -27,11 +27,11 @@
 
 <div class="well create-box">
 		<form id="busquedaVuelos" action="vuelos.php" method="post" role="search">
-			<legend>B&uacute;squeda de vuelos</legend>
+			<legend>Ingrese sus datos para reservar</legend>
 			<div  id="the-basics" >
 			<div class="form-group" id="nombreApellidoError">
 				<label for="username-email">Ingrese su Nombre y Apellido</label>
-				<input type="text"  id="nombreApellido" class="  form-control " name="nombreApellido" placeholder="nombreApellido">
+				<input type="text"  id="nombreApellido" class="  form-control " name="Nombre y Apellido" placeholder="nombreApellido">
 				<span class="glyphicon glyphicon-remove form-control-feedback"></span>
 			</div>
 			<div class="form-group" id="dniError">
@@ -46,7 +46,7 @@
 			</div>
 			</div>
 			<label for="password">Selecione la fecha de nacimiento </label>
-			<div class="input-group date" id="fechaNacimientoError">				
+			<div class="input-group date nacimiento" id="fechaNacimientoError">				
 				<input id="fechaNacimiento" type="text" class="form-control" name="dias" readonly>
 				<span class="  input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 			</div>

@@ -125,6 +125,12 @@ $('.input-group.date').datepicker({
   format: "dd/mm/yyyy (DD)",
   language: "es",   
   todayHighlight: true  
+});   
+$('.input-group.date.nacimiento').datepicker({
+  format: "dd/mm/yyyy (DD)",
+  language: "es",  
+   startView: 2, 
+ 
 });
 /*menu busqueda*/
 function varticalCenterStuff() {
