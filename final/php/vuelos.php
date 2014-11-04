@@ -23,18 +23,19 @@ function listado($tipoDeBusqueda,$dias){
 	$contador= 1;
 	while ( $fila  = mysql_fetch_row($tipoDeBusqueda)) {
 		$lista .= "	<tr><td>$dias</td>
-		<td>".$fila[10].",".$fila[9].",".$fila[8]."(".$fila[1].")"."</td>
-		<td>".$fila[14].",".$fila[12].",".$fila[13]."(".$fila[2].")"."</td>
+		<td name='origen'>".$fila[10].",".$fila[9].",".$fila[8]."(".$fila[1].")"."</td>
+		<td name='destino'>".$fila[14].",".$fila[12].",".$fila[13]."(".$fila[2].")"."</td>
 		<td>
 		<div class='col-md-12'>
 		<input TYPE='radio' id='selectorPrimera' NAME='clase".$contador."' VALUE='primera' CHECKED > Primera $".$fila[4]."
 		</div>
 		<div class='col-md-12'>
-		<input TYPE='radio'  id='selectorEconomy' NAME='clase".$contador++."' VALUE='economico' > Economy $".$fila[5]."
+		<input TYPE='radio'  id='selectorEconomy' NAME='clase".$contador."' VALUE='economico' > Economy $".$fila[5]."
 		</div>
 		</td>
-
-		<td><button type='submit'  class=' btn btn-success btn-login-submit'>reservar  </button></td><input type='hidden' id='botonBusqueda'  NAME='buscarDia' value='Buscar'>
+		<input type='hidden'   name='dias' value='$dias' />
+		<input type='hidden'   NAME='codigoReserva".$contador."' value='".$fila[0]."' />
+		<td><button type='submit'  name=' reservar".$contador++."'class=' btn btn-success'>reservar  </button></td><input type='hidden' id='botonBusqueda'  NAME='buscarDia' value='Buscar'>
 		</tr>";
 	}
 	return $lista;
@@ -171,10 +172,10 @@ function diaFormato($diasBinario){
 	$lista = tipoBusqueda($origenCodigo,$diasBinario,$destinoCodigo,$dias);
 
 	/* formulario*/
-	echo "<div id='vuelosEncontrados' class='  login-box col-md-9 col-md-offset-1'>
+	echo "<div id='vuelosEncontrados' class='  col-md-9 col-md-offset-1'>
 	<div class='col-md-12'>
 
-	<form action=' method='post' role='search'>
+	<form action='reservaVuelos.php' method='post' role='search'>
 	<legend>Vuelos encontrados</legend>
 	<table class='table table-hover '>
 	<tr class='info'>
@@ -191,10 +192,6 @@ function diaFormato($diasBinario){
 	</table>
 	</div>
 	</form>
-	</div>
-
-	<div class='logged-in well'>
-	<h1>Su numero de reserva es  <div class='pull-right'></div></h1>
 	</div>";
 
 }
