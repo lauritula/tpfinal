@@ -18,8 +18,11 @@ function listado($tipoDeBusqueda,$dias){
 		<input TYPE='radio'  id='selectorEconomy' NAME='clase".$contador."' VALUE='economico' > Economy $".$fila[5]."
 		</div>
 		</td>
-		<input type='hidden'   name='dias' value='$dias' />
-		<input type='hidden'   NAME='codigoReserva".$contador."' value='".$fila[0]."' />
+		<input type='hidden'   name='fecha' value='".$fecha= before('(',$dias)."' />
+		<input type='hidden'   name='tipoAvion".$contador."' value='".$fila[3]."' />
+		<input type='hidden'   name='precioEconomy".$contador."' value='".$fila[5]."' />
+		<input type='hidden'   name='precioPrimera".$contador."' value='".$fila[4]."' />
+		<input type='hidden'   NAME='codigoFrecuencia".$contador."' value='".$fila[0]."' />
 		<td><button type='submit'  name=' reservar".$contador++."'class=' btn btn-success'>reservar  </button></td><input type='hidden' id='botonBusqueda'  NAME='buscarDia' value='Buscar'>
 		</tr>";
 	}
@@ -28,7 +31,8 @@ function listado($tipoDeBusqueda,$dias){
 
 
 function tipoBusqueda($origen, $diasBinario, $destino,$dias){
-	$objConexion = new conexion("tpfinal");
+	$objConexion = new conexion;
+	$objConexion->conectar("tpfinal");
 
 	$unionTabla = "select * from frecuencias f join aeropuerto a on f.origen = a.codAeropuerto join aeropuerto aDos on f.destino = aDos.codAeropuerto ";
 	if (!$dias && !$origen && !$destino) 

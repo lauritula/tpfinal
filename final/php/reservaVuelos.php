@@ -56,10 +56,7 @@ $paginaCargar = "<div class='well create-box'>
 			<div class='form-group text-center'>
 				
 				<input type='submit'  class=' col-md-12 btn btn-info btn-create-submit'   />
-				<input type='hidden' id='cargarDatos'  NAME='cargarDatos' value='Cargar' />
-			</div>
-		</form>
-	</div>";
+				<input type='hidden' id='cargarDatos'  NAME='cargarDatos' value='Cargar' />";
 	
  ?>
 	
@@ -75,27 +72,64 @@ $paginaCargar = "<div class='well create-box'>
 		# code...
 		$x++;
 		if(isset($_POST['reservar'.$x.'']) && !isset($_POST['cargarDatos']))  {
-			$dias=$_POST['dias']; 
-			$clase=$_POST['clase'.$x.'']; 
-			$codigoReserva=$_POST['codigoReserva'.$x.'']; 
-	//echo "$dias $codigoReserva $clase";
+			$fecha=$_POST['fecha'];
+			$tipoAvion=$_POST['tipoAvion'.$x.'']; 
+			$precioPrimera=$_POST['precioPrimera'.$x.''];			
+			$precioEconomy=$_POST['precioEconomy'.$x.'']; 
+			$clase=$_POST['clase'.$x.'']; // primera o economy
+			$codigoFrecuencia=$_POST['codigoFrecuencia'.$x.'']; 
+	//echo "$dias $codigoFrecuencia $clase";
 		}
 	} while (!isset($_POST['reservar'.$x.'']) ); // cuando encuentra el submit correcto sal del ciclo
 	echo "$paginaCargar";
-}
+	$objConexion = new conexion;
+		$objConexion->conectar("tpfinal");
+		$objVuelo = new vuelo($fecha,$codigoFrecuencia,$tipoAvion); // crea vuelo
+		echo "<input type='hidden'   name='codigoVuelo' value='".$objVuelo->codigoVuelo."' />"; // envia codigo de vuelo para hacer la reserva
+		//die("$clase, $precioEconomy $precioPrimera");
+		if ($clase == "economico")
+			echo "<input type='hidden' name='monto' value='".$precioEconomy."' />";
+		
+		else
+			echo "<input type='hidden' name='monto' value='".$precioPrimera."' />";
+		echo "</div></form></div>"; // cierra el formulario 
+		$objConexion->desconectar();
+	}	
 
 	/*submit en el formulario*/
 	else {
+		$objConexion = new conexion;
+		$objConexion->conectar("tpfinal");
 		$numeroReserva = chr(rand(65,90)) . chr(rand(65,90)) . intval( "0" . rand(1,9) . rand(0,9)) . chr(rand(65,90)) . chr(rand(65,90)); 
+		
+		//$numeroReserva = intval( "0" . rand(1,9) . rand(0,9). rand(0,9). rand(0,9). rand(0,9). rand(0,9). rand(0,9));
 		$dni=$_POST['dni']; 
 		$email=$_POST['email']; 
 		$nombreApellido=$_POST['nombreApellido']; 
 		$fechaNacimiento=$_POST['fechaNacimiento']; 
-		//echo "$numeroReserva   $nombreApellido";
+		$codigoVuelo=$_POST['codigoVuelo']; 
+		$monto=$_POST['monto']; 
+		//muestra la pagina siguiente
 		$cargado = "<div class='created-in well'>
 		<h1>Su vuelo a sido reservado, su numero de reserva es: $numeroReserva  <div class='pull-right'></div></h1>
 	</div>";
 		echo "$cargado";
+		// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+		/* guardar datos del pasajero en base de datos */
+		$objPasajero = new pasajero($dni,$nombreApellido,$email,$fechaNacimiento);
+		$objPasajero->guardarPasajero();
+		/*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
+		$objReserva = new reserva();
+		$objReserva->guardarReserva($numeroReserva,$dni,$codigoVuelo,$monto);
+		
+		$objConexion->desconectar();
+
+
+		
+
+
 
 	}
 

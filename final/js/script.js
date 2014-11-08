@@ -122,14 +122,14 @@ $('#the-basics .typeahead').typeahead({
 });
 /*CALENDARIO */
 $('.input-group.nacimiento').datepicker({
-  format: "dd/mm/yyyy (DD)",
+  format: "yyyy-mm-dd",
   language: "es",  
   endDate: "today",
    startView: 2, 
  
 });
 $('.input-group.date').datepicker({
-  format: "dd/mm/yyyy (DD)",
+  format: "dd-mm-yyyy (DD)",
   language: "es",   
   startDate: "today",
   todayHighlight: true  
