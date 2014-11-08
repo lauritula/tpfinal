@@ -1,3 +1,6 @@
+<?php 
+include "class.php";
+ ?>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -93,6 +96,7 @@ $paginaCargar = "<div class='well create-box'>
 		<h1>Su vuelo a sido reservado, su numero de reserva es: $numeroReserva  <div class='pull-right'></div></h1>
 	</div>";
 		echo "$cargado";
+
 	}
 
 	?>

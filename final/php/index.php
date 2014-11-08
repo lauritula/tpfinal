@@ -1,20 +1,4 @@
 <?php
-function conexion (){
-	$conexion = mysql_connect("localhost","root","");
-	if (!$conexion) 
-		return "la conexion fallo";
-	else
-		return "Conectado";
-}
-function sentenciaSQL($sentencia){
-	$tabla =  mysql_query($sentencia);
-	
-	if (!$tabla) 
-		echo "Fallo la consulta";
-	else
-		return $tabla;
-
-}
 
 ?>
 

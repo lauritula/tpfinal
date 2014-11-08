@@ -1,20 +1,5 @@
 <?php 
-function conexion (){
-	$conexion = mysql_connect("localhost","root","");
-	if (!$conexion) 
-		return "la conexion fallo";
-	else
-		return "Conectado";
-}
-function sentenciaSQL($sentencia){
-	$tabla =  mysql_query($sentencia);
-	
-	if (!$tabla) 
-		echo "Fallo la consulta";
-	else
-		return $tabla;
-
-}
+include 'class.php';
 
 
 /* valoes de base de datos */
@@ -40,49 +25,31 @@ function listado($tipoDeBusqueda,$dias){
 	}
 	return $lista;
 }
-function tipoBusqueda($origen, $diasBinario, $destino,$dias){
-	$unionTabla = "select * from frecuencias f join aeropuerto a on f.origen = a.codAeropuerto join aeropuerto aDos on f.destino = aDos.codAeropuerto ";
-	if (!$dias && !$origen && !$destino) {
-		$resultado = sentenciaSQL("$unionTabla where 1");
-		$lista=listado($resultado,$dias);
-		return $lista;
-	}	
-	if($dias && !$origen && !$destino){
-		$resultado = sentenciaSQL("$unionTabla where dias LIKE '$diasBinario'");
-		$lista=listado($resultado,$dias);
-		return $lista;
-	}
 
-	if($origen && !$dias  && !$destino){
-		$resultado =  sentenciaSQL("$unionTabla where origen ='$origen'");
-		$lista=listado($resultado,$dias);
-		return $lista;
-	}
-	if (!$origen && !$dias &&  $destino) {
-		$resultado = sentenciaSQL("$unionTabla where destino ='$destino'");
-		$lista=listado($resultado,$dias);
-		return $lista;
-	}
-	if ($origen && $dias &&  $destino) {
-		$resultado = sentenciaSQL("$unionTabla where origen ='$origen' and dias LIKE '$diasBinario' and destino='$destino'");
-		$lista=listado($resultado,$dias);
-		return $lista;
-	}
-	if (!$origen && $dias &&  $destino) {
-		$resultado = sentenciaSQL("$unionTabla where dias LIKE '$diasBinario' and destino='$destino'");
-		$lista=listado($resultado,$dias);
-		return $lista;
-	}
-	if ($origen && !$dias &&  $destino) {
-		$resultado = sentenciaSQL("$unionTabla where origen ='$origen' and destino='$destino'");
-		$lista=listado($resultado,$dias);
-		return $lista;
-	}
-	if ($origen && $dias &&  !$destino) {
-		$resultado = sentenciaSQL("$unionTabla where origen ='$origen' and dias LIKE '$diasBinario' ");
-		$lista=listado($resultado,$dias);
-		return $lista;
-	}
+
+function tipoBusqueda($origen, $diasBinario, $destino,$dias){
+	$objConexion = new conexion("tpfinal");
+
+	$unionTabla = "select * from frecuencias f join aeropuerto a on f.origen = a.codAeropuerto join aeropuerto aDos on f.destino = aDos.codAeropuerto ";
+	if (!$dias && !$origen && !$destino) 
+		$resultado = $objConexion->query("$unionTabla where 1");		
+	if($dias && !$origen && !$destino)
+		$resultado = $objConexion->query("$unionTabla where dias LIKE '$diasBinario'");
+	if($origen && !$dias  && !$destino)
+		$resultado =  $objConexion->query("$unionTabla where origen ='$origen'");	
+	if (!$origen && !$dias &&  $destino) 
+		$resultado = $objConexion->query("$unionTabla where destino ='$destino'");	
+	if ($origen && $dias &&  $destino) 
+		$resultado = $objConexion->query("$unionTabla where origen ='$origen' and dias LIKE '$diasBinario' and destino='$destino'");	
+	if (!$origen && $dias &&  $destino) 
+		$resultado = $objConexion->query("$unionTabla where dias LIKE '$diasBinario' and destino='$destino'");	
+	if ($origen && !$dias &&  $destino) 
+		$resultado = $objConexion->query("$unionTabla where origen ='$origen' and destino='$destino'");	
+	if ($origen && $dias &&  !$destino) 
+		$resultado = $objConexion->query("$unionTabla where origen ='$origen' and dias LIKE '$diasBinario' ");	
+	$lista=listado($resultado,$dias);
+	$objConexion->desconectar();
+	return $lista;
 
 }
 
@@ -133,6 +100,8 @@ function diaFormato($diasBinario){
 	}
 };
 ?>
+
+
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -160,8 +129,9 @@ function diaFormato($diasBinario){
 	<?php 
 
 	if(isset($_POST['buscarDia']))  {
-		conexion();
-	mysql_select_db("tpfinal") or die("no se puede selecionar la base de datos "); //seleccion
+	/*	conexion();
+	mysql_select_db("tpfinal") or die("no se puede selecionar la base de datos ");*/ //seleccion
+
 	/* variables*/
 	$dias=$_POST['dias']; 
 	$origen=$_POST['origen']; 
