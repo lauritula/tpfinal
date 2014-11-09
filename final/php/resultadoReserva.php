@@ -1,4 +1,4 @@
-//prueba
+
 <?php 
 include "class.php";
  ?>
@@ -28,6 +28,14 @@ include "class.php";
 			<li class="active"><a href="index.php">Home</a></li>
 		</ul>	
 	</nav>
+
+
+
+
+
+
+
+
 
 
 
