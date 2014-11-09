@@ -29,8 +29,8 @@
 		<ul  class="nav navbar-nav">
 			<li><a href="">Home</a></li>
 			<li>
-				<form class="navbar-form navbar-left" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" role="search">
-					<input>
+				<form class="navbar-form navbar-left" action="<resultadoReserva.php>" method="post" role="search">
+					<input name="numReserva">
 					<button class="btn btn-default" type="submit" NAME="buscarPasaje" >busque su pasaje</button>
 				</form>
 			</li>
