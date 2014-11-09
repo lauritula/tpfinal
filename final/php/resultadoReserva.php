@@ -1,3 +1,4 @@
+//prueba
 <?php 
 include "class.php";
  ?>
