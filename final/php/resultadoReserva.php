@@ -37,31 +37,18 @@ include "class.php";
 
 
 
-//funcion para encontrar el codigo de reserva en la base de datos//
 $numReserva=$_POST['numReserva'];
-echo "$numReserva";
-function codReserva($numReserva)
-{
+
 	$objConexion = new conexion;
 	$objConexion->conectar("tpfinal");
 
-    $consulta=mysql_query("select * from reserva where codigoReserva=$numReserva");
 
-    //$resultado=$objConexion->query("select codigoReserva from reserva where codigoReserva=$numReserva");
-    //mysql_fetch_assoc($resultado);
+    $resultado=$objConexion->query("select codigoReserva from reserva where codigoReserva='$numReserva' ");
+ 
 
-    //if($resultado==$numReserva){
-
-    //	echo "$res reserva encontrada";
-    //}
-	$objConexion->desconectar();
-
-	$a=mysql_fetch_assoc($consulta);
+	$a=mysql_fetch_assoc($resultado);
     
 	echo $a["codigoReserva"];
-
-}
-  codReserva($numReserva);
 
 ?>
 
