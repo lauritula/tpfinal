@@ -38,17 +38,68 @@ include "class.php";
 
 
 $numReserva=$_POST['numReserva'];
-
+    
 	$objConexion = new conexion;
 	$objConexion->conectar("tpfinal");
+	$objReserva = new reserva;
+	$codigo= $objReserva->buscarReserva($numReserva);
+  
+ if ($codigo) {
+echo "$codigo";
+   /*	$imprimirFormulario = "<div class='well create-box'>
+			<legend>Reserva</legend>
+		<div  id='the-basics' >
+			<div class='form-group col-md-12' >
+				<span class='col-md-6'>Vuelo Numero: ".."</span>
+				<span class='col-md-6'>Fecha:".."</span>
+
+			</div>
+			<div class='form-group col-md-12' >
+				<span>Origen: ".."</span>
+			</div>
+			<div class='form-group col-md-12' >
+				<span>destino:".." </span>
+			</div>
+			<div class='form-group col-md-12' >
+				<span>Nombre:</span>
+			</div>
+			<div class='form-group col-md-12' >
+				<span>Documento:</span>
+			</div>
+			<div class='form-group col-md-12' >
+				<span>E-mail:</span>
+			</div>
+			<div class='form-group col-md-12' >
+				<span>Categoria:</span>
+				<span>Precio:</span>
+			</div>
+			<div class='form-group col-md-12' >
+				<span>asdsadsasa</span>
+			</div>
+			<div class='form-group col-md-12' >
+				<span></span>
+			</div>
+ 		</div>
+		<div class='form-group text-center'>
+
+		<a href='formularioPague.php'><button type='button' class=' col-md-6 btn btn-warning '>PAGAR VUELO</button></a>
+	<a href='checkIn.php'><button type='button' class=' col-md-6 btn btn-success '>CHECK-IN</button></a>
+	
+	</div>
+	</div>
+	
+
+</div>";*/
 
 
-    $resultado=$objConexion->query("select codigoReserva from reserva where codigoReserva='$numReserva' ");
- 
+	
+		$DatosReserva=$objConexion->query("select * from pasajero p join reserva r on p.dni = r.dniPasajero join vuelos v on r.codVuelo = v.codVuelo 
+where r.codigoReserva  = '$codigo'");
+	echo "$imprimirFormulario";
 
-	$a=mysql_fetch_assoc($resultado);
-    
-	echo $a["codigoReserva"];
+	}
+	
+	
 
 ?>
 

@@ -49,6 +49,7 @@ class pasajero
 		$conectar = new conexion();
 		$conectar->query("INSERT INTO pasajero (dni, nombre, email, fecha) VALUES ('$this->dni', '$this->nombre', '$this->email', '$this->fecha')");
 	}
+	
 }
 
 class reserva
@@ -59,6 +60,21 @@ class reserva
 		
 		$conectar->query("INSERT INTO reserva (codigoReserva,dniPasajero,codVuelo,monto) VALUES ('$numeroReserva',$dni,'$codigoVuelo',$monto)");
 
+	}
+	function DatosReserva()
+	{
+		$conectar = new conexion();
+
+		$conectar->query("");
+
+	}
+	function buscarReserva($numReserva)
+	{
+		$conectar = new conexion();
+
+		$tabla=$conectar->query("select codigoReserva from reserva where codigoReserva='$numReserva' ");
+		$codigo = mysql_fetch_assoc($tabla);
+		return $codigo['codigoReserva'];
 	}
 }
 
