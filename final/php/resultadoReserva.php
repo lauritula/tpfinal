@@ -2,11 +2,11 @@
 <?php 
 include "class.php";
 
- ?>
+?>
 
 
 
- <head>
+<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<script type="text/javascript" src="../js/jquery.js"></script>
 	<script type="text/javascript" src="../js/moment.js"></script>
@@ -33,80 +33,32 @@ include "class.php";
 	</nav>
 
 
-<?php
+	<?php
 
 
 
-$numReserva=$_POST['numReserva'];
-    
+	$numReserva=$_POST['numReserva'];
+
 	$objConexion = new conexion;
 	$objConexion->conectar("tpfinal");
-	$objReserva = new reserva;
-	$codigo= $objReserva->buscarReserva($numReserva);
-  
- if ($codigo) {
-echo "$codigo";
-   /*	$imprimirFormulario = "<div class='well create-box'>
-			<legend>Reserva</legend>
-		<div  id='the-basics' >
-			<div class='form-group col-md-12' >
-				<span class='col-md-6'>Vuelo Numero: ".."</span>
-				<span class='col-md-6'>Fecha:".."</span>
+	$objReserva = new reserva($numReserva);
+	$objReserva->buscarReserva();
 
-			</div>
-			<div class='form-group col-md-12' >
-				<span>Origen: ".."</span>
-			</div>
-			<div class='form-group col-md-12' >
-				<span>destino:".." </span>
-			</div>
-			<div class='form-group col-md-12' >
-				<span>Nombre:</span>
-			</div>
-			<div class='form-group col-md-12' >
-				<span>Documento:</span>
-			</div>
-			<div class='form-group col-md-12' >
-				<span>E-mail:</span>
-			</div>
-			<div class='form-group col-md-12' >
-				<span>Categoria:</span>
-				<span>Precio:</span>
-			</div>
-			<div class='form-group col-md-12' >
-				<span>asdsadsasa</span>
-			</div>
-			<div class='form-group col-md-12' >
-				<span></span>
-			</div>
- 		</div>
-		<div class='form-group text-center'>
-
-		<a href='formularioPague.php'><button type='button' class=' col-md-6 btn btn-warning '>PAGAR VUELO</button></a>
-	<a href='checkIn.php'><button type='button' class=' col-md-6 btn btn-success '>CHECK-IN</button></a>
-	
-	</div>
-	</div>
-	
-
-</div>";*/
-
-
-	
-		$DatosReserva=$objConexion->query("select * from pasajero p join reserva r on p.dni = r.dniPasajero join vuelos v on r.codVuelo = v.codVuelo 
-where r.codigoReserva  = '$codigo'");
-	echo "$imprimirFormulario";
-
+	if ($objReserva->codigoReserva) 
+	{
+		$objReserva->datosReserva(); // consulta los datos de la reserva 
+//echo "$objReserva->codigoReserva";
+		echo "$objReserva->hoy fecha de viaje";
+	echo $objReserva->datosReserva[14];
+			echo "<div class='created-in'>$objReserva->imprimirDatos <div class='pull-right'></div></div>";
 	}
 	
 	
 
-?>
+	?>
 
 
 
-
-    
 
 
 

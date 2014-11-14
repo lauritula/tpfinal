@@ -228,7 +228,7 @@ $('.btn-create-submit').click(function(e){
 if (bandera == 1){ 
   
     $('#busquedaVuelos #cargarDatos').click(); // establece true el boton para cargar la pagina nueva 
-    $("#busquedaVuelos").submit(); // continua luego de 2 s
+    $("#busquedaVuelos").submit(); 
 
 }
 });

@@ -88,10 +88,19 @@ $paginaCargar = "<div class='well create-box'>
 		echo "<input type='hidden'   name='codigoVuelo' value='".$objVuelo->codigoVuelo."' />"; // envia codigo de vuelo para hacer la reserva
 		//die("$clase, $precioEconomy $precioPrimera");
 		if ($clase == "economico")
+		{
 			echo "<input type='hidden' name='monto' value='".$precioEconomy."' />";
+			echo "<input type='hidden' name='categoria' value='Economy' />";
+		}
+			
 		
 		else
+		{
 			echo "<input type='hidden' name='monto' value='".$precioPrimera."' />";
+			echo "<input type='hidden' name='categoria' value='Primera' />";
+		}
+			
+		
 		echo "</div></form></div>"; // cierra el formulario 
 		$objConexion->desconectar();
 	}	
@@ -109,20 +118,21 @@ $paginaCargar = "<div class='well create-box'>
 		$fechaNacimiento=$_POST['fechaNacimiento']; 
 		$codigoVuelo=$_POST['codigoVuelo']; 
 		$monto=$_POST['monto']; 
+		$categoria=$_POST['categoria']; 
+			/* guardar datos del pasajero en base de datos */
+		$objPasajero = new pasajero($dni,$nombreApellido,$email,$fechaNacimiento);
+		$objPasajero->guardarPasajero();
+		/*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
+		$objReserva = new reserva($numeroReserva);
+		$objReserva->guardarReserva($dni,$codigoVuelo,$monto,$categoria);
+		$objReserva->datosReserva();
 		//muestra la pagina siguiente
-		$cargado = "<div class='created-in well'>
-		<h1>Su vuelo a sido reservado, su numero de reserva es: $numeroReserva  <div class='pull-right'></div></h1>
-	</div>";
+		$cargado = "<div class='created-in'>$objReserva->imprimirDatos <div class='pull-right'></div></div>";
 		echo "$cargado";
 		// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-		/* guardar datos del pasajero en base de datos */
-		$objPasajero = new pasajero($dni,$nombreApellido,$email,$fechaNacimiento);
-		$objPasajero->guardarPasajero();
-		/*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
-		$objReserva = new reserva();
-		$objReserva->guardarReserva($numeroReserva,$dni,$codigoVuelo,$monto);
+	
 		
 		$objConexion->desconectar();
 

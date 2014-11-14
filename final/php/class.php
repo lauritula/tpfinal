@@ -19,7 +19,7 @@ class conexion
 		$tabla =  mysql_query($query);
 
 		if (!$tabla) 
-			echo "Fallo la consulta";
+			echo "Fallo la consulta $query";
 		else
 			return $tabla;
 
@@ -54,27 +54,93 @@ class pasajero
 
 class reserva
 {
-	function guardarReserva($numeroReserva,$dni,$codigoVuelo,$monto)
+	var $codigoReserva;
+	var $datosReserva;
+	var $imprimirDatos;
+	var $hoy;
+
+	function __construct($codigoReserva)
+	{
+
+
+		$this->codigoReserva  = $codigoReserva;
+		date_default_timezone_set (  'America/Argentina/Buenos_Aires' );
+		$this->hoy = date('Y-m-d');
+	}
+
+	function guardarReserva($dni,$codigoVuelo,$monto,$categoria)
 	{
 		$conectar = new conexion();
 		
-		$conectar->query("INSERT INTO reserva (codigoReserva,dniPasajero,codVuelo,monto) VALUES ('$numeroReserva',$dni,'$codigoVuelo',$monto)");
+		$conectar->query("INSERT INTO reserva (codigoReserva,dniPasajero,codVuelo,monto,categoria) VALUES ('$this->codigoReserva',$dni,'$codigoVuelo',$monto,'$categoria')");
 
 	}
-	function DatosReserva()
+	function datosReserva()
+	{
+		$disabledButtonCheckIn = "disabled='disabled'";
+		$disabledButtonPago = "";
+		$conectar = new conexion();		
+		$hs24 = date('Y-m-d',strtotime($this->hoy . "1 days "));
+		$hs48 = date('Y-m-d',strtotime($this->hoy . "2 days "));
+
+		$tabla = $conectar->query("select * from pasajero p 
+		 join reserva r on p.dni = r.dniPasajero
+		 join vuelos v on r.codVuelo = v.codVuelo
+		 join frecuencias f on v.codFrecuencia =  f.codFrecuencia
+		 join aeropuerto a on f.origen = a.codAeropuerto 
+		 join aeropuerto aDos on f.destino = aDos.codAeropuerto
+		where r.codigoReserva  = '$this->codigoReserva'");
+		$this->datosReserva =  mysql_fetch_row($tabla);
+
+		if ($this->hoy == $this->datosReserva[14] ||  $hs48 == $this->datosReserva[14] || $hs24 == $this->datosReserva[14] ) 
+		{
+			$disabledButtonCheckIn = "";
+		}
+		if ($this->hoy == $this->datosReserva[14]) {
+				$disabledButtonPago ="disabled='disabled'";
+		}
+			$this->imprimirDatos = "
+		<div class='well create-box'>
+		<legend>Reserva     ".$this->datosReserva[4]."</legend>
+		<div  id='the-basics' >
+		<div class='form-group ' >
+		<span class='col-md-6'>Vuelo Numero: ".$this->datosReserva[13]."</span>
+		<span class='col-md-6'>Fecha:  ".$this->datosReserva[14]."</span>
+		</div>
+		<div class='form-group ' >
+		<span>Origen:  ".$this->datosReserva[25] ."/". $this->datosReserva[26] ."/".  $this->datosReserva[27]."</span>
+		</div>
+		<div class='form-group ' >
+		<span>destino:  ".$this->datosReserva[29]  ."/". $this->datosReserva[30] ."/".  $this->datosReserva[31]." </span>
+		</div>
+		<div class='form-group ' >
+		<span>Nombre:".$this->datosReserva[1]."</span>
+		</div>
+		<div class='form-group ' >
+		<span>Documento:".$this->datosReserva[0]."</span>
+		</div>
+		<div class='form-group ' >
+		<span>E-mail:  ".$this->datosReserva[2]."</span>
+		</div>
+		<div class='form-group ' >
+		<span>Categoria:  ".$this->datosReserva[10]."</span>
+		<span>Precio:  $".$this->datosReserva[9]."</span>
+		</div>
+		<div class='form-group text-center col-md-12 '>
+		<a href='formularioPague.php'><button type='button' ".$disabledButtonPago." class=' col-md-6 btn btn-warning '>PAGAR VUELO</button></a>
+		<a href='checkIn.php'><button ".$disabledButtonCheckIn." type='button' class=' col-md-6 btn btn-success '>CHECK-IN</button></a>
+		</div>
+		</div>";
+		
+	}
+
+	function buscarReserva()
 	{
 		$conectar = new conexion();
 
-		$conectar->query("");
-
-	}
-	function buscarReserva($numReserva)
-	{
-		$conectar = new conexion();
-
-		$tabla=$conectar->query("select codigoReserva from reserva where codigoReserva='$numReserva' ");
+		$tabla=$conectar->query("select codigoReserva from reserva where codigoReserva='$this->codigoReserva' ");
 		$codigo = mysql_fetch_assoc($tabla);
-		return $codigo['codigoReserva'];
+		$this->codigoReserva =  $codigo['codigoReserva'];
 	}
 }
 
