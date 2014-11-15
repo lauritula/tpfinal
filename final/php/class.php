@@ -77,8 +77,9 @@ class reserva
 	}
 	function datosReserva()
 	{
-		$disabledButtonCheckIn = "disabled='disabled'";
-		$disabledButtonPago = "";
+		$vueloPerdido = "";
+		$disabledButtonCheckIn = "<a href='formularioPague.php'><button type='button' disabled='disabled' class=' col-md-6 btn btn-warning '>PAGAR VUELO</button></a>";
+		$disabledButtonPago = "<a href='checkIn.php'><button  type='button' class=' col-md-6 btn btn-success '>CHECK-IN</button></a>";
 		$conectar = new conexion();		
 		$hs24 = date('Y-m-d',strtotime($this->hoy . "1 days "));
 		$hs48 = date('Y-m-d',strtotime($this->hoy . "2 days "));
@@ -94,11 +95,18 @@ class reserva
 
 		if ($this->hoy == $this->datosReserva[14] ||  $hs48 == $this->datosReserva[14] || $hs24 == $this->datosReserva[14] ) 
 		{
-			$disabledButtonCheckIn = "";
+			$disabledButtonCheckIn = "<a href='formularioPague.php'><button type='button' class=' col-md-6 btn btn-warning '>PAGAR VUELO</button></a>";
 		}
-		if ($this->hoy == $this->datosReserva[14]) {
-				$disabledButtonPago ="disabled='disabled'";
+		if ($this->hoy >= $this->datosReserva[14]) {
+				$disabledButtonPago ="<a href='checkIn.php'><button disabled='disabled' type='button' class=' col-md-6 btn btn-success '>CHECK-IN</button></a>";
 		}
+		if ($this->hoy > $this->datosReserva[14])
+		{
+			$disabledButtonCheckIn = ""; 
+			$disabledButtonPago = "";
+			$vueloPerdido = "<button  type='button' disabled='disabled' class=' col-md-12 btn btn-danger '>¡el vuelo ya partio! </button>";
+		}	
+
 			$this->imprimirDatos = "
 		<div class='well create-box'>
 		<legend>Reserva     ".$this->datosReserva[4]."</legend>
@@ -127,8 +135,8 @@ class reserva
 		<span>Precio:  $".$this->datosReserva[9]."</span>
 		</div>
 		<div class='form-group text-center col-md-12 '>
-		<a href='formularioPague.php'><button type='button' ".$disabledButtonPago." class=' col-md-6 btn btn-warning '>PAGAR VUELO</button></a>
-		<a href='checkIn.php'><button ".$disabledButtonCheckIn." type='button' class=' col-md-6 btn btn-success '>CHECK-IN</button></a>
+		".$disabledButtonPago.$disabledButtonCheckIn."		
+		".$vueloPerdido."
 		</div>
 		</div>";
 		
