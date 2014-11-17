@@ -78,8 +78,8 @@ class reserva
 	function datosReserva()
 	{
 		$vueloPerdido = "";
-		$disabledButtonCheckIn = "<a href='formularioPague.php'><button type='button' disabled='disabled' class=' col-md-6 btn btn-warning '>PAGAR VUELO</button></a>";
-		$disabledButtonPago = "<a href='checkIn.php'><button  type='button' class=' col-md-6 btn btn-success '>CHECK-IN</button></a>";
+		$disabledButtonCheckIn = "<a href='formularioPague.php'><button type='button' disabled='disabled' class=' col-md-6 btn btn-warning '>CHECK-IN</button></a>";
+		$disabledButtonPago = "<a href='checkIn.php'><button  type='button' class=' col-md-6 btn btn-success '>PAGAR VUELO</button></a>";
 		$conectar = new conexion();		
 		$hs24 = date('Y-m-d',strtotime($this->hoy . "1 days "));
 		$hs48 = date('Y-m-d',strtotime($this->hoy . "2 days "));
@@ -93,15 +93,16 @@ class reserva
 		where r.codigoReserva  = '$this->codigoReserva'");
 		$this->datosReserva =  mysql_fetch_row($tabla);
 
-		if ($this->hoy == $this->datosReserva[14] ||  $hs48 == $this->datosReserva[14] || $hs24 == $this->datosReserva[14] ) 
-		{
-			$disabledButtonCheckIn = "<a href='formularioPague.php'><button type='button' class=' col-md-6 btn btn-warning '>PAGAR VUELO</button></a>";
+		if ($this->datosReserva[8] != NULL &&($this->hoy == $this->datosReserva[14] ||  $hs48 == $this->datosReserva[14] || $hs24 == $this->datosReserva[14] )) 
+		{// se habilita el boton
+			$disabledButtonCheckIn = "<a href='formularioPague.php'><button type='button' class=' col-md-6 btn btn-warning '>CHECK-IN</button></a>";
 		}
-		if ($this->hoy >= $this->datosReserva[14]) {
-				$disabledButtonPago ="<a href='checkIn.php'><button disabled='disabled' type='button' class=' col-md-6 btn btn-success '>CHECK-IN</button></a>";
+		if ($this->hoy >= $this->datosReserva[14]) 
+			{ // se deshabilita el boton
+				$disabledButtonPago ="<a href='checkIn.php'><button disabled='disabled' type='button' class=' col-md-6 btn btn-success '>PAGAR VUELO</button></a>";
 		}
 		if ($this->hoy > $this->datosReserva[14])
-		{
+		{// se borran los dos botones
 			$disabledButtonCheckIn = ""; 
 			$disabledButtonPago = "";
 			$vueloPerdido = "<button  type='button' disabled='disabled' class=' col-md-12 btn btn-danger '>¡el vuelo ya partio! </button>";
