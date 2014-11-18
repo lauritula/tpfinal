@@ -263,7 +263,7 @@ $('.btn-pago-submit').click(function(e){
    if (fechaVencimiento.length != 5 || !fechaVencimiento.match(expr)  ) {
    $("#fechaVencimientoError").last().addClass( "has-error has-feedback" );
    bandera = 0;
-   
+    
   }
 if (bandera == 1){ 
   
