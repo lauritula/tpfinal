@@ -244,7 +244,7 @@ $('.btn-pago-submit').click(function(e){
   var bandera = 1;
   var nombreApellido=$('#nombreApellido').val();
   var codigoSeguridad=$('#codigoSeguridad').val();
-  var numeroTarjeta=$('#NumeroTarjeta').val();
+  var numeroTarjeta=$('#numeroTarjeta').val();
   var fechaVencimiento=$('#fechaVencimiento').val();
  expr = /([0-99]+[0-99])/;
   if (codigoSeguridad.length!=3) {
@@ -263,6 +263,7 @@ $('.btn-pago-submit').click(function(e){
    if (fechaVencimiento.length != 5 || !fechaVencimiento.match(expr)  ) {
    $("#fechaVencimientoError").last().addClass( "has-error has-feedback" );
    bandera = 0;
+   
   }
 if (bandera == 1){ 
   
