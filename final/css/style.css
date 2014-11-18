@@ -119,3 +119,52 @@ padding-bottom: 10px;
   margin:0;
   font-weight:300;
 }
+
+/*cargar pago tarjeta*/
+
+.well.pago-box {
+    width:400px;
+    padding-bottom: 35px;
+
+    margin:0 auto;
+   
+}
+.well.pago-box legend {
+  font-size:26px;
+  text-align:center;
+  font-weight:300;
+}
+.well.pago-box label {
+  font-weight:300;
+  font-size:16px;
+  
+}
+.well.pago-box  {
+  box-shadow:none;
+  border-color:#ddd;
+  border-radius:0;
+}
+/*pagod in*/
+.pagod-in{
+  display:none;
+}
+.pagod-in h1{
+  margin:0;
+  font-weight:300;
+}
+
+/*logo tarjeta*/
+.tarjetaLogo{
+  width: 100px;
+  height: 60px;
+}
+.radioButton{ /* HIDE RADIO */
+  display:none;
+}
+.radioButton + img{ /* IMAGE STYLES */
+  cursor:pointer;
+  border:2px solid transparent;
+}
+.radioButton:checked + img{ /* (CHECKED) IMAGE STYLES */
+  border:2px solid #f00;
+}

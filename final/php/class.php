@@ -78,8 +78,8 @@ class reserva
 	function datosReserva()
 	{
 		$vueloPerdido = "";
-		$disabledButtonCheckIn = "<a href='formularioPague.php'><button type='button' disabled='disabled' class=' col-md-6 btn btn-warning '>CHECK-IN</button></a>";
-		$disabledButtonPago = "<a href='checkIn.php'><button  type='button' class=' col-md-6 btn btn-success '>PAGAR VUELO</button></a>";
+		$disabledButtonCheckIn = "<a href='checkIn.php'><button type='button' disabled='disabled' class=' col-md-6 btn btn-warning '>CHECK-IN</button></a>";
+		$disabledButtonPago = "<a href='formularioPague.php'><button  type='button' class=' col-md-6 btn btn-success '>PAGAR VUELO</button></a>";
 		$conectar = new conexion();		
 		$hs24 = date('Y-m-d',strtotime($this->hoy . "1 days "));
 		$hs48 = date('Y-m-d',strtotime($this->hoy . "2 days "));
@@ -95,11 +95,11 @@ class reserva
 
 		if ($this->datosReserva[8] != NULL &&($this->hoy == $this->datosReserva[14] ||  $hs48 == $this->datosReserva[14] || $hs24 == $this->datosReserva[14] )) 
 		{// se habilita el boton
-			$disabledButtonCheckIn = "<a href='formularioPague.php'><button type='button' class=' col-md-6 btn btn-warning '>CHECK-IN</button></a>";
+			$disabledButtonCheckIn = "<a href='checkIn.php'><button type='button' class=' col-md-6 btn btn-warning '>CHECK-IN</button></a>";
 		}
 		if ($this->hoy >= $this->datosReserva[14]) 
 			{ // se deshabilita el boton
-				$disabledButtonPago ="<a href='checkIn.php'><button disabled='disabled' type='button' class=' col-md-6 btn btn-success '>PAGAR VUELO</button></a>";
+				$disabledButtonPago ="<a href='formularioPague.php'><button disabled='disabled' type='button' class=' col-md-6 btn btn-success '>PAGAR VUELO</button></a>";
 		}
 		if ($this->hoy > $this->datosReserva[14])
 		{// se borran los dos botones
@@ -133,6 +133,9 @@ class reserva
 		</div>
 		<div class='form-group ' >
 		<span>Categoria:  ".$this->datosReserva[10]."</span>
+		</div>
+		<div class='form-group ' >
+		
 		<span>Precio:  $".$this->datosReserva[9]."</span>
 		</div>
 		<div class='form-group text-center col-md-12 '>

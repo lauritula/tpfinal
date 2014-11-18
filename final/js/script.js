@@ -233,6 +233,46 @@ if (bandera == 1){
 }
 });
 
+// PAGO DE TARJETA 
+
+ //$('.created-in').fadeIn();
+$('.btn-pago-submit').click(function(e){
+  e.preventDefault();
+
+  var element = $(this).parent().parent().parent();
+  /*validaciones*/
+  var bandera = 1;
+  var nombreApellido=$('#nombreApellido').val();
+  var codigoSeguridad=$('#codigoSeguridad').val();
+  var numeroTarjeta=$('#NumeroTarjeta').val();
+  var fechaVencimiento=$('#fechaVencimiento').val();
+ expr = /([0-99]+[0-99])/;
+  if (codigoSeguridad.length!=3) {
+   $("#codigoSeguridadError").last().addClass( "has-error has-feedback" );
+   bandera = 0;
+  }
+   
+   if (nombreApellido.length==0) {
+   $("#nombreApellidoError").last().addClass( "has-error has-feedback" );
+   bandera = 0;
+  }
+    if (numeroTarjeta.length != 16) {
+   $("#numeroTarjetaError").last().addClass( "has-error has-feedback" );
+   bandera = 0;
+  }
+   if (fechaVencimiento.length != 5 || !fechaVencimiento.match(expr)  ) {
+   $("#fechaVencimientoError").last().addClass( "has-error has-feedback" );
+   bandera = 0;
+  }
+if (bandera == 1){ 
+  
+    $('#pagoTarjetaFormulario #cargarDatos').click(); // establece true el boton para cargar la pagina nueva 
+    $("#pagoTarjetaFormulario").submit(); 
+
+}
+});
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 /*cambio de precio economy primera */
 /*
 $('.primera').hide();
