@@ -50,7 +50,11 @@ include "class.php";
 //echo "$objReserva->codigoReserva";
 //echo "$objReserva->hoy fecha de viaje";
 //echo $objReserva->datosReserva[14];
-			echo "<div class='created-in'>$objReserva->imprimirDatos <div class='pull-right'></div></div>";
+			echo "<div class='created-in'>
+			$objReserva->imprimirDatos 
+			<div class='pull-right'>
+			</div>
+			</div>";
 	}
 	
 	

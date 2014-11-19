@@ -85,30 +85,30 @@ class reserva
 		$hs48 = date('Y-m-d',strtotime($this->hoy . "2 days "));
 
 		$tabla = $conectar->query("select * from pasajero p 
-		 join reserva r on p.dni = r.dniPasajero
-		 join vuelos v on r.codVuelo = v.codVuelo
-		 join frecuencias f on v.codFrecuencia =  f.codFrecuencia
-		 join aeropuerto a on f.origen = a.codAeropuerto 
-		 join aeropuerto aDos on f.destino = aDos.codAeropuerto
-		where r.codigoReserva  = '$this->codigoReserva'");
+			join reserva r on p.dni = r.dniPasajero
+			join vuelos v on r.codVuelo = v.codVuelo
+			join frecuencias f on v.codFrecuencia =  f.codFrecuencia
+			join aeropuerto a on f.origen = a.codAeropuerto 
+			join aeropuerto aDos on f.destino = aDos.codAeropuerto
+			where r.codigoReserva  = '$this->codigoReserva'");
 		$this->datosReserva =  mysql_fetch_row($tabla);
 
 		//if ($this->datosReserva[8] != NULL &&($this->hoy == $this->datosReserva[14] ||  $hs48 == $this->datosReserva[14] || $hs24 == $this->datosReserva[14] )) 
 		//{// se habilita el boton
-			$disabledButtonCheckIn = "<input type='submit' class=' col-md-6 btn btn-warning ' value='CHECK-IN'>";
+		$disabledButtonCheckIn = "<input type='submit' class=' col-md-6 btn btn-warning ' value='CHECK-IN'>";
 		//}
 		if ($this->hoy >= $this->datosReserva[14]) 
 			{ // se deshabilita el boton
 				$disabledButtonPago ="<a href='formularioPague.php'><button disabled='disabled' type='button' class=' col-md-6 btn btn-success '>PAGAR VUELO</button></a>";
-		}
-		if ($this->hoy > $this->datosReserva[14])
+			}
+			if ($this->hoy > $this->datosReserva[14])
 		{// se borran los dos botones
 			$disabledButtonCheckIn = ""; 
 			$disabledButtonPago = "";
 			$vueloPerdido = "<button  type='button' disabled='disabled' class=' col-md-12 btn btn-danger '>¡el vuelo ya partio! </button>";
 		}	
 
-			$this->imprimirDatos = "
+		$this->imprimirDatos = "
 		<div class='well create-box'>
 		<legend>Reserva     ".$this->datosReserva[4]."</legend>
 		<div  id='the-basics' >
@@ -183,7 +183,7 @@ class vuelo{
 				$this->codigoVuelo = $fila[0];
 
 			}
-			 	
+
 
 		}
 		
@@ -197,43 +197,76 @@ class vuelo{
 		}
 		$conectar->query("INSERT INTO vuelos (codVuelo,fechaVuelo,codFrecuencia,codAvion) VALUES ('$this->codigoVuelo','$this->fechaVuelo',$this->codigoFrecuencia,'$this->modeloAvion')");
 	}
-	}
+}
 }
 
 class planoLugares{
 	var $economy; // cantidad de lugares 
-	var $economyFilas; // filas economicas
-	var $economyCols; // columnas economicas
-	var $primera; // cantidad lugares primera 
-	var $primeraFilas;
-	var $primeraCols;
+	var $primera; 
 	var $datosTipoAvion;
+	var $posicionPrimera = 0;
+	var $posicionEconomy = 0;
 	function __construct($tipoAvion)
-	{
+	{	
 		switch ($tipoAvion)
-		 {
+		{
 			case '1':
-				$tabla = conexion::query("select * from tipo where tipoAvion=$tipoAvion");
-				break;
+			$tabla = conexion::query("select * from tipo where tipoAvion=$tipoAvion");
+			break;
 			
 			case '2':
-				$tabla = conexion::query("select * from tipo where tipoAvion=$tipoAvion");
-				break;
+			$tabla = conexion::query("select * from tipo where tipoAvion=$tipoAvion");
+			break;
 			
 			case '3':
-				$tabla = conexion::query("select * from tipo where tipoAvion=$tipoAvion");
-				break;
+			$tabla = conexion::query("select * from tipo where tipoAvion=$tipoAvion");
+			break;
 			
 			case '4':
-				$tabla = conexion::query("select * from tipo where tipoAvion=$tipoAvion");
-				break;
+			$tabla = conexion::query("select * from tipo where tipoAvion=$tipoAvion");
+			break;
 			default:
 				# code...
-				break;
+			break;
 		}
 
-		$this->datosTipoAvion =  mysql_fetch_row($tabla);
+		$this->datosTipoAvion =  mysql_fetch_assoc($tabla);
 		
 	}
+	function plano()
+	{
+		
+		if ($this->datosTipoAvion['primera'] != 0) 
+		{
+			$this->primera = "<table class='table table-condensed'>";
+			for ($i=0; $i < $this->datosTipoAvion['primeraFilas'] ; $i++) 
+			{ 
+				$this->primera .= "<tr>";
+				for ($j=0; $j <$this->datosTipoAvion['primeraCols'] ; $j++)
+				{ 
+					$this->posicionPrimera++;
+					$this->primera .= "<td>". $this->posicionPrimera ."</td>";
+				}
+				$this->primera .= "</tr>";
+			}	
+			$this->primera .= "</table>";
+			
+		}
+
+		$this->economy = "<table class='table table-condensed'>";
+		for ($i=0; $i <$this->datosTipoAvion['economyFilas'] ; $i++) 
+		{ 
+			$this->economy .= "<tr>";
+			for ($j=0; $j <$this->datosTipoAvion['economyCols'] ; $j++)
+			{ 
+				$this->posicionEconomy++;
+				$this->economy .= "<td>". $this->posicionEconomy."</td>";
+			}
+			$this->economy .= "</tr>";
+		}	
+		$this->economy .= "</table>";
+
+	}
+
 }
 ?>

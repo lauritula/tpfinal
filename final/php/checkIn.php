@@ -1,3 +1,4 @@
+<?php include 'class.php'; ?>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -18,32 +19,7 @@
 	<title>Check In</title>
 </head>
 <body>
-	<?php 
-	$primera = "<table class='table table-condensed'>";
-	for ($i=0; $i <10 ; $i++) 
-	{ 
-		$primera .= "<tr>";
-		for ($j=0; $j <3 ; $j++)
-		 { 
-		 	$posicionPrimera++;
-			$primera .= "<td>". $posicionPrimera ."</td>";
-		 }
-		$primera .= "</tr>";
-	}	
-	$primera .= "</table>";
-		$economy = "<table class='table table-condensed'>";
-	for ($i=0; $i <10 ; $i++) 
-	{ 
-		$economy .= "<tr>";
-		for ($j=0; $j <3 ; $j++)
-		 { 
-		 	$posicionEconomy++;
-			$economy .= "<td>". $posicionEconomy."</td>";
-		 }
-		$economy .= "</tr>";
-	}	
-	$economy .= "</table>";
-	 ?>
+
 	<nav class="navbar navbar-inverse col-md-12" role="navigation">
 		<ul  class="nav navbar-nav">
 			<li class="active"><a href="index.php">Home</a></li>
@@ -51,15 +27,20 @@
 	</nav>
 <?php 
 	$tipoAvion=$_POST['tipoAvion']; 
-	//$plano = new planoLugares($tipoAvion);
+	$objConexion = new conexion;
+	$objConexion->conectar("tpfinal");
+	$objPlano = new planoLugares($tipoAvion);
+	$objPlano->plano();
+	//echo "$tipoAvion";
+	//echo $objPlano->datosTipoAvion['primera'];
  ?>
 	<div class="primera col-md-5  col-md-offset-3"> 
 	
-			<?php echo "$primera"; ?>
+			<?php echo "$objPlano->primera"; ?>
 		
 	</div>
 	<div class="economy col-md-5  col-md-offset-3"> 
-		<?php echo "$economy"; ?>
+		<?php echo "$objPlano->economy"; ?>
 	</div>
 </body>
 </html>
