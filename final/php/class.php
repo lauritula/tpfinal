@@ -93,10 +93,10 @@ class reserva
 		where r.codigoReserva  = '$this->codigoReserva'");
 		$this->datosReserva =  mysql_fetch_row($tabla);
 
-		if ($this->datosReserva[8] != NULL &&($this->hoy == $this->datosReserva[14] ||  $hs48 == $this->datosReserva[14] || $hs24 == $this->datosReserva[14] )) 
-		{// se habilita el boton
-			$disabledButtonCheckIn = "<a href='checkIn.php'><button type='button' class=' col-md-6 btn btn-warning '>CHECK-IN</button></a>";
-		}
+		//if ($this->datosReserva[8] != NULL &&($this->hoy == $this->datosReserva[14] ||  $hs48 == $this->datosReserva[14] || $hs24 == $this->datosReserva[14] )) 
+		//{// se habilita el boton
+			$disabledButtonCheckIn = "<input type='submit' class=' col-md-6 btn btn-warning ' value='CHECK-IN'>";
+		//}
 		if ($this->hoy >= $this->datosReserva[14]) 
 			{ // se deshabilita el boton
 				$disabledButtonPago ="<a href='formularioPague.php'><button disabled='disabled' type='button' class=' col-md-6 btn btn-success '>PAGAR VUELO</button></a>";
@@ -138,10 +138,14 @@ class reserva
 		
 		<span>Precio:  $".$this->datosReserva[9]."</span>
 		</div>
+		<form action='checkIn.php' method='post' role='search'>
+		<input type='hidden' id='tipoAvion'  NAME='tipoAvion' value='".$this->datosReserva[20]."' /> //se envia tipo avion
 		<div class='form-group text-center col-md-12 '>
 		".$disabledButtonPago.$disabledButtonCheckIn."		
 		".$vueloPerdido."
+
 		</div>
+		</form>
 		</div>";
 		
 	}
@@ -193,6 +197,43 @@ class vuelo{
 		}
 		$conectar->query("INSERT INTO vuelos (codVuelo,fechaVuelo,codFrecuencia,codAvion) VALUES ('$this->codigoVuelo','$this->fechaVuelo',$this->codigoFrecuencia,'$this->modeloAvion')");
 	}
+	}
 }
+
+class planoLugares{
+	var $economy; // cantidad de lugares 
+	var $economyFilas; // filas economicas
+	var $economyCols; // columnas economicas
+	var $primera; // cantidad lugares primera 
+	var $primeraFilas;
+	var $primeraCols;
+	var $datosTipoAvion;
+	function __construct($tipoAvion)
+	{
+		switch ($tipoAvion)
+		 {
+			case '1':
+				$tabla = conexion::query("select * from tipo where tipoAvion=$tipoAvion");
+				break;
+			
+			case '2':
+				$tabla = conexion::query("select * from tipo where tipoAvion=$tipoAvion");
+				break;
+			
+			case '3':
+				$tabla = conexion::query("select * from tipo where tipoAvion=$tipoAvion");
+				break;
+			
+			case '4':
+				$tabla = conexion::query("select * from tipo where tipoAvion=$tipoAvion");
+				break;
+			default:
+				# code...
+				break;
+		}
+
+		$this->datosTipoAvion =  mysql_fetch_row($tabla);
+		
+	}
 }
 ?>
