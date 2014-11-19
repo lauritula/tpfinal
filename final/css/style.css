@@ -168,3 +168,8 @@ padding-bottom: 10px;
 .radioButton:checked + img{ /* (CHECKED) IMAGE STYLES */
   border:2px solid #f00;
 }
+
+/*check plano*/
+.table td {
+   text-align: center;   
+}
