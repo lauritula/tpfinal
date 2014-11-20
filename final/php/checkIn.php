@@ -15,7 +15,7 @@
 	
 	<link rel="stylesheet" type="text/css" href="../css/datepicker3.css">
 	<link href='http://fonts.googleapis.com/css?family=Roboto:700,500italic,300' rel='stylesheet' type='text/css'>
-	
+	<script src="../js/script.js"></script>
 	<title>Check In</title>
 </head>
 <body>
@@ -27,10 +27,11 @@
 	</nav>
 <?php 
 	$tipoAvion=$_POST['tipoAvion']; 
+	$codigoReserva=$_POST['codigoReserva']; 
 	$objConexion = new conexion;
 	$objConexion->conectar("tpfinal");
 	$objPlano = new planoLugares($tipoAvion);
-	$objPlano->plano();
+	$objPlano->plano($codigoReserva);
 	//echo "$tipoAvion";
 	//echo $objPlano->datosTipoAvion['primera'];
  ?>

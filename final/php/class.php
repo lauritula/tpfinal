@@ -140,6 +140,7 @@ class reserva
 		</div>
 		<form action='checkIn.php' method='post' role='search'>
 		<input type='hidden' id='tipoAvion'  NAME='tipoAvion' value='".$this->datosReserva[20]."' /> //se envia tipo avion
+		<input type='hidden' id='codigoReserva'  NAME='codigoReserva' value='".$this->codigoReserva."' /> //se envia tipo avion
 		<div class='form-group text-center col-md-12 '>
 		".$disabledButtonPago.$disabledButtonCheckIn."		
 		".$vueloPerdido."
@@ -204,8 +205,10 @@ class planoLugares{
 	var $economy; // cantidad de lugares 
 	var $primera; 
 	var $datosTipoAvion;
-	var $posicionPrimera = 0;
-	var $posicionEconomy = 0;
+	var $posicionPrimera=array();
+	var $posicionEconomy = array(array());
+	var $contadorPrimera=0;
+	var $contadorEconomy = 0;
 	function __construct($tipoAvion)
 	{	
 		switch ($tipoAvion)
@@ -233,9 +236,22 @@ class planoLugares{
 		$this->datosTipoAvion =  mysql_fetch_assoc($tabla);
 		
 	}
-	function plano()
-	{
+	function plano($codigoReserva)
+	{	
+		$objReserva = new reserva($codigoReserva);
+		$objReserva->buscarReserva();
+		$objReserva->datosReserva();
+		$this->contadorPrimera = 1;
+		$this->contadorEconomy = 1;
+	
+		if ($objReserva->datosReserva[10]=="Primera") {//si el cliente tiene pasaje primera 
+			$asiento = "<img src='../imagenes/asientos con fondo blanco/asiento2.jpg '> ";
+		}
+		else{
+		$asiento = "<img src='../imagenes/asientos con fondo blanco/asiento1.jpg '> ";	
+		}
 		
+
 		if ($this->datosTipoAvion['primera'] != 0) 
 		{
 			$this->primera = "<table class='table table-condensed'>";
@@ -244,23 +260,32 @@ class planoLugares{
 				$this->primera .= "<tr>";
 				for ($j=0; $j <$this->datosTipoAvion['primeraCols'] ; $j++)
 				{ 
-					$this->posicionPrimera++;
-					$this->primera .= "<td>". $this->posicionPrimera ."</td>";
+					
+					$this->primera .= "<td><button name='".$this->contadorPrimera."'>".$asiento .$this->contadorPrimera."</button></td>";
+					$this->posicionPrimera[$i][$j] = $this->contadorPrimera++;
 				}
 				$this->primera .= "</tr>";
 			}	
 			$this->primera .= "</table>";
 			
+			
 		}
-
-		$this->economy = "<table class='table table-condensed'>";
+		if ($objReserva->datosReserva[10]=="Economy") {//si el cliente tiene pasaje Economy 
+			$asiento = "<img src='../imagenes/asientos con fondo blanco/asiento2.jpg '> ";
+		} 
+		else{
+			$asiento = "<img src='../imagenes/asientos con fondo blanco/asiento1.jpg '> ";
+		}
+//echo $this->posicionPrimera[2][1];
+		$this->economy = "<table class='table table-condensed planilla'>";
 		for ($i=0; $i <$this->datosTipoAvion['economyFilas'] ; $i++) 
 		{ 
-			$this->economy .= "<tr>";
+			$this->economy .= "<tr class='plano'>";
 			for ($j=0; $j <$this->datosTipoAvion['economyCols'] ; $j++)
 			{ 
-				$this->posicionEconomy++;
-				$this->economy .= "<td>". $this->posicionEconomy."</td>";
+				
+				$this->economy .= "<td class='butaca'><button class=''name='".$this->contadorEconomy."'>".$asiento.$this->contadorEconomy."</button></td>";
+				$this->posicionEconomy[$i][$j]=$this->contadorEconomy++;
 			}
 			$this->economy .= "</tr>";
 		}	
