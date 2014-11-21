@@ -15,7 +15,7 @@
 	
 	<link rel="stylesheet" type="text/css" href="../css/datepicker3.css">
 	<link href='http://fonts.googleapis.com/css?family=Roboto:700,500italic,300' rel='stylesheet' type='text/css'>
-	<script src="../js/script.js"></script>
+
 	<title>Check In</title>
 </head>
 <body>
@@ -34,7 +34,9 @@
 	$objPlano->plano($codigoReserva);
 	//echo "$tipoAvion";
 	//echo $objPlano->datosTipoAvion['primera'];
+	echo "<input type='hidden' id='codigoReserva'  NAME='codigoReserva' value='".$codigoReserva."' />";
  ?>
+ 	
 	<div class="primera col-md-5  col-md-offset-3"> 
 	
 			<?php echo "$objPlano->primera"; ?>
@@ -43,5 +45,7 @@
 	<div class="economy col-md-5  col-md-offset-3"> 
 		<?php echo "$objPlano->economy"; ?>
 	</div>
+		<script src="../js/script.js"></script>
+		
 </body>
 </html>

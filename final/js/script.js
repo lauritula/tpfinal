@@ -125,8 +125,8 @@ $('.input-group.nacimiento').datepicker({
   format: "yyyy-mm-dd",
   language: "es",  
   endDate: "today",
-   startView: 2, 
- 
+  startView: 2, 
+
 });
 $('.input-group.date').datepicker({
   format: "dd-mm-yyyy (DD)",
@@ -167,35 +167,35 @@ $('.btn-login-submit').click(function(e){
   var origen=$('#origen').val();
   var calendario=$('#calendario').val();
   if (destino) {
-  if (jQuery.inArray(destino,states)== -1 ) {
-   $("#destinoError").last().addClass( "has-error has-feedback" );
-   bandera = 0;
-  }}
+    if (jQuery.inArray(destino,states)== -1 ) {
+     $("#destinoError").last().addClass( "has-error has-feedback" );
+     bandera = 0;
+   }}
    if (origen){
-   if (jQuery.inArray(origen,states)== -1) {
-   $("#origenError").last().addClass( "has-error has-feedback" );
-   bandera = 0;
-  }}
-   if (!calendario) {
-   $("#calendarioError").last().addClass( "has-error has-feedback" );
-   bandera = 0;
-  }
-if (bandera == 1){
-  
-  $('.login-box').fadeOut(function(){
-    $('.logged-in').fadeIn();
-  });
-  
-  setTimeout(function(){
+     if (jQuery.inArray(origen,states)== -1) {
+       $("#origenError").last().addClass( "has-error has-feedback" );
+       bandera = 0;
+     }}
+     if (!calendario) {
+       $("#calendarioError").last().addClass( "has-error has-feedback" );
+       bandera = 0;
+     }
+     if (bandera == 1){
+
+      $('.login-box').fadeOut(function(){
+        $('.logged-in').fadeIn();
+      });
+
+      setTimeout(function(){
     $('#busquedaVuelos #botonBusqueda').click(); // establece true el boton para cargar la pagina nueva 
     $("#busquedaVuelos").submit(); // continua luego de 2 s
 
 
-}, 2000);
-}
-});
+  }, 2000);
+    }
+  });
 /*cargar cliente */
- $('.created-in').fadeIn();
+$('.created-in').fadeIn();
 $('.btn-create-submit').click(function(e){
   e.preventDefault();
 
@@ -207,36 +207,36 @@ $('.btn-create-submit').click(function(e){
   var email=$('#email').val();
   var fechaNacimiento=$('#fechaNacimiento').val();
   expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
- 
+
   if (dni.length!=8) {
    $("#dniError").last().addClass( "has-error has-feedback" );
    bandera = 0;
-  }
-   
-   if (nombreApellido.length==0) {
+ }
+
+ if (nombreApellido.length==0) {
    $("#nombreApellidoError").last().addClass( "has-error has-feedback" );
    bandera = 0;
-  }
-    if (!email.match(expr)) {
+ }
+ if (!email.match(expr)) {
    $("#emailError").last().addClass( "has-error has-feedback" );
    bandera = 0;
-  }
-   if (!fechaNacimiento) {
+ }
+ if (!fechaNacimiento) {
    $("#fechaNacimientoError").last().addClass( "has-error has-feedback" );
    bandera = 0;
-  }
-if (bandera == 1){ 
-  
+ }
+ if (bandera == 1){ 
+
     $('#busquedaVuelos #cargarDatos').click(); // establece true el boton para cargar la pagina nueva 
     $("#busquedaVuelos").submit(); 
 
-}
+  }
 });
 
 // PAGO DE TARJETA 
 
  //$('.created-in').fadeIn();
-$('.btn-pago-submit').click(function(e){
+ $('.btn-pago-submit').click(function(e){
   e.preventDefault();
 
   var element = $(this).parent().parent().parent();
@@ -246,36 +246,54 @@ $('.btn-pago-submit').click(function(e){
   var codigoSeguridad=$('#codigoSeguridad').val();
   var numeroTarjeta=$('#numeroTarjeta').val();
   var fechaVencimiento=$('#fechaVencimiento').val();
- expr = /([0-99]+[0-99])/;
+  expr = /([0-99]+[0-99])/;
   if (codigoSeguridad.length!=3) {
    $("#codigoSeguridadError").last().addClass( "has-error has-feedback" );
    bandera = 0;
-  }
-   
-   if (nombreApellido.length==0) {
+ }
+
+ if (nombreApellido.length==0) {
    $("#nombreApellidoError").last().addClass( "has-error has-feedback" );
    bandera = 0;
-  }
-    if (numeroTarjeta.length != 16) {
+ }
+ if (numeroTarjeta.length != 16) {
    $("#numeroTarjetaError").last().addClass( "has-error has-feedback" );
    bandera = 0;
-  }
-   if (fechaVencimiento.length != 5 || !fechaVencimiento.match(expr)  ) {
+ }
+ if (fechaVencimiento.length != 5 || !fechaVencimiento.match(expr)  ) {
    $("#fechaVencimientoError").last().addClass( "has-error has-feedback" );
    bandera = 0;
-    
-  }
-if (bandera == 1){ 
-  
+
+ }
+ if (bandera == 1){ 
+
     $('#pagoTarjetaFormulario #cargarDatos').click(); // establece true el boton para cargar la pagina nueva 
     $("#pagoTarjetaFormulario").submit(); 
 
-}
+  }
 });
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/* BUTACAS AJAX*/
+$(function(){
 
+    $("button").on("click", function (e) {
+      console.log("adentro")
+        $("button").removeClass("btn-info "); // hace que solo alla un boton azul
+      $(this).addClass(" btn-info"); // pinta de azul
+
+      var data = $(this)
+//var reserva = $('#codigoReserva').val()
+    $.ajax({
+     data: data, // envia datos 
+     type: "post",
+     url: "../php/ajaxAsientos.php",
+      });
+    });
+ }); 
+/*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
 /*cambio de precio economy primera */
 /*
+
 $('.primera').hide();
  $( "#selector" ).change(function(){
     var selector=$('#selector').val();
@@ -289,52 +307,5 @@ $('.primera').hide();
      $('.economy').hide();
  }
  
- });*/
- /**/
-
- /*butacas*/
- //
-/*$(document).ready(function(){
-             //getdeails será nuestra función para enviar la solicitud ajax
-             var getdetails = function(id){
-                  return $.post( "personas.php", { "id" : id });
-             }
-
-              //al hacer click sobre cualquier elemento que tenga el atributo data-user.....
-              $('[data-user]').click(function(e){
-                    //Detenemos el comportamiento normal del evento click sobre el elemento clicado
-                    e.preventDefault();
-                    //Mostramos texto de que la solicitud está en curso
-                    $("#response-container").html("<p>Buscando...</p>");
-                    //this hace referencia al elemento que ha lanzado el evento click
-                    //con el método .data('user') obtenemos el valor del atributo data-user de dicho elemento y lo pasamos a la función getdetails definida anteriormente
-                    getdetails($(this).data('user'))
-                        .done( function( response ) {
-                            //done() es ejecutada cuándo se recibe la respuesta del servidor. response es el objeto JSON recibido
-                            if( response.success ) {
-                
-                                var output = "<h1>" + response.data.message + "</h1>";
-                                //recorremos cada usuario
-                                $.each(response.data.users, function( key, value ) {
-                                    output += "<h2>Detalles del usuario " + value['ID'] + "</h2>";
-                                    //recorremos los valores de cada usuario
-                                    $.each( value, function ( userkey, uservalue) {
-                                        output += '<ul>';
-                                        output += '<li>' + userkey + ': ' + uservalue + "</li>";
-                                        output += '</ul>';
-                                    });
-                                });
-
-                                //Actualizamos el HTML del elemento con id="#response-container"
-                                $("#response-container").html(output);
-
-                            } else {
-                                //response.success no es true
-                                $("#response-container").html('No ha habido suerte: ' + response.data.message);
-                            }
-                        })
-                        .fail(function( jqXHR, textStatus, errorThrown ) {
-                            $("#response-container").html("Algo ha fallado: " +  textStatus);
-                        });
-                    });
-                });*/
+});*/
+/**/

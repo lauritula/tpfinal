@@ -150,7 +150,6 @@ class reserva
 		</div>";
 		
 	}
-
 	function buscarReserva()
 	{
 		$conectar = new conexion();
@@ -236,6 +235,8 @@ class planoLugares{
 		$this->datosTipoAvion =  mysql_fetch_assoc($tabla);
 		
 	}
+
+	
 	function plano($codigoReserva)
 	{	
 		$objReserva = new reserva($codigoReserva);
@@ -243,12 +244,12 @@ class planoLugares{
 		$objReserva->datosReserva();
 		$this->contadorPrimera = 1;
 		$this->contadorEconomy = 1;
-	
+		
 		if ($objReserva->datosReserva[10]=="Primera") {//si el cliente tiene pasaje primera 
-			$asiento = "<img src='../imagenes/asientos con fondo blanco/asiento2.jpg '> ";
+			$asiento = "class='btn-success'><img src='../imagenes/asientos sin fondo blanco/asiento6.png '> ";
 		}
-		else{
-		$asiento = "<img src='../imagenes/asientos con fondo blanco/asiento1.jpg '> ";	
+		else{// cuando estan deshabilitados 
+			$asiento = "class = '' disabled='disabled'><img src='../imagenes/asientos sin fondo blanco/asiento4.png '> ";	
 		}
 		
 
@@ -261,7 +262,7 @@ class planoLugares{
 				for ($j=0; $j <$this->datosTipoAvion['primeraCols'] ; $j++)
 				{ 
 					
-					$this->primera .= "<td><button name='".$this->contadorPrimera."'>".$asiento .$this->contadorPrimera."</button></td>";
+					$this->primera .= "<td><button name='1' value='".$codigoReserva."P".$this->contadorPrimera."'".$asiento .$this->contadorPrimera."</button></td>";
 					$this->posicionPrimera[$i][$j] = $this->contadorPrimera++;
 				}
 				$this->primera .= "</tr>";
@@ -271,10 +272,10 @@ class planoLugares{
 			
 		}
 		if ($objReserva->datosReserva[10]=="Economy") {//si el cliente tiene pasaje Economy 
-			$asiento = "<img src='../imagenes/asientos con fondo blanco/asiento2.jpg '> ";
+			$asiento = "class='btn-success' ><img src='../imagenes/asientos sin fondo blanco/asiento6.png '> ";
 		} 
-		else{
-			$asiento = "<img src='../imagenes/asientos con fondo blanco/asiento1.jpg '> ";
+		else{// cuando estan dehabilidatos 
+			$asiento = "class = '' disabled='disabled'><img src='../imagenes/asientos sin fondo blanco/asiento4.png '> ";
 		}
 //echo $this->posicionPrimera[2][1];
 		$this->economy = "<table class='table table-condensed planilla'>";
@@ -284,7 +285,7 @@ class planoLugares{
 			for ($j=0; $j <$this->datosTipoAvion['economyCols'] ; $j++)
 			{ 
 				
-				$this->economy .= "<td class='butaca'><button class=''name='".$this->contadorEconomy."'>".$asiento.$this->contadorEconomy."</button></td>";
+				$this->economy .= "<td class='butaca'><button name='1'value='".$codigoReserva."E".$this->contadorEconomy."'".$asiento.$this->contadorEconomy."</button></td>";
 				$this->posicionEconomy[$i][$j]=$this->contadorEconomy++;
 			}
 			$this->economy .= "</tr>";
