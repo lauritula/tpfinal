@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-11-2014 a las 19:18:47
+-- Tiempo de generación: 22-11-2014 a las 21:32:19
 -- Versión del servidor: 5.6.20
 -- Versión de PHP: 5.5.15
 
@@ -477,6 +477,8 @@ CREATE TABLE IF NOT EXISTS `pasajero` (
 --
 
 INSERT INTO `pasajero` (`dni`, `nombre`, `email`, `fecha`) VALUES
+(0, 'juliana rabunal', '', '0000-00-00'),
+(11111111, 'pasaje 1', 'email1@gmail.com', '1990-11-24'),
 (11122233, 'juan gomez', 'juangomez@email.com', '1989-11-30'),
 (21542124, 'adrian', 'eladri@yahoo.com.ar', '1999-03-10'),
 (32165421, 'pedro aguilar', 'pedroaguilar@gmail.com', '1995-07-19'),
@@ -512,6 +514,7 @@ INSERT INTO `reserva` (`codigoReserva`, `dniPasajero`, `codVuelo`, `listaEspera`
 ('MK76CT', 32165421, 'AP11FS', NULL, NULL, 1952.01, 'primera', NULL, NULL),
 ('RK28IO', 87987987, 'OL49XI', NULL, NULL, 1952.01, 'Primera', NULL, NULL),
 ('TJ16ZX', 37895761, 'MA29DU', NULL, NULL, 1952.01, 'primera', NULL, NULL),
+('VX50DD', 11111111, 'KA42OW', NULL, NULL, 2860.98, 'Primera', NULL, NULL),
 ('YH40BZ', 65321321, 'HX76HP', NULL, NULL, 1097, 'Economy', NULL, NULL);
 
 -- --------------------------------------------------------
@@ -563,6 +566,7 @@ CREATE TABLE IF NOT EXISTS `vuelos` (
 INSERT INTO `vuelos` (`codVuelo`, `fechaVuelo`, `codFrecuencia`, `codAvion`) VALUES
 ('AP11FS', '2014-11-14', 15, 'LV-CDV'),
 ('HX76HP', '2014-11-19', 70, 'LV-IRY'),
+('KA42OW', '2014-11-30', 35, 'LV-UFO'),
 ('KG26YW', '2014-11-22', 15, 'LV-CDV'),
 ('MA29DU', '2014-11-29', 15, 'LV-IRY'),
 ('OL49XI', '2014-11-13', 15, 'LV-CDV'),
