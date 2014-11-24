@@ -126,6 +126,8 @@ $paginaCargar = "<div class='well create-box'>
 		$objReserva = new reserva($numeroReserva);
 		$objReserva->guardarReserva($dni,$codigoVuelo,$monto,$categoria);
 		$objReserva->datosReserva();
+		$objPlanoLugares = new planoLugares($objReserva->datosReserva[20]);//se crea el objeto con la cantidad de lugares en el avion
+		echo $objPlanoLugares->datosTipoAvion['primera'];
 		//muestra la pagina siguiente
 		$cargado = "<div class='created-in'>$objReserva->imprimirDatos <div class='pull-right'></div></div>";
 		echo "$cargado";

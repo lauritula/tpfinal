@@ -6,17 +6,28 @@ include 'class.php';
 function listado($tipoDeBusqueda,$dias){
 	$lista ="";
 	$contador= 1;
+	
+	
 	while ( $fila  = mysql_fetch_row($tipoDeBusqueda)) {
-		$lista .= "	<tr><td>$dias</td>
-		<td name='origen'>".$fila[10].",".$fila[9].",".$fila[8]."(".$fila[1].")"."</td>
-		<td name='destino'>".$fila[14].",".$fila[12].",".$fila[13]."(".$fila[2].")"."</td>
-		<td>
+		if ($fila[3] == 1) {
+	$selectorCategoria = "
 		<div class='col-md-12'>
+		<input TYPE='radio'  id='selectorEconomy' NAME='clase".$contador."' VALUE='economico' > Economy $".$fila[5]."
+		</div>";
+	}
+	else{
+		$selectorCategoria = "	<div class='col-md-12'>
 		<input TYPE='radio' id='selectorPrimera' NAME='clase".$contador."' VALUE='primera' CHECKED > Primera $".$fila[4]."
 		</div>
 		<div class='col-md-12'>
 		<input TYPE='radio'  id='selectorEconomy' NAME='clase".$contador."' VALUE='economico' > Economy $".$fila[5]."
-		</div>
+		</div>";
+	}
+		$lista .= "	<tr><td>$dias</td>
+		<td name='origen'>".$fila[10].",".$fila[9].",".$fila[8]."(".$fila[1].")"."</td>
+		<td name='destino'>".$fila[14].",".$fila[12].",".$fila[13]."(".$fila[2].")"."</td>
+		<td>".$selectorCategoria."
+	
 		</td>
 		<input type='hidden'   name='fecha' value='".$fecha= before('(',$dias)."' />
 		<input type='hidden'   name='tipoAvion".$contador."' value='".$fila[3]."' />
