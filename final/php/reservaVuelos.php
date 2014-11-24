@@ -127,7 +127,19 @@ $paginaCargar = "<div class='well create-box'>
 		$objReserva->guardarReserva($dni,$codigoVuelo,$monto,$categoria);
 		$objReserva->datosReserva();
 		$objPlanoLugares = new planoLugares($objReserva->datosReserva[20]);//se crea el objeto con la cantidad de lugares en el avion
-		echo $objPlanoLugares->datosTipoAvion['primera'];
+		// revisar si el vuelo se encuentra lleno
+		 $objPlanoLugares->datosTipoAvion['primera']; // cantidad de espacio en primera 
+		 
+		 if($objReserva->cantidadAsientos < $objPlanoLugares->datosTipoAvion['primera'])
+		 {
+		 	echo $objReserva->cantidadAsientos;
+		 	echo "hay lugar";
+		 }
+		 else{
+		 	echo $objReserva->cantidadAsientos;
+		 	echo "no hay mas lugar";
+		 }
+		 	
 		//muestra la pagina siguiente
 		$cargado = "<div class='created-in'>$objReserva->imprimirDatos <div class='pull-right'></div></div>";
 		echo "$cargado";

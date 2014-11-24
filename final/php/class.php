@@ -58,6 +58,7 @@ class reserva
 	var $datosReserva;
 	var $imprimirDatos;
 	var $hoy;
+	var $cantidadAsientos;
 
 	function __construct($codigoReserva)
 	{
@@ -148,15 +149,23 @@ class reserva
 		</div>
 		</form>
 		</div>";
-		
+		$tabla = conexion::query("select count(codigoReserva) cantidad from reserva where codVuelo = '$this->datosReserva[13]' and categoria = '$this->datosReserva[10]'");
+		$codigo = mysql_fetch_row($tabla);
+  		$this->cantidadAsientos = $codigo[0];
 	}
 	function buscarReserva()
 	{
-		$conectar = new conexion();
+	/*	$conectar = new conexion();
 
 		$tabla=$conectar->query("select codigoReserva from reserva where codigoReserva='$this->codigoReserva' ");
 		$codigo = mysql_fetch_assoc($tabla);
-		$this->codigoReserva =  $codigo['codigoReserva'];
+		$this->codigoReserva =  $codigo['codigoReserva'];*/
+	}
+	function contarReservas()
+	{
+		$tabla = conexion::query("select count(codigoReserva) cantidad from reserva where codVuelo = '$this->datosReserva[13]' and categoria = '$this->datosReserva[10]'");
+		$codigo = mysql_fetch_row($tabla);
+  		$this->cantidadAsientos = $codigo[0];
 	}
 }
 
