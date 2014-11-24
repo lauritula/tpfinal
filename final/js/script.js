@@ -260,14 +260,48 @@ $('.btn-create-submit').click(function(e){
    $("#numeroTarjetaError").last().addClass( "has-error has-feedback" );
     bandera = 0;
    }   
+ var tarjEmpresa = $('.tarjetaEmpresa').val();
  
 
- var numTarj=numeroTarjeta.toString();
- var numTarje=numTarj.substring(0,4);
- if (numTarje!='4540'){
-     $("#numeroTarjetaError").last().addClass( "has-error has-feedback" );
-  bandera=0;
-}
+
+ $(document).ready(function() {
+  $('input[type=radio][name=tarjetaEmpresa]').change(function() 
+    { if (this.value == 'visa') 
+      { 
+        var numTarj=numeroTarjeta.toString();
+        var numTarje=numTarj.substring(0,4);
+          if (numTarje!='4540')
+          {
+            $("#numeroTarjetaError").last().addClass( "has-error has-feedback" );
+             bandera=0;
+          }
+      
+      } 
+    else if (this.value == 'masterCard') 
+      {
+         var numTarj=numeroTarjeta.toString();
+           var numTarje=numTarj.substring(0,1);
+              if (numTarje!='5')
+              {
+                $("#numeroTarjetaError").last().addClass( "has-error has-feedback" );
+                 bandera=0;
+              }
+          
+      }
+          else if (this.value == 'cabal') 
+      {
+           var numTarj=numeroTarjeta.toString();
+           var numTarje=numTarj.substring(0,2);
+                if (numTarje!='58')
+                {
+                  $("#numeroTarjetaError").last().addClass( "has-error has-feedback" );
+                   bandera=0;
+                }   
+          
+      }
+   }
+   ); });
+
 
 
  if (fechaVencimiento.length != 5 || !fechaVencimiento.match(expr)  ) {

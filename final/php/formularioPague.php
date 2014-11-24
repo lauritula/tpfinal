@@ -30,10 +30,10 @@
 			<legend>Ingrese los datos de la tarjeta</legend>
 			<div  id='the-basics' >
 				<div class='form-group' >
-					<label><input class="radioButton" TYPE="radio" NAME="tarjetaEmpresa" VALUE="visa" CHECKED><img class="tarjetaLogo" src="../imagenes/visa.png"></label>
+					<label><input class="radioButton" class="tarjetaEmpresa" TYPE="radio" NAME="tarjetaEmpresa" VALUE="visa" CHECKED><img class="tarjetaLogo" src="../imagenes/visa.png"></label>
 					
-				<label><input  class="radioButton" TYPE="radio" NAME="tarjetaEmpresa" VALUE="masterCard"><img class="tarjetaLogo"  src="../imagenes/masterCard.jpg"></label>
-				<label><input  class="radioButton" TYPE="radio" NAME="tarjetaEmpresa" VALUE="cabal"><img class="tarjetaLogo"  src="../imagenes/cabal.jpg"></label>
+				<label><input  class="radioButton" class="tarjetaEmpresa" TYPE="radio" NAME="tarjetaEmpresa" VALUE="masterCard"><img class="tarjetaLogo"  src="../imagenes/masterCard.jpg"></label>
+				<label><input  class="radioButton" class="tarjetaEmpresa" TYPE="radio" NAME="tarjetaEmpresa" VALUE="cabal"><img class="tarjetaLogo"  src="../imagenes/cabal.jpg"></label>
 			</div>
 				<div class='form-group' id='nombreApellidoError'>
 					<label for='username-email'>Titular de la tarjeta</label>
