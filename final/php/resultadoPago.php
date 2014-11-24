@@ -28,9 +28,7 @@
 
 	
 
-		$numeroTarjeta=$_POST['numeroTarjeta']; 
-	
-		echo "$numeroTarjeta";	
+		
 	
 
 		

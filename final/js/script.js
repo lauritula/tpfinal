@@ -234,6 +234,34 @@ $('.btn-create-submit').click(function(e){
 });
 
 // PAGO DE TARJETA 
+ $(document).ready(function() {
+  $('input[type=radio][name=tarjetaEmpresa]').change(function() 
+    { if (this.value == 'visa') 
+      { 
+        alert(this.value);
+       
+        var tipoTarjeta = 'visa';
+      } 
+    else if (this.value == 'masterCard') 
+      {
+         alert(this.value);
+        var tipoTarjeta = 'masterCard';
+        
+            
+          
+      }
+          else if (this.value == 'cabal') 
+      {
+         alert(this.value);
+        var tipoTarjeta = 'cabal';
+         
+              
+          
+      }
+      
+   }
+   );
+
 
  //$('.created-in').fadeIn();
  $('.btn-pago-submit').click(function(e){
@@ -247,6 +275,7 @@ $('.btn-create-submit').click(function(e){
   var numeroTarjeta=$('#numeroTarjeta').val();
   var fechaVencimiento=$('#fechaVencimiento').val();
   expr = /([0-99]+[0-99])/;
+   var tipoTarjeta = 'visa';
   if (codigoSeguridad.length!=3) {
    $("#codigoSeguridadError").last().addClass( "has-error has-feedback" );
    bandera = 0;
@@ -259,48 +288,41 @@ $('.btn-create-submit').click(function(e){
  if (numeroTarjeta.length != 16) {
    $("#numeroTarjetaError").last().addClass( "has-error has-feedback" );
     bandera = 0;
-   }   
+   }  
+
  var tarjEmpresa = $('.tarjetaEmpresa').val();
  
-
-
- $(document).ready(function() {
-  $('input[type=radio][name=tarjetaEmpresa]').change(function() 
-    { if (this.value == 'visa') 
-      { 
-        var numTarj=numeroTarjeta.toString();
+ switch(tipoTarjeta) {
+    case 'visa':
+     var numTarj=numeroTarjeta.toString();
         var numTarje=numTarj.substring(0,4);
-          if (numTarje!='4540')
+           if (numTarje!='4540')
           {
             $("#numeroTarjetaError").last().addClass( "has-error has-feedback" );
              bandera=0;
           }
-      
-      } 
-    else if (this.value == 'masterCard') 
-      {
-         var numTarj=numeroTarjeta.toString();
+        break;
+    case 'masterCard':
+          var numTarj=numeroTarjeta.toString();
            var numTarje=numTarj.substring(0,1);
-              if (numTarje!='5')
+          if (numTarje!='5')
               {
                 $("#numeroTarjetaError").last().addClass( "has-error has-feedback" );
                  bandera=0;
               }
-          
-      }
-          else if (this.value == 'cabal') 
-      {
+        break;
+    case 'cabal':
            var numTarj=numeroTarjeta.toString();
            var numTarje=numTarj.substring(0,2);
-                if (numTarje!='58')
+          if (numTarje!='58')
                 {
                   $("#numeroTarjetaError").last().addClass( "has-error has-feedback" );
                    bandera=0;
                 }   
-          
-      }
-   }
-   ); });
+        break;
+    
+}
+
 
 
 
@@ -315,7 +337,7 @@ $('.btn-create-submit').click(function(e){
     $("#pagoTarjetaFormulario").submit(); 
 
   }
-});
+}); });
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 /* BUTACAS AJAX*/
 $(function(){
