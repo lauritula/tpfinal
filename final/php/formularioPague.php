@@ -47,7 +47,7 @@
 				</div>
 				<div class='form-group' id='fechaVencimientoError'>
 					<label for='password'>Fecha de Vencimiento</label>
-					<input type='text'  id='fechaVencimiento' class='  form-control ' name='fechaVencimiento' placeholder='mm-aa'>
+					<input type='text'  id='fechaVencimiento' class='  form-control ' name='fechaVencimiento' placeholder='mm/aa'>
 					<span class='glyphicon glyphicon-remove form-control-feedback'></span>
 				</div>
 				<div class='form-group' id='codigoSeguridadError'>
