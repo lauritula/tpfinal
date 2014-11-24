@@ -257,12 +257,19 @@ $('.btn-create-submit').click(function(e){
    bandera = 0;
  }
  if (numeroTarjeta.length != 16) {
-   numTarj= numeroTarjeta.toString();
-  if (numTarj!='4540'){
    $("#numeroTarjetaError").last().addClass( "has-error has-feedback" );
-   bandera = 0;
-   }
- }
+    bandera = 0;
+   }   
+ 
+
+ var numTarj=numeroTarjeta.toString();
+ var numTarje=numTarj.substring(0,4);
+ if (numTarje!='4540'){
+     $("#numeroTarjetaError").last().addClass( "has-error has-feedback" );
+  bandera=0;
+}
+
+
  if (fechaVencimiento.length != 5 || !fechaVencimiento.match(expr)  ) {
    $("#fechaVencimientoError").last().addClass( "has-error has-feedback" );
    bandera = 0;
