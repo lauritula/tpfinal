@@ -147,25 +147,20 @@ class reserva
 		
 		<span>Precio:  $".$this->datosReserva[9]."</span>
 		</div>
+		".$vueloPerdido."
 		<div class=' col-md-12 sinpadding'>
 		<form action='formularioPague.php' class=' col-md-6 sinpadding' method='post' role='search'>
 		<input type='hidden' id='tipoAvion'  NAME='tipoAvion' value='".$this->datosReserva[20]."' /> 
 		<input type='hidden' id='codigoReserva'  NAME='codigoReserva' value='".$this->codigoReserva."' /> 
 		
 		".$disabledButtonPago."		
-		".$vueloPerdido."
-
-		
 		</form>
 		<form action='checkIn.php' method='post'class=' col-md-6 sinpadding' role='search'>
 		<input type='hidden' id='tipoAvion'  NAME='tipoAvion' value='".$this->datosReserva[20]."' /> 
 		<input type='hidden' id='codigoReserva'  NAME='codigoReserva' value='".$this->codigoReserva."' /> 
-		
 		".$disabledButtonCheckIn."		
-		".$vueloPerdido."
-
-		
 		</form>
+
 		</div>
 		</div>";
 	/*	$tabla = conexion::query("select count(codigoReserva) cantidad from reserva where codVuelo = '".$this->datosReserva[13]."' and categoria = '".$this->datosReserva[10]. "'");
