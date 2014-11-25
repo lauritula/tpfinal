@@ -34,6 +34,9 @@
 					<button class="btn btn-default" type="submit" NAME="buscarPasaje" >busque su pasaje</button>
 				</form>
 			</li>
+			<li>
+				<img id="logoCabecera" alt="logoUNLAM" src="../imagenes/AeroUNLaM_gradient.png" >
+			</li>
 		</ul>
 
 	</nav>
