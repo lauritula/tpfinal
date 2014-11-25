@@ -37,6 +37,12 @@ padding-bottom: 10px;
   background-size: cover; 
     font-family: 'Open Sans', sans-serif!important;
 }
+
+#fondoLight {
+  background-image: url('../imagenes/beach_01_light.jpg');
+  background-size: cover; 
+    font-family: 'Open Sans', sans-serif!important;
+}
 .well{
  
   background: linear-gradient(to bottom,rgba(20, 99, 221, 0.64) 0,rgba(202, 208, 205, 0.85) 100%);

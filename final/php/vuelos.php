@@ -133,7 +133,7 @@ function diaFormato($diasBinario){
 	<link rel="stylesheet" type="text/css" href="../css/style.css">
 	<title>Vuelos disponibles</title>
 </head>
-<body>
+<body id="fondoLight">
 	<nav class="navbar navbar-inverse col-md-12" role="navigation">
 		<ul  class="nav navbar-nav">
 			<li class="active"><a href="index.php">Home</a></li>

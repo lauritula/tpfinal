@@ -20,7 +20,7 @@ include "class.php";
 	
 	<title>Reserva de vuelos</title>
 </head>
-<body>
+<body id="fondoLight">
 	<nav class="navbar navbar-inverse" role="navigation">
 		<ul  class="nav navbar-nav">
 			<li class="active"><a href="index.php">Home</a></li>
