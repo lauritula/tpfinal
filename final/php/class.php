@@ -108,6 +108,12 @@ class reserva
 			$disabledButtonPago = "";
 			$vueloPerdido = "<button  type='button' disabled='disabled' class=' col-md-12 btn btn-danger '>¡el vuelo ya partio! </button>";
 		}	
+		if ($this->datosReserva[7]) // en caso de encontrarse en espera
+		{// se borran los dos botones
+			$disabledButtonCheckIn = ""; 
+			$disabledButtonPago = "";
+			$vueloPerdido = "<button  type='button' disabled='disabled' class=' col-md-12 btn btn-danger '>¡Aun no hay vacantes! </button>";
+		}	
 
 		$this->imprimirDatos = "
 		<div class='well create-box'>
@@ -140,8 +146,8 @@ class reserva
 		<span>Precio:  $".$this->datosReserva[9]."</span>
 		</div>
 		<form action='checkIn.php' method='post' role='search'>
-		<input type='hidden' id='tipoAvion'  NAME='tipoAvion' value='".$this->datosReserva[20]."' /> //se envia tipo avion
-		<input type='hidden' id='codigoReserva'  NAME='codigoReserva' value='".$this->codigoReserva."' /> //se envia tipo avion
+		<input type='hidden' id='tipoAvion'  NAME='tipoAvion' value='".$this->datosReserva[20]."' /> 
+		<input type='hidden' id='codigoReserva'  NAME='codigoReserva' value='".$this->codigoReserva."' /> 
 		<div class='form-group text-center col-md-12 '>
 		".$disabledButtonPago.$disabledButtonCheckIn."		
 		".$vueloPerdido."
@@ -149,23 +155,31 @@ class reserva
 		</div>
 		</form>
 		</div>";
-		$tabla = conexion::query("select count(codigoReserva) cantidad from reserva where codVuelo = '$this->datosReserva[13]' and categoria = '$this->datosReserva[10]'");
+	/*	$tabla = conexion::query("select count(codigoReserva) cantidad from reserva where codVuelo = '".$this->datosReserva[13]."' and categoria = '".$this->datosReserva[10]. "'");
 		$codigo = mysql_fetch_row($tabla);
-  		$this->cantidadAsientos = $codigo[0];
+  		$this->cantidadAsientos = $codigo[0];*/
 	}
 	function buscarReserva()
 	{
-	/*	$conectar = new conexion();
+	$conectar = new conexion();
 
 		$tabla=$conectar->query("select codigoReserva from reserva where codigoReserva='$this->codigoReserva' ");
 		$codigo = mysql_fetch_assoc($tabla);
-		$this->codigoReserva =  $codigo['codigoReserva'];*/
+		$this->codigoReserva =  $codigo['codigoReserva'];
 	}
 	function contarReservas()
 	{
-		$tabla = conexion::query("select count(codigoReserva) cantidad from reserva where codVuelo = '$this->datosReserva[13]' and categoria = '$this->datosReserva[10]'");
+		$tabla = conexion::query("select count(codigoReserva) cantidad from reserva where codVuelo = '".$this->datosReserva[13]."' and categoria = '".$this->datosReserva[10]. "'");
 		$codigo = mysql_fetch_row($tabla);
   		$this->cantidadAsientos = $codigo[0];
+	}
+	function eliminarReserva()
+	{
+		conexion::query("DELETE FROM reserva WHERE codigoReserva = '$this->codigoReserva'");
+	}
+	function colaEspera()
+	{
+		conexion::query("");
 	}
 }
 

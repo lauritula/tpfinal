@@ -67,9 +67,9 @@ $paginaCargar = "<div class='well create-box'>
 	<?php 
 	/* captura el boton que se acciono el la pagina anterior*/
 	$x = 0;
-	if(!isset($_POST['cargarDatos']))  {
+	if(!isset($_POST['cargarDatos']) && !isset($_POST['guardarEspera']) && !isset($_POST['eliminarReserva']))  {
 	do {
-		# code...
+		
 		$x++;
 		if(isset($_POST['reservar'.$x.'']) && !isset($_POST['cargarDatos']))  {
 			$fecha=$_POST['fecha'];
@@ -90,14 +90,14 @@ $paginaCargar = "<div class='well create-box'>
 		if ($clase == "economico")
 		{
 			echo "<input type='hidden' name='monto' value='".$precioEconomy."' />";
-			echo "<input type='hidden' name='categoria' value='Economy' />";
+			echo "<input type='hidden' name='categoria' value='economy' />";
 		}
 			
 		
 		else
 		{
 			echo "<input type='hidden' name='monto' value='".$precioPrimera."' />";
-			echo "<input type='hidden' name='categoria' value='Primera' />";
+			echo "<input type='hidden' name='categoria' value='primera' />";
 		}
 			
 		
@@ -106,7 +106,7 @@ $paginaCargar = "<div class='well create-box'>
 	}	
 
 	/*submit en el formulario*/
-	else {
+	if (isset($_POST['cargarDatos'])){
 		$objConexion = new conexion;
 		$objConexion->conectar("tpfinal");
 		$numeroReserva = chr(rand(65,90)) . chr(rand(65,90)) . intval( "0" . rand(1,9) . rand(0,9)) . chr(rand(65,90)) . chr(rand(65,90)); 
@@ -126,36 +126,96 @@ $paginaCargar = "<div class='well create-box'>
 		$objReserva = new reserva($numeroReserva);
 		$objReserva->guardarReserva($dni,$codigoVuelo,$monto,$categoria);
 		$objReserva->datosReserva();
+		$objReserva->contarReservas();
 		$objPlanoLugares = new planoLugares($objReserva->datosReserva[20]);//se crea el objeto con la cantidad de lugares en el avion
-		// revisar si el vuelo se encuentra lleno
-		 $objPlanoLugares->datosTipoAvion['primera']; // cantidad de espacio en primera 
-		 
-		 if($objReserva->cantidadAsientos < $objPlanoLugares->datosTipoAvion['primera'])
+		
+		
+		 // revisar si el vuelo se encuentra lleno
+		 if($objReserva->cantidadAsientos < $objPlanoLugares->datosTipoAvion["$categoria"]) // cantidad de espacio  
 		 {
-		 	echo $objReserva->cantidadAsientos;
-		 	echo "hay lugar";
-		 }
-		 else{
-		 	echo $objReserva->cantidadAsientos;
-		 	echo "no hay mas lugar";
-		 }
 		 	
+
 		//muestra la pagina siguiente
 		$cargado = "<div class='created-in'>$objReserva->imprimirDatos <div class='pull-right'></div></div>";
 		echo "$cargado";
 		// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+		 	//echo $objReserva->cantidadAsientos;
+		 	//echo "hay lugar";
+		 }
+		 else{// no hay lugar
+		 	$numeroEspera = $objReserva->cantidadAsientos  - $objPlanoLugares->datosTipoAvion["$categoria"];
+		 	echo  "<div class='well create-box'>
+		<legend>VUELO LLENO  </legend>	
+		<legend>Reserva     ".$objReserva->datosReserva[4]."</legend>
+		<div  id='the-basics' >
+		<div class='form-group ' >
+		<span class='col-md-6'>Vuelo Numero: ".$objReserva->datosReserva[13]."</span>
+		<span class='col-md-6'>Fecha:  ".$objReserva->datosReserva[14]."</span>
+		</div>
+		<div class='form-group ' >
+		<span>Origen:  ".$objReserva->datosReserva[25] ."/". $objReserva->datosReserva[26] ."/".  $objReserva->datosReserva[27]."</span>
+		</div>
+		<div class='form-group ' >
+		<span>destino:  ".$objReserva->datosReserva[29]  ."/". $objReserva->datosReserva[30] ."/".  $objReserva->datosReserva[31]." </span>
+		</div>
+		<div class='form-group ' >
+		<span>Nombre:".$objReserva->datosReserva[1]."</span>
+		</div>
+		<div class='form-group ' >
+		<span>Documento:".$objReserva->datosReserva[0]."</span>
+		</div>
+		<div class='form-group ' >
+		<span>E-mail:  ".$objReserva->datosReserva[2]."</span>
+		</div>
+		<div class='form-group ' >
+		<span>Categoria:  ".$objReserva->datosReserva[10]."</span>
+		</div>
+		<div class='form-group ' >
+		
+		<span>Precio:  $".$objReserva->datosReserva[9]."</span>
+		</div>
+		<form action='reservaVuelos.php' method='post' role='search'>
+		
+		<input type='hidden' id='codigoReserva'  NAME='codigoReserva' value='".$objReserva->codigoReserva."' />
+		<input type='hidden' id='numeroEspera'  NAME='numeroEspera' value='".$numeroEspera."' />
+		<input type='submit' id='guardarEspera'NAME='guardarEspera' value='Guarda lista de espera'class=' col-md-12 btn btn-info '   />
+		<input type='submit' id='eliminarReserva'NAME='eliminarReserva' value='Eliminar reserva' class=' col-md-12 btn btn-info'   />
+		</div>
+		</form>
+		</div>";
+		 }
+	
+
 
 	
 		
 		$objConexion->desconectar();
-
-
-		
-
-
-
 	}
+if (isset($_POST['guardarEspera'])){		
+		$objConexion = new conexion;
+		$objConexion->conectar("tpfinal");
+		$codigoReserva=$_POST['codigoReserva'];
+		$numeroEspera=$_POST['numeroEspera'];
+		$objConexion->query("UPDATE reserva SET listaEspera='$numeroEspera' where codigoReserva = '$codigoReserva'");
+		$objConexion->desconectar();
+		echo  "<div class='well create-box'>
+		<legend>Numero de espera ".$numeroEspera." </legend>	
+		<legend>Reserva     ".$codigoReserva."</legend>
+		</div>";
+
+
+}
+if (isset($_POST['eliminarReserva'])){
+		$objConexion = new conexion;
+		$objConexion->conectar("tpfinal");
+		$codigoReserva=$_POST['codigoReserva'];
+		$objReserva = new reserva($codigoReserva);
+		$objReserva->eliminarReserva();
+		$objConexion->desconectar();
+		header('location: index.php');
+
+}
 
 	?>
 
