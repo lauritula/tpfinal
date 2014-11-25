@@ -48,4 +48,10 @@
 		<script src="../js/script.js"></script>
 		
 </body>
+	<footer class="bs-docs-footer col-md-12" role="contentinfo">
+		<p>Universidad Nacional de La Matanza</p>
+		<p> Programacion Web 2 - Trabajo Practico Final</p>
+		<p>Metallo, M. / Rabuñal, J. / Sanchez, M. / Tula, L.</p>
+		<p>2C 2014</p>
+	</footer>
 </html>

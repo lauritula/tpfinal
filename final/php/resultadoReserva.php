@@ -68,14 +68,11 @@ include "class.php";
 
 
 	<footer class="bs-docs-footer col-md-12" role="contentinfo">
-
-		<p>Calle xxxx - xxxx - localidad
-			( B1714ALE ) - Buenos Aires - Argentina</p>
-			<p>Tel/Fax: ( 54-11 ) 4444-4444 / 5555-5555</p>
-			<p>Mail:  mail@mail.com.ar</p>
-			<p>Web:   http://www.php.com.ar</p>
-
-		</footer>
+		<p>Universidad Nacional de La Matanza</p>
+		<p> Programacion Web 2 - Trabajo Practico Final</p>
+		<p>Metallo, M. / Rabuñal, J. / Sanchez, M. / Tula, L.</p>
+		<p>2C 2014</p>
+	</footer>
 
 		<script src="../js/script.js"></script>
 	</body>
