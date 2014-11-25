@@ -13,7 +13,7 @@
 	<link rel="stylesheet" type="text/css" href="../css/style.css">
 	
 	<link rel="stylesheet" type="text/css" href="../css/datepicker3.css">
-	<!-- <link href='http://fonts.googleapis.com/css?family=Roboto:700,500italic,300' rel='stylesheet' type='text/css'> -->
+	<link href='http://fonts.googleapis.com/css?family=Roboto:700,500italic,300' rel='stylesheet' type='text/css'> 
 	
 	<title>Pago</title>
 </head>
@@ -25,6 +25,11 @@
 		</ul>
 
 	</nav>
+<?php 
+$codigoReserva=$_POST['codigoReserva'];
+$hidden = "<input type='hidden' id='codigoReserva'  NAME='codigoReserva' value='".$codigoReserva."' /> "
+ ?>
+
 	 <div class='well pago-box'>
 		<form id='pagoTarjetaFormulario' action='resultadoPago.php' method='post' role='search'>
 			<legend>Ingrese los datos de la tarjeta</legend>
@@ -60,8 +65,9 @@
 			
 				
 				<input type='submit' value="PAGAR VUELO" class=' col-md-12 btn btn-success btn-pago-submit'   />
-				<input type='hidden' id='cargarDatos'  NAME='cargarDatos' value='Cargar' />
-
+				<input type='hidden' id='cargarPago'  NAME='cargarPago' value='Cargar' />
+				<?php echo $hidden; ?> <!-- envia el numero de reserva  -->
+			</form>
 				<script src="../js/script.js"></script>
 </body>
 </html>

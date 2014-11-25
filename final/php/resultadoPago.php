@@ -1,3 +1,6 @@
+<?php 
+include "class.php";
+ ?>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -25,7 +28,14 @@
 	</nav>
 
 		<?php
+		if (isset($_POST['cargarPago'])){	
+			$codigoReserva=$_POST['codigoReserva'];
+			$objConexion = new conexion;
+		$objConexion->conectar("tpfinal");
 
+		$hoy = date('Y-m-d');
+		$objConexion->query("UPDATE reserva SET fechaPago='$hoy' where codigoReserva = '$codigoReserva'");
+		}
 	
 
 		

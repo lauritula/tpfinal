@@ -78,9 +78,7 @@ class reserva
 	}
 	function datosReserva()
 	{
-		$vueloPerdido = "";
-		$disabledButtonCheckIn = "<a href='checkIn.php'><button type='button' disabled='disabled' class=' col-md-6 btn btn-warning '>CHECK-IN</button></a>";
-		$disabledButtonPago = "<a href='formularioPague.php'><button  type='button' class=' col-md-6 btn btn-success '>PAGAR VUELO</button></a>";
+		
 		$conectar = new conexion();		
 		$hs24 = date('Y-m-d',strtotime($this->hoy . "1 days "));
 		$hs48 = date('Y-m-d',strtotime($this->hoy . "2 days "));
@@ -94,13 +92,17 @@ class reserva
 			where r.codigoReserva  = '$this->codigoReserva'");
 		$this->datosReserva =  mysql_fetch_row($tabla);
 
-		//if ($this->datosReserva[8] != NULL &&($this->hoy == $this->datosReserva[14] ||  $hs48 == $this->datosReserva[14] || $hs24 == $this->datosReserva[14] )) 
-		//{// se habilita el boton
-		$disabledButtonCheckIn = "<input type='submit' class=' col-md-6 btn btn-warning ' value='CHECK-IN'>";
-		//}
+		$vueloPerdido = "";
+		$disabledButtonCheckIn = "<a href='checkIn.php'><button type='button' disabled='disabled' class=' col-md-12 btn btn-warning  sinpadding'>CHECK-IN</button></a>";//deshablitado
+		$disabledButtonPago = "<input name='pagar'  value='PAGAR VUELO' type='submit' class=' col-md-12 btn btn-success sinpadding '>";// habilitado
+
+		if ($this->datosReserva[8] != NULL &&($this->hoy == $this->datosReserva[14] ||  $hs48 == $this->datosReserva[14] || $hs24 == $this->datosReserva[14] )) 
+		{// se habilita el boton
+		$disabledButtonCheckIn = "<input type='submit' class=' col-md-6 btn btn-warning sinpadding' value='CHECK-IN'>";
+		}
 		if ($this->hoy >= $this->datosReserva[14]) 
 			{ // se deshabilita el boton
-				$disabledButtonPago ="<a href='formularioPague.php'><button disabled='disabled' type='button' class=' col-md-6 btn btn-success '>PAGAR VUELO</button></a>";
+				$disabledButtonPago ="<input disabled='disabled' value='PAGAR VUELO'   type='submit' class=' col-md-12 btn btn-success sinpadding '>";
 			}
 			if ($this->hoy > $this->datosReserva[14])
 		{// se borran los dos botones
@@ -145,15 +147,26 @@ class reserva
 		
 		<span>Precio:  $".$this->datosReserva[9]."</span>
 		</div>
-		<form action='checkIn.php' method='post' role='search'>
+		<div class=' col-md-12 sinpadding'>
+		<form action='formularioPague.php' class=' col-md-6 sinpadding' method='post' role='search'>
 		<input type='hidden' id='tipoAvion'  NAME='tipoAvion' value='".$this->datosReserva[20]."' /> 
 		<input type='hidden' id='codigoReserva'  NAME='codigoReserva' value='".$this->codigoReserva."' /> 
-		<div class='form-group text-center col-md-12 '>
-		".$disabledButtonPago.$disabledButtonCheckIn."		
+		
+		".$disabledButtonPago."		
 		".$vueloPerdido."
 
-		</div>
+		
 		</form>
+		<form action='checkIn.php' method='post'class=' col-md-6 sinpadding' role='search'>
+		<input type='hidden' id='tipoAvion'  NAME='tipoAvion' value='".$this->datosReserva[20]."' /> 
+		<input type='hidden' id='codigoReserva'  NAME='codigoReserva' value='".$this->codigoReserva."' /> 
+		
+		".$disabledButtonCheckIn."		
+		".$vueloPerdido."
+
+		
+		</form>
+		</div>
 		</div>";
 	/*	$tabla = conexion::query("select count(codigoReserva) cantidad from reserva where codVuelo = '".$this->datosReserva[13]."' and categoria = '".$this->datosReserva[10]. "'");
 		$codigo = mysql_fetch_row($tabla);
