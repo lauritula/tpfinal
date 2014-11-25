@@ -169,11 +169,13 @@ $('.btn-login-submit').click(function(e){
   if (destino) {
     if (jQuery.inArray(destino,states)== -1 ) {
      $("#destinoError").last().addClass( "has-error has-feedback" );
+     $("#iconoDestinoError").removeClass("invisible");
      bandera = 0;
    }}
    if (origen){
      if (jQuery.inArray(origen,states)== -1) {
        $("#origenError").last().addClass( "has-error has-feedback" );
+       $("#iconoOrigenError").removeClass("invisible");
        bandera = 0;
      }}
      if (!calendario) {
@@ -210,15 +212,18 @@ $('.btn-create-submit').click(function(e){
 
   if (dni.length!=8) {
    $("#dniError").last().addClass( "has-error has-feedback" );
+       $("#iconoErrorDni").removeClass("invisible");
    bandera = 0;
  }
 
  if (nombreApellido.length==0) {
    $("#nombreApellidoError").last().addClass( "has-error has-feedback" );
+   $("#iconoErrorNombre").removeClass("invisible");
    bandera = 0;
  }
  if (!email.match(expr)) {
    $("#emailError").last().addClass( "has-error has-feedback" );
+   $("#iconoErrorEmail").removeClass("invisible");
    bandera = 0;
  }
  if (!fechaNacimiento) {

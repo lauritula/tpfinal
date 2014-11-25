@@ -35,17 +35,17 @@ $paginaCargar = "<div class='well create-box'>
 				<div class='form-group' id='nombreApellidoError'>
 					<label for='username-email'>Ingrese su Nombre y Apellido</label>
 					<input type='text'  id='nombreApellido' class='  form-control ' name='nombreApellido' placeholder='Nombre y Apellido'>
-					<span class='glyphicon glyphicon-remove form-control-feedback'></span>
+					<span id='iconoErrorNombre' class='glyphicon glyphicon-remove form-control-feedback invisible'></span>
 				</div>
 				<div class='form-group' id='dniError'>
 					<label for='password'>Ingrese su DNI (ej.12345678)</label>
 					<input type='text'  id='dni' class='  form-control ' name='dni' placeholder='DNI'>
-					<span class='glyphicon glyphicon-remove form-control-feedback'></span>
+					<span id='iconoErrorDni' class='glyphicon glyphicon-remove form-control-feedback invisible'></span>
 				</div>
 				<div class='form-group' id='emailError'>
 					<label for='password'>Ingrese su E-mail</label>
 					<input type='text'  id='email' class='  form-control ' name='email' placeholder='email'>
-					<span class='glyphicon glyphicon-remove form-control-feedback'></span>
+					<span  id='iconoErrorEmail' class='glyphicon glyphicon-remove form-control-feedback invisible'></span>
 				</div>
 			</div>
 			<label for='password'>Selecione la fecha de nacimiento </label>

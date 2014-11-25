@@ -98,7 +98,7 @@ class reserva
 
 		if ($this->datosReserva[8] != NULL &&($this->hoy == $this->datosReserva[14] ||  $hs48 == $this->datosReserva[14] || $hs24 == $this->datosReserva[14] )) 
 		{// se habilita el boton
-		$disabledButtonCheckIn = "<input type='submit' class=' col-md-6 btn btn-warning sinpadding' value='CHECK-IN'>";
+		$disabledButtonCheckIn = "<input type='submit' class=' col-md-12 btn btn-warning sinpadding' value='CHECK-IN'>";
 		}
 		if ($this->hoy >= $this->datosReserva[14]) 
 			{ // se deshabilita el boton
@@ -276,7 +276,7 @@ class planoLugares{
 		$this->contadorPrimera = 1;
 		$this->contadorEconomy = 1;
 		
-		if ($objReserva->datosReserva[10]=="Primera") {//si el cliente tiene pasaje primera 
+		if ($objReserva->datosReserva[10]=="primera") {//si el cliente tiene pasaje primera 
 			$asiento = "class='btn-success'><img src='../imagenes/asientos sin fondo blanco/asiento6.png '> ";
 		}
 		else{// cuando estan deshabilitados 
@@ -302,7 +302,7 @@ class planoLugares{
 			
 			
 		}
-		if ($objReserva->datosReserva[10]=="Economy") {//si el cliente tiene pasaje Economy 
+		if ($objReserva->datosReserva[10]=="economy") {//si el cliente tiene pasaje Economy 
 			$asiento = "class='btn-success' ><img src='../imagenes/asientos sin fondo blanco/asiento6.png '> ";
 		} 
 		else{// cuando estan dehabilidatos 

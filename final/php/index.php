@@ -25,19 +25,25 @@
 	<title>Busqueda</title>
 </head>
 <body id="menuBusqueda">
+
 	<nav class="navbar navbar-inverse" role="navigation">
+
 		<ul  class="nav navbar-nav">
-			<li><a href="">Home</a></li>
-			<li>
+		
+				
+			
+			<li><img id=""  alt="logoUNLAM" src="../imagenes/AeroUNLaM_gradient.png" ></li>
+			
+
+			
+		</ul>
+		<ul class="nav navbar-nav logo "><li class="logo">
 				<form class="navbar-form navbar-left" action="resultadoReserva.php" method="post" role="search">
 					<input name="numReserva">
-					<button class="btn btn-default" type="submit" NAME="buscarPasaje" >busque su pasaje</button>
+					<button class="btn btn-info" type="submit" NAME="buscarPasaje" >busque su pasaje</button>
 				</form>
-			</li>
-			<li>
-				<img id="logoCabecera" alt="logoUNLAM" src="../imagenes/AeroUNLaM_gradient.png" >
-			</li>
-		</ul>
+			</li></ul>
+<div class=" logo" ></div>	
 
 	</nav>
 
@@ -50,12 +56,12 @@
 			<div class="form-group" id="origenError">
 				<label for="username-email">Ingrese su ciudad</label>
 				<input type="text"  id="origen" class=" typeahead form-control " name="origen" placeholder="origen">
-				<span class="glyphicon glyphicon-remove form-control-feedback"></span>
+				<span id="iconoOrigenError" class="glyphicon glyphicon-remove form-control-feedback invisible"></span>
 			</div>
 			<div class="form-group" id="destinoError">
 				<label for="password">Ingrese la ciudad de destino</label>
 				<input type="text"  id="destino" class=" typeahead form-control " name="destino" placeholder="destino">
-				<span class="glyphicon glyphicon-remove form-control-feedback"></span>
+				<span id="iconoDestinoError" class="glyphicon glyphicon-remove form-control-feedback invisible"></span>
 			</div>
 			</div>
 			<label for="password">Selecione la fecha de vuelo </label>
