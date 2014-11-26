@@ -9,7 +9,7 @@ function listado($tipoDeBusqueda,$dias){
 	
 	
 	while ( $fila  = mysql_fetch_row($tipoDeBusqueda)) {
-		if ($fila[3] == 1) {
+		if ($fila[3] == 1) {// cuando el avion no tiene primera , no aparece la opcion de primera 
 	$selectorCategoria = "
 		<div class='col-md-12'>
 		<input TYPE='radio'  id='selectorEconomy' NAME='clase".$contador."' VALUE='economico' > Economy $".$fila[5]."

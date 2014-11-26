@@ -97,11 +97,11 @@ class reserva
 		$disabledButtonPago = "<input name='pagar'  value='PAGAR VUELO' type='submit' class=' col-md-12 btn btn-success sinpadding '>";// habilitado
 
 		if ($this->datosReserva[8] != NULL &&($this->hoy == $this->datosReserva[14] ||  $hs48 == $this->datosReserva[14] || $hs24 == $this->datosReserva[14] )) 
-		{// se habilita el boton
-		$disabledButtonCheckIn = "<input type='submit' class=' col-md-12 btn btn-warning sinpadding' value='CHECK-IN'>";
+		{// se habilita el boton cuando el clinte pago y se encuentra dentro de  las 48 hs 
+			$disabledButtonCheckIn = "<input type='submit' class=' col-md-12 btn btn-warning sinpadding' value='CHECK-IN'>";
 		}
-		if ($this->hoy >= $this->datosReserva[14]) 
-			{ // se deshabilita el boton
+		if ($this->hoy >= $this->datosReserva[14] ||  $this->datosReserva[8] != NULL) 
+			{ // se deshabilita el boton cuando ya se encuentra dentro de las 24 hs del vuelo o el vuelo ya este pago 
 				$disabledButtonPago ="<input disabled='disabled' value='PAGAR VUELO'   type='submit' class=' col-md-12 btn btn-success sinpadding '>";
 			}
 			if ($this->hoy > $this->datosReserva[14])
@@ -165,11 +165,11 @@ class reserva
 		</div>";
 	/*	$tabla = conexion::query("select count(codigoReserva) cantidad from reserva where codVuelo = '".$this->datosReserva[13]."' and categoria = '".$this->datosReserva[10]. "'");
 		$codigo = mysql_fetch_row($tabla);
-  		$this->cantidadAsientos = $codigo[0];*/
+		$this->cantidadAsientos = $codigo[0];*/
 	}
 	function buscarReserva()
 	{
-	$conectar = new conexion();
+		$conectar = new conexion();
 
 		$tabla=$conectar->query("select codigoReserva from reserva where codigoReserva='$this->codigoReserva' ");
 		$codigo = mysql_fetch_assoc($tabla);
@@ -179,7 +179,7 @@ class reserva
 	{
 		$tabla = conexion::query("select count(codigoReserva) cantidad from reserva where codVuelo = '".$this->datosReserva[13]."' and categoria = '".$this->datosReserva[10]. "'");
 		$codigo = mysql_fetch_row($tabla);
-  		$this->cantidadAsientos = $codigo[0];
+		$this->cantidadAsientos = $codigo[0];
 	}
 	function eliminarReserva()
 	{
@@ -235,8 +235,6 @@ class planoLugares{
 	var $economy; // cantidad de lugares 
 	var $primera; 
 	var $datosTipoAvion;
-	var $posicionPrimera=array();
-	var $posicionEconomy = array(array());
 	var $contadorPrimera=0;
 	var $contadorEconomy = 0;
 	function __construct($tipoAvion)
@@ -275,26 +273,47 @@ class planoLugares{
 		$objReserva->datosReserva();
 		$this->contadorPrimera = 1;
 		$this->contadorEconomy = 1;
-		
-		if ($objReserva->datosReserva[10]=="primera") {//si el cliente tiene pasaje primera 
-			$asiento = "class='btn-success'><img src='../imagenes/asientos sin fondo blanco/asiento6.png '> ";
-		}
-		else{// cuando estan deshabilitados 
-			$asiento = "class = '' disabled='disabled'><img src='../imagenes/asientos sin fondo blanco/asiento4.png '> ";	
-		}
-		
+		$asientoOcupado = "class = '' disabled='disabled'><img src='../imagenes/asientos sin fondo blanco/asiento4.png '> ";
+		$asientoDesocupado = "class='btn-success'><img src='../imagenes/asientos sin fondo blanco/asiento6.png '> ";
 
-		if ($this->datosTipoAvion['primera'] != 0) 
+		$ocupados = 0;
+		$deshabilitado = 0;
+
+		// asientos ocupados 
+		$tabla = conexion::query("select * from reserva where codVuelo = '".$objReserva->datosReserva[13]."'");
+		
+		while ( $butaca  = mysql_fetch_assoc($tabla)) // asigna a un array las variables de BD
+		{
+			$butacas[$ocupados] = $butaca['asiento'];
+			$ocupados++;			
+		}
+
+		
+		if ($this->datosTipoAvion['primera'] != 0) // si el avion no tiene primera no lo crea
 		{
 			$this->primera = "<table class='table table-condensed'>";
-			for ($i=0; $i < $this->datosTipoAvion['primeraFilas'] ; $i++) 
+			for ($i=0; $i < $this->datosTipoAvion['primeraFilas'] ; $i++) // construye el plano primera
 			{ 
 				$this->primera .= "<tr>";
-				for ($j=0; $j <$this->datosTipoAvion['primeraCols'] ; $j++)
+				for ($j=0; $j <$this->datosTipoAvion['primeraCols'] ; $j++)//columnas 
 				{ 
 					
-					$this->primera .= "<td><button name='1' value='".$codigoReserva."P".$this->contadorPrimera."'".$asiento .$this->contadorPrimera."</button></td>";
-					$this->posicionPrimera[$i][$j] = $this->contadorPrimera++;
+					for ( $d=0; $d < $ocupados;  $d++) // asientos deshabilitados 
+					{		
+						if ($butacas[$d] == "P".$this->contadorPrimera  || $objReserva->datosReserva[10]!="primera")						
+						$deshabilitado = 1;				
+					}
+					
+					if ($deshabilitado == 1) 
+						$asiento = $asientoOcupado;					
+					else
+						$asiento = $asientoDesocupado;
+
+					$this->primera .= "<td><button  name='1' value='".$codigoReserva."P".$this->contadorPrimera."'".$asiento .$this->contadorPrimera."</button></td>";
+					 $this->contadorPrimera++;
+					$deshabilitado = 0; // vuelve a estanciar la variable para que lo calcule otra vez
+
+					
 				}
 				$this->primera .= "</tr>";
 			}	
@@ -302,26 +321,32 @@ class planoLugares{
 			
 			
 		}
-		if ($objReserva->datosReserva[10]=="economy") {//si el cliente tiene pasaje Economy 
-			$asiento = "class='btn-success' ><img src='../imagenes/asientos sin fondo blanco/asiento6.png '> ";
-		} 
-		else{// cuando estan dehabilidatos 
-			$asiento = "class = '' disabled='disabled'><img src='../imagenes/asientos sin fondo blanco/asiento4.png '> ";
-		}
-//echo $this->posicionPrimera[2][1];
+		
 		$this->economy = "<table class='table table-condensed planilla'>";
-		for ($i=0; $i <$this->datosTipoAvion['economyFilas'] ; $i++) 
+		for ($i=0; $i <$this->datosTipoAvion['economyFilas'] ; $i++)  // construye el plano economy
 		{ 
 			$this->economy .= "<tr class='plano'>";
 			for ($j=0; $j <$this->datosTipoAvion['economyCols'] ; $j++)
 			{ 
-				
-				$this->economy .= "<td class='butaca'><button name='1'value='".$codigoReserva."E".$this->contadorEconomy."'".$asiento.$this->contadorEconomy."</button></td>";
-				$this->posicionEconomy[$i][$j]=$this->contadorEconomy++;
+				for ( $d=0; $d < $ocupados;  $d++) // asientos deshabilitados 
+					{		
+						if ($butacas[$d] == "E".$this->contadorEconomy || $objReserva->datosReserva[10]!="economy" )	//si el cliente tiene pasaje Economy 					
+						$deshabilitado = 1;				
+					}
+					
+					if ($deshabilitado == 1) 
+						$asiento = $asientoOcupado;					
+					else
+						$asiento = $asientoDesocupado;
+
+				$this->economy .= "<td  class='butaca'><button   name='1'value='".$codigoReserva."E".$this->contadorEconomy."'".$asiento.$this->contadorEconomy."</button></td>";
+				$this->contadorEconomy++;
+				$deshabilitado = 0; // vuelve a estanciar la variable para que lo calcule otra vez
 			}
 			$this->economy .= "</tr>";
 		}	
 		$this->economy .= "</table>";
+	
 
 	}
 

@@ -344,13 +344,15 @@ $('.btn-create-submit').click(function(e){
   }
 }); });
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/*deshabilita los lugares ya ocupados*/
+$("#P7").attr("disabled", true);
 /* BUTACAS AJAX*/
 $(function(){
-
     $("button").on("click", function (e) {
       console.log("adentro")
         $("button").removeClass("btn-info "); // hace que solo alla un boton azul
       $(this).addClass(" btn-info"); // pinta de azul
+     //$(this).attr("disabled", true); // deshabilita el boton
 
       var data = $(this)
 //var reserva = $('#codigoReserva').val()
