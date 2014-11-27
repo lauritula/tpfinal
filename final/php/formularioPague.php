@@ -64,7 +64,7 @@ $hidden = "<input type='hidden' id='codigoReserva'  NAME='codigoReserva' value='
 			</div>
 			
 				
-				<input type='submit' value="PAGAR VUELO" class=' col-md-12 btn btn-success btn-pago-submit'   />
+				<input type='submit' id='botonPagar' disabled='disabled' value="PAGAR VUELO" class=' col-md-12 btn btn-success btn-pago-submit'   />
 				<input type='hidden' id='cargarPago'  NAME='cargarPago' value='Cargar' />
 				<?php echo $hidden; ?> <!-- envia el numero de reserva  -->
 			</form>

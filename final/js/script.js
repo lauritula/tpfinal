@@ -212,7 +212,7 @@ $('.btn-create-submit').click(function(e){
 
   if (dni.length!=8) {
    $("#dniError").last().addClass( "has-error has-feedback" );
-       $("#iconoErrorDni").removeClass("invisible");
+   $("#iconoErrorDni").removeClass("invisible");
    bandera = 0;
  }
 
@@ -239,35 +239,23 @@ $('.btn-create-submit').click(function(e){
 });
 
 // PAGO DE TARJETA 
- $(document).ready(function() {
-  $('input[type=radio][name=tarjetaEmpresa]').change(function() 
-    { if (this.value == 'visa') 
+
+$('input[type=radio][name=tarjetaEmpresa]').change(function() 
+{ 
+      $("#botonPagar").attr("disabled", false); // hablita el boton cuando se entra en la funcion para que no se pueda pasar sin antes validar
+      if (this.value == 'visa') 
       { 
-        alert(this.value);
-       
-        var tipoTarjeta = 'visa';
-      } 
-    else if (this.value == 'masterCard') 
-      {
-         alert(this.value);
-        var tipoTarjeta = 'masterCard';
-        
-            
-          
-      }
-          else if (this.value == 'cabal') 
-      {
-         alert(this.value);
-        var tipoTarjeta = 'cabal';
-         
-              
-          
-      }
-      
-   }
-   );
+        tipoTarjeta = 'visa';
+     } 
+     else if (this.value == 'masterCard') 
+     {
 
-
+       tipoTarjeta = 'masterCard';
+    }
+    else if (this.value == 'cabal') 
+    {
+       tipoTarjeta = 'cabal';
+    }
  //$('.created-in').fadeIn();
  $('.btn-pago-submit').click(function(e){
   e.preventDefault();
@@ -280,7 +268,7 @@ $('.btn-create-submit').click(function(e){
   var numeroTarjeta=$('#numeroTarjeta').val();
   var fechaVencimiento=$('#fechaVencimiento').val();
   expr = /([0-99]+[0-99])/;
-   var tipoTarjeta = 'visa';
+
   if (codigoSeguridad.length!=3) {
    $("#codigoSeguridadError").last().addClass( "has-error has-feedback" );
    bandera = 0;
@@ -292,77 +280,78 @@ $('.btn-create-submit').click(function(e){
  }
  if (numeroTarjeta.length != 16) {
    $("#numeroTarjetaError").last().addClass( "has-error has-feedback" );
-    bandera = 0;
-   }  
+   bandera = 0; 
+ }  
 
  var tarjEmpresa = $('.tarjetaEmpresa').val();
- 
+
  switch(tipoTarjeta) {
-    case 'visa':
-     var numTarj=numeroTarjeta.toString();
-        var numTarje=numTarj.substring(0,4);
-           if (numTarje!='4540')
-          {
-            $("#numeroTarjetaError").last().addClass( "has-error has-feedback" );
-             bandera=0;
-          }
-        break;
-    case 'masterCard':
-          var numTarj=numeroTarjeta.toString();
-           var numTarje=numTarj.substring(0,1);
-          if (numTarje!='5')
-              {
-                $("#numeroTarjetaError").last().addClass( "has-error has-feedback" );
-                 bandera=0;
-              }
-        break;
-    case 'cabal':
-           var numTarj=numeroTarjeta.toString();
-           var numTarje=numTarj.substring(0,2);
-          if (numTarje!='58')
-                {
-                  $("#numeroTarjetaError").last().addClass( "has-error has-feedback" );
-                   bandera=0;
-                }   
-        break;
-    
+  case 'visa':
+  var numTarj=numeroTarjeta.toString();
+  var numTarje=numTarj.substring(0,4);
+  if (numTarje!='4540')
+  {
+    $("#numeroTarjetaError").last().addClass( "has-error has-feedback" );
+    bandera=0;
+  }
+  break;
+  case 'masterCard':
+  var numTarj=numeroTarjeta.toString();
+  var numTarje=numTarj.substring(0,1);
+  if (numTarje!='5')
+  {
+    $("#numeroTarjetaError").last().addClass( "has-error has-feedback" );
+    bandera=0;
+  }
+  break;
+  case 'cabal':
+  var numTarj=numeroTarjeta.toString();
+  var numTarje=numTarj.substring(0,2);
+  if (numTarje!='58')
+  {
+    $("#numeroTarjetaError").last().addClass( "has-error has-feedback" );
+    bandera=0;
+  }   
+  break;
+
 }
 
 
 
 
- if (fechaVencimiento.length != 5 || !fechaVencimiento.match(expr)  ) {
-   $("#fechaVencimientoError").last().addClass( "has-error has-feedback" );
-   bandera = 0;
+if (fechaVencimiento.length != 5 || !fechaVencimiento.match(expr)  ) {
+ $("#fechaVencimientoError").last().addClass( "has-error has-feedback" );
+ bandera = 0;
 
- }
- if (bandera == 1){ 
+}
+if (bandera == 1){ 
 
     $('#pagoTarjetaFormulario #cargarDatos').click(); // establece true el boton para cargar la pagina nueva 
     $("#pagoTarjetaFormulario").submit(); 
 
   }
-}); });
+});
+});
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 /*deshabilita los lugares ya ocupados*/
 $("#P7").attr("disabled", true);
 /* BUTACAS AJAX*/
 $(function(){
-    $("button").on("click", function (e) {
-      console.log("adentro")
+  $("button").on("click", function (e) {
+    console.log("adentro")
         $("button").removeClass("btn-info "); // hace que solo alla un boton azul
       $(this).addClass(" btn-info"); // pinta de azul
      //$(this).attr("disabled", true); // deshabilita el boton
 
-      var data = $(this)
+     var data = $(this)
 //var reserva = $('#codigoReserva').val()
-    $.ajax({
+$.ajax({
      data: data, // envia datos 
      type: "post",
      url: "../php/ajaxAsientos.php",
-      });
-    });
- }); 
+   });
+});
+}); 
 /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
 /*cambio de precio economy primera */
 /*
