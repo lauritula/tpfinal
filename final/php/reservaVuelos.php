@@ -122,6 +122,10 @@ $paginaCargar = "<div class='well create-box'>
 			/* guardar datos del pasajero en base de datos */
 		$objPasajero = new pasajero($dni,$nombreApellido,$email,$fechaNacimiento);
 		$objPasajero->guardarPasajero();
+		if ($objPasajero->duplicado == 1 ) {
+			$objPasajero->duplicado(); // informa q el pasajero ya dispone de una reserva 
+		}
+
 		/*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
 		$objReserva = new reserva($numeroReserva);
 		$objReserva->guardarReserva($dni,$codigoVuelo,$monto,$categoria);
@@ -211,6 +215,7 @@ if (isset($_POST['eliminarReserva'])){
 		$objConexion->conectar("tpfinal");
 		$codigoReserva=$_POST['codigoReserva'];
 		$objReserva = new reserva($codigoReserva);
+		$objReserva->datosReserva();
 		$objReserva->eliminarReserva();
 		$objConexion->desconectar();
 		header('location: index.php');

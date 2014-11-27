@@ -15,11 +15,15 @@ class conexion
 
 	}			
 	function query($query)
-	{
+	{	
+		$error = 0;
 		$tabla =  mysql_query($query);
 
-		if (!$tabla) 
-			echo "Fallo la consulta $query";
+		if (!$tabla){
+			//echo "Fallo la consulta $query";
+			$error = 1;
+			return $error;
+		}
 		else
 			return $tabla;
 
@@ -36,6 +40,7 @@ class pasajero
 	var $nombre;
 	var $email;
 	var $fecha;
+	var $duplicado;
 	function __construct($dni,$nombre,$email,$fecha)
 	{	
 		$this->dni = $dni;
@@ -47,7 +52,25 @@ class pasajero
 	function guardarPasajero() 
 	{
 		$conectar = new conexion();
-		$conectar->query("INSERT INTO pasajero (dni, nombre, email, fecha) VALUES ('$this->dni', '$this->nombre', '$this->email', '$this->fecha')");
+		$resultado = $conectar->query("INSERT INTO pasajero (dni, nombre, email, fecha) VALUES ('$this->dni', '$this->nombre', '$this->email', '$this->fecha')");
+		if ($resultado == 1) {
+			$this->duplicado = 1;
+		}
+	}
+	function duplicado()
+	{
+		$tabla = conexion::query("select codigoReserva from reserva where dniPasajero = $this->dni");
+		$codigoReserva = mysql_fetch_row($tabla);
+		$objReserva = new reserva($codigoReserva[0]);
+		$objReserva->datosReserva();
+		echo " <legend>Usted ya dispone de la siguiente reserva... desea eliminarla y crear una nuevamente? </legend>$objReserva->imprimirDatos";
+		// eliminar reserva para crear otra 
+		/*echo "<form action='reservaVuelos.php' method='post' role='search'> 
+		<input type='hidden' id='codigoReserva'  NAME='codigoReserva' value='".$objReserva->codigoReserva."' />
+		<input type='submit' id='eliminarReserva'NAME='eliminarReserva' value='Eliminar reserva' class=' col-md-12 btn btn-info'   />
+		</div>
+		</form>";*/
+		die();
 	}
 	
 }
@@ -95,10 +118,12 @@ class reserva
 		$vueloPerdido = "";
 		$disabledButtonCheckIn = "<a href='checkIn.php'><button type='button' disabled='disabled' class=' col-md-12 btn btn-warning  sinpadding'>CHECK-IN</button></a>";//deshablitado
 		$disabledButtonPago = "<input name='pagar'  value='PAGAR VUELO' type='submit' class=' col-md-12 btn btn-success sinpadding '>";// habilitado
-
+		$eliminarReservaButton = "<input type='submit' id='eliminarReserva'NAME='eliminarReserva' value='Eliminar reserva' class=' col-md-12 btn btn-danger'   />";
 		if ($this->datosReserva[8] != NULL &&($this->hoy == $this->datosReserva[14] ||  $hs48 == $this->datosReserva[14] || $hs24 == $this->datosReserva[14] )) 
 		{// se habilita el boton cuando el clinte pago y se encuentra dentro de  las 48 hs 
 			$disabledButtonCheckIn = "<input type='submit' class=' col-md-12 btn btn-warning sinpadding' value='CHECK-IN'>";
+			$eliminarReservaButton = "<input type='submit' disabled='disabled' id='eliminarReserva'NAME='eliminarReserva' value='Eliminar reserva' class=' col-md-12 btn btn-danger'   />";
+
 		}
 		if ($this->hoy >= $this->datosReserva[14] ||  $this->datosReserva[8] != NULL) 
 			{ // se deshabilita el boton cuando ya se encuentra dentro de las 24 hs del vuelo o el vuelo ya este pago 
@@ -116,6 +141,7 @@ class reserva
 			$disabledButtonPago = "";
 			$vueloPerdido = "<button  type='button' disabled='disabled' class=' col-md-12 btn btn-danger '>¡Aun no hay vacantes! </button>";
 		}	
+
 
 		$this->imprimirDatos = "
 		<div class='well create-box'>
@@ -160,6 +186,11 @@ class reserva
 		<input type='hidden' id='codigoReserva'  NAME='codigoReserva' value='".$this->codigoReserva."' /> 
 		".$disabledButtonCheckIn."		
 		</form>
+		<form action='reservaVuelos.php'class=' col-md-12 sinpadding' method='post' role='search'> 
+		<input type='hidden' id='codigoReserva'  NAME='codigoReserva' value='".$this->codigoReserva."' />
+		".$eliminarReservaButton."
+		</form>
+
 
 		</div>
 		</div>";
@@ -182,8 +213,9 @@ class reserva
 		$this->cantidadAsientos = $codigo[0];
 	}
 	function eliminarReserva()
-	{
+	{		
 		conexion::query("DELETE FROM reserva WHERE codigoReserva = '$this->codigoReserva'");
+		conexion::query("DELETE FROM pasajero WHERE dni = ".$this->datosReserva[0]."");	
 	}
 	function colaEspera()
 	{
