@@ -183,8 +183,8 @@ $paginaCargar = "<div class='well create-box'>
 		
 		<input type='hidden' id='codigoReserva'  NAME='codigoReserva' value='".$objReserva->codigoReserva."' />
 		<input type='hidden' id='numeroEspera'  NAME='numeroEspera' value='".$numeroEspera."' />
-		<input type='submit' id='guardarEspera'NAME='guardarEspera' value='Guarda lista de espera'class=' col-md-12 btn btn-info '   />
-		<input type='submit' id='eliminarReserva'NAME='eliminarReserva' value='Eliminar reserva' class=' col-md-12 btn btn-info'   />
+		<input type='submit' id='guardarEspera'NAME='guardarEspera' value='Guarda lista de espera'class=' col-md-6 btn btn-info '   />
+		<input type='submit' id='eliminarReserva'NAME='eliminarReserva' value='Eliminar reserva' class=' col-md-6 btn btn-danger'   />
 		</div>
 		</form>
 		</div>";

@@ -16,13 +16,13 @@ class conexion
 	}			
 	function query($query)
 	{	
-		$error = 0;
+		
 		$tabla =  mysql_query($query);
 
 		if (!$tabla){
 			//echo "Fallo la consulta $query";
-			$error = 1;
-			return $error;
+			
+			return $tabla;
 		}
 		else
 			return $tabla;
@@ -53,7 +53,7 @@ class pasajero
 	{
 		$conectar = new conexion();
 		$resultado = $conectar->query("INSERT INTO pasajero (dni, nombre, email, fecha) VALUES ('$this->dni', '$this->nombre', '$this->email', '$this->fecha')");
-		if ($resultado == 1) {
+		if ($resultado == 0) {
 			$this->duplicado = 1;
 		}
 	}
@@ -128,6 +128,13 @@ class reserva
 		if ($this->hoy >= $this->datosReserva[14] ||  $this->datosReserva[8] != NULL) 
 			{ // se deshabilita el boton cuando ya se encuentra dentro de las 24 hs del vuelo o el vuelo ya este pago 
 				$disabledButtonPago ="<input disabled='disabled' value='PAGAR VUELO'   type='submit' class=' col-md-12 btn btn-success sinpadding '>";
+				
+			}
+			if ($this->hoy >= $this->datosReserva[14]) 
+			{ // se deshabilita el boton cuando ya se encuentra dentro de las 24 hs del vuelo o el vuelo ya este pago 
+				$disabledButtonCheckIn = ""; 
+			$disabledButtonPago = "";
+			$vueloPerdido = "<button  type='button' disabled='disabled' class=' col-md-12 btn btn-danger '>¡Ya supero el limite para pagar! </button>";
 				
 			}
 			if ($this->hoy > $this->datosReserva[14])

@@ -32,9 +32,10 @@ include "class.php";
 			$codigoReserva=$_POST['codigoReserva'];
 			$objConexion = new conexion;
 		$objConexion->conectar("tpfinal");
-
+		$comprontePago = ""; 
 		$hoy = date('Y-m-d');
 		$objConexion->query("UPDATE reserva SET fechaPago='$hoy' where codigoReserva = '$codigoReserva'");
+		$objConexion->desconectar();
 		}
 	
 
