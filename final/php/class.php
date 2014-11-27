@@ -128,6 +128,7 @@ class reserva
 		if ($this->hoy >= $this->datosReserva[14] ||  $this->datosReserva[8] != NULL) 
 			{ // se deshabilita el boton cuando ya se encuentra dentro de las 24 hs del vuelo o el vuelo ya este pago 
 				$disabledButtonPago ="<input disabled='disabled' value='PAGAR VUELO'   type='submit' class=' col-md-12 btn btn-success sinpadding '>";
+				
 			}
 			if ($this->hoy > $this->datosReserva[14])
 		{// se borran los dos botones
@@ -135,7 +136,7 @@ class reserva
 			$disabledButtonPago = "";
 			$vueloPerdido = "<button  type='button' disabled='disabled' class=' col-md-12 btn btn-danger '>¡el vuelo ya partio! </button>";
 		}	
-		if ($this->datosReserva[7]) // en caso de encontrarse en espera
+		if ($this->datosReserva[7] > 0) // en caso de encontrarse en espera
 		{// se borran los dos botones
 			$disabledButtonCheckIn = ""; 
 			$disabledButtonPago = "";
@@ -214,8 +215,12 @@ class reserva
 	}
 	function eliminarReserva()
 	{		
+		$this->datosReserva($this->codigoReserva);
 		conexion::query("DELETE FROM reserva WHERE codigoReserva = '$this->codigoReserva'");
 		conexion::query("DELETE FROM pasajero WHERE dni = ".$this->datosReserva[0]."");	
+		// si el vuelo tiene lista de espera reduce el numero de espera porque se libera una vacante 
+		$tabla = conexion::query("UPDATE reserva set listaEspera = listaEspera  - 1 where codVuelo = '".$this->datosReserva[13]."' and categoria = '".$this->datosReserva[10]. "' and listaEspera is not NULL and listaEspera >0 ORDER BY listaEspera ASC ");
+		
 	}
 	function colaEspera()
 	{

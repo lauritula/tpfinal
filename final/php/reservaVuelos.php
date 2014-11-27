@@ -135,7 +135,7 @@ $paginaCargar = "<div class='well create-box'>
 		
 		
 		 // revisar si el vuelo se encuentra lleno
-		 if($objReserva->cantidadAsientos < $objPlanoLugares->datosTipoAvion["$categoria"]) // cantidad de espacio  
+		 if($objReserva->cantidadAsientos <= $objPlanoLugares->datosTipoAvion["$categoria"]) // cantidad de espacio  
 		 {
 		 	
 
@@ -215,7 +215,6 @@ if (isset($_POST['eliminarReserva'])){
 		$objConexion->conectar("tpfinal");
 		$codigoReserva=$_POST['codigoReserva'];
 		$objReserva = new reserva($codigoReserva);
-		$objReserva->datosReserva();
 		$objReserva->eliminarReserva();
 		$objConexion->desconectar();
 		header('location: index.php');
