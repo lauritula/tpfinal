@@ -122,15 +122,20 @@ $paginaCargar = "<div class='well create-box'>
 			/* guardar datos del pasajero en base de datos */
 		$objPasajero = new pasajero($dni,$nombreApellido,$email,$fechaNacimiento);
 		$objPasajero->guardarPasajero();
-		if ($objPasajero->duplicado == 1 ) {
-			$objPasajero->duplicado(); // informa q el pasajero ya dispone de una reserva 
-		}
+		//if ($objPasajero->duplicado == 1 ) {
+		//	$objPasajero->duplicado(); // informa q el pasajero ya dispone de una reserva 
+		//}
 
 		/*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
 		$objReserva = new reserva($numeroReserva);
+		//die($codigoVuelo);
 		$objReserva->guardarReserva($dni,$codigoVuelo,$monto,$categoria);
 		$objReserva->datosReserva();
+	//die($objReserva->datosReserva[0]);
+
 		$objReserva->contarReservas();
+		//die($objReserva->datosReserva[21]);
+		//die($codigoVuelo);
 		$objPlanoLugares = new planoLugares($objReserva->datosReserva[21]);//se crea el objeto con la cantidad de lugares en el avion
 		
 		

@@ -59,9 +59,12 @@ class pasajero
 	}
 	function duplicado()
 	{
-		$tabla = conexion::query("select codigoReserva from reserva where dniPasajero = $this->dni");
+		$tabla = conexion::query("select codigoReserva,estado from reserva where dniPasajero = $this->dni");
 		$codigoReserva = mysql_fetch_row($tabla);
 		$objReserva = new reserva($codigoReserva[0]);
+		if ($codigoReserva[1] == 1) {
+		
+		
 		$objReserva->datosReserva();
 		echo " <legend>Usted ya dispone de la siguiente reserva... desea eliminarla y crear una nuevamente? </legend>$objReserva->imprimirDatos";
 		// eliminar reserva para crear otra 
@@ -71,6 +74,9 @@ class pasajero
 		</div>
 		</form>";*/
 		die();
+	}
+	
+	
 	}
 	
 }
@@ -96,7 +102,7 @@ class reserva
 	{
 		$conectar = new conexion();
 		
-		$conectar->query("INSERT INTO reserva (codigoReserva,dniPasajero,codVuelo,monto,categoria) VALUES ('$this->codigoReserva',$dni,'$codigoVuelo',$monto,'$categoria')");
+		$conectar->query("INSERT INTO reserva (codigoReserva,dniPasajero,codVuelo,monto,categoria,estado) VALUES ('$this->codigoReserva',$dni,'$codigoVuelo',$monto,'$categoria',1)");
 
 	}
 	function datosReserva()
