@@ -67,7 +67,7 @@ $paginaCargar = "<div class='well create-box'>
 	<?php 
 	/* captura el boton que se acciono el la pagina anterior*/
 	$x = 0;
-	if(!isset($_POST['cargarDatos']) && !isset($_POST['guardarEspera']) && !isset($_POST['eliminarReserva']))  {
+	if(!isset($_POST['cargarDatos']) && !isset($_POST['guardarEspera']) && !isset($_POST['eliminarReserva']) && !isset($_POST['tirarReserva']))  {
 	do {
 		
 		$x++;
@@ -131,7 +131,7 @@ $paginaCargar = "<div class='well create-box'>
 		$objReserva->guardarReserva($dni,$codigoVuelo,$monto,$categoria);
 		$objReserva->datosReserva();
 		$objReserva->contarReservas();
-		$objPlanoLugares = new planoLugares($objReserva->datosReserva[20]);//se crea el objeto con la cantidad de lugares en el avion
+		$objPlanoLugares = new planoLugares($objReserva->datosReserva[21]);//se crea el objeto con la cantidad de lugares en el avion
 		
 		
 		 // revisar si el vuelo se encuentra lleno
@@ -154,14 +154,14 @@ $paginaCargar = "<div class='well create-box'>
 		<legend>Reserva     ".$objReserva->datosReserva[4]."</legend>
 		<div  id='the-basics' >
 		<div class='form-group ' >
-		<span class='col-md-6'>Vuelo Numero: ".$objReserva->datosReserva[13]."</span>
-		<span class='col-md-6'>Fecha:  ".$objReserva->datosReserva[14]."</span>
+		<span class='col-md-6'>Vuelo Numero: ".$objReserva->datosReserva[14]."</span>
+		<span class='col-md-6'>Fecha:  ".$objReserva->datosReserva[15]."</span>
 		</div>
 		<div class='form-group ' >
-		<span>Origen:  ".$objReserva->datosReserva[25] ."/". $objReserva->datosReserva[26] ."/".  $objReserva->datosReserva[27]."</span>
+		<span>Origen:  ".$objReserva->datosReserva[26] ."/". $objReserva->datosReserva[27] ."/".  $objReserva->datosReserva[28]."</span>
 		</div>
 		<div class='form-group ' >
-		<span>destino:  ".$objReserva->datosReserva[29]  ."/". $objReserva->datosReserva[30] ."/".  $objReserva->datosReserva[31]." </span>
+		<span>destino:  ".$objReserva->datosReserva[30]  ."/". $objReserva->datosReserva[31] ."/".  $objReserva->datosReserva[32]." </span>
 		</div>
 		<div class='form-group ' >
 		<span>Nombre:".$objReserva->datosReserva[1]."</span>
@@ -216,6 +216,16 @@ if (isset($_POST['eliminarReserva'])){
 		$codigoReserva=$_POST['codigoReserva'];
 		$objReserva = new reserva($codigoReserva);
 		$objReserva->eliminarReserva();
+		$objConexion->desconectar();
+		header('location: index.php');
+
+}
+if (isset($_POST['tirarReserva'])){
+		$objConexion = new conexion;
+		$objConexion->conectar("tpfinal");
+		$codigoReserva=$_POST['codigoReserva'];
+		$objReserva = new reserva($codigoReserva);
+		$objReserva->tirarReserva();
 		$objConexion->desconectar();
 		header('location: index.php');
 

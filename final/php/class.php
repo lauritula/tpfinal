@@ -118,26 +118,26 @@ class reserva
 		$vueloPerdido = "";
 		$disabledButtonCheckIn = "<a href='checkIn.php'><button type='button' disabled='disabled' class=' col-md-12 btn btn-warning  sinpadding'>CHECK-IN</button></a>";//deshablitado
 		$disabledButtonPago = "<input name='pagar'  value='PAGAR VUELO' type='submit' class=' col-md-12 btn btn-success sinpadding '>";// habilitado
-		$eliminarReservaButton = "<input type='submit' id='eliminarReserva'NAME='eliminarReserva' value='Eliminar reserva' class=' col-md-12 btn btn-danger'   />";
-		if ($this->datosReserva[8] != NULL &&($this->hoy == $this->datosReserva[14] ||  $hs48 == $this->datosReserva[14] || $hs24 == $this->datosReserva[14] )) 
+		$tirarReservaButton = "<input type='submit' id='tirarReserva'NAME='tirarReserva' value='Eliminar reserva' class=' col-md-12 btn btn-danger'   />";
+		if ($this->datosReserva[8] != NULL &&($this->hoy == $this->datosReserva[15] ||  $hs48 == $this->datosReserva[15] || $hs24 == $this->datosReserva[15] )) 
 		{// se habilita el boton cuando el clinte pago y se encuentra dentro de  las 48 hs 
 			$disabledButtonCheckIn = "<input type='submit' class=' col-md-12 btn btn-warning sinpadding' value='CHECK-IN'>";
-			$eliminarReservaButton = "<input type='submit' disabled='disabled' id='eliminarReserva'NAME='eliminarReserva' value='Eliminar reserva' class=' col-md-12 btn btn-danger'   />";
+			$tirarReservaButton = "<input type='submit' disabled='disabled' id='tirarReserva'NAME='tirarReserva' value='Tirar reserva' class=' col-md-12 btn btn-danger'   />";
 
 		}
-		if ($this->hoy >= $this->datosReserva[14] ||  $this->datosReserva[8] != NULL) 
+		if ($this->hoy >= $this->datosReserva[15] ||  $this->datosReserva[8] != NULL) 
 			{ // se deshabilita el boton cuando ya se encuentra dentro de las 24 hs del vuelo o el vuelo ya este pago 
 				$disabledButtonPago ="<input disabled='disabled' value='PAGAR VUELO'   type='submit' class=' col-md-12 btn btn-success sinpadding '>";
 				
 			}
-			if ($this->hoy >= $this->datosReserva[14]) 
+			if ($this->hoy >= $this->datosReserva[15]) 
 			{ // se deshabilita el boton cuando ya se encuentra dentro de las 24 hs del vuelo o el vuelo ya este pago 
 				$disabledButtonCheckIn = ""; 
 			$disabledButtonPago = "";
 			$vueloPerdido = "<button  type='button' disabled='disabled' class=' col-md-12 btn btn-danger '>¡Ya supero el limite para pagar! </button>";
 				
 			}
-			if ($this->hoy > $this->datosReserva[14])
+			if ($this->hoy > $this->datosReserva[15])
 		{// se borran los dos botones
 			$disabledButtonCheckIn = ""; 
 			$disabledButtonPago = "";
@@ -149,6 +149,13 @@ class reserva
 			$disabledButtonPago = "";
 			$vueloPerdido = "<button  type='button' disabled='disabled' class=' col-md-12 btn btn-danger '>¡Aun no hay vacantes! </button>";
 		}	
+		if ($this->datosReserva[13] == 0 ) {
+			// la reserva esta deshabilitada
+			$disabledButtonCheckIn = ""; 
+			$disabledButtonPago = "";
+			$tirarReservaButton= "";
+			$vueloPerdido = "<button  type='button' disabled='disabled' class=' col-md-12 btn btn-danger '>su reserva fue dada de baja </button>";
+		}
 
 
 		$this->imprimirDatos = "
@@ -156,14 +163,14 @@ class reserva
 		<legend>Reserva     ".$this->datosReserva[4]."</legend>
 		<div  id='the-basics' >
 		<div class='form-group ' >
-		<span class='col-md-6'>Vuelo Numero: ".$this->datosReserva[13]."</span>
-		<span class='col-md-6'>Fecha:  ".$this->datosReserva[14]."</span>
+		<span class='col-md-6'>Vuelo Numero: ".$this->datosReserva[14]."</span>
+		<span class='col-md-6'>Fecha:  ".$this->datosReserva[15]."</span>
 		</div>
 		<div class='form-group ' >
-		<span>Origen:  ".$this->datosReserva[25] ."/". $this->datosReserva[26] ."/".  $this->datosReserva[27]."</span>
+		<span>Origen:  ".$this->datosReserva[26] ."/". $this->datosReserva[27] ."/".  $this->datosReserva[28]."</span>
 		</div>
 		<div class='form-group ' >
-		<span>destino:  ".$this->datosReserva[29]  ."/". $this->datosReserva[30] ."/".  $this->datosReserva[31]." </span>
+		<span>destino:  ".$this->datosReserva[30]  ."/". $this->datosReserva[31] ."/".  $this->datosReserva[32]." </span>
 		</div>
 		<div class='form-group ' >
 		<span>Nombre:".$this->datosReserva[1]."</span>
@@ -184,25 +191,25 @@ class reserva
 		".$vueloPerdido."
 		<div class=' col-md-12 sinpadding'>
 		<form action='formularioPague.php' class=' col-md-6 sinpadding' method='post' role='search'>
-		<input type='hidden' id='tipoAvion'  NAME='tipoAvion' value='".$this->datosReserva[20]."' /> 
+		<input type='hidden' id='tipoAvion'  NAME='tipoAvion' value='".$this->datosReserva[21]."' /> 
 		<input type='hidden' id='codigoReserva'  NAME='codigoReserva' value='".$this->codigoReserva."' /> 
 		
 		".$disabledButtonPago."		
 		</form>
 		<form action='checkIn.php' method='post'class=' col-md-6 sinpadding' role='search'>
-		<input type='hidden' id='tipoAvion'  NAME='tipoAvion' value='".$this->datosReserva[20]."' /> 
+		<input type='hidden' id='tipoAvion'  NAME='tipoAvion' value='".$this->datosReserva[21]."' /> 
 		<input type='hidden' id='codigoReserva'  NAME='codigoReserva' value='".$this->codigoReserva."' /> 
 		".$disabledButtonCheckIn."		
 		</form>
 		<form action='reservaVuelos.php'class=' col-md-12 sinpadding' method='post' role='search'> 
 		<input type='hidden' id='codigoReserva'  NAME='codigoReserva' value='".$this->codigoReserva."' />
-		".$eliminarReservaButton."
+		".$tirarReservaButton."
 		</form>
 
 
 		</div>
 		</div>";
-	/*	$tabla = conexion::query("select count(codigoReserva) cantidad from reserva where codVuelo = '".$this->datosReserva[13]."' and categoria = '".$this->datosReserva[10]. "'");
+	/*	$tabla = conexion::query("select count(codigoReserva) cantidad from reserva where codVuelo = '".$this->datosReserva[14]."' and categoria = '".$this->datosReserva[10]. "'");
 		$codigo = mysql_fetch_row($tabla);
 		$this->cantidadAsientos = $codigo[0];*/
 	}
@@ -216,7 +223,7 @@ class reserva
 	}
 	function contarReservas()
 	{
-		$tabla = conexion::query("select count(codigoReserva) cantidad from reserva where codVuelo = '".$this->datosReserva[13]."' and categoria = '".$this->datosReserva[10]. "'");
+		$tabla = conexion::query("select count(codigoReserva) cantidad from reserva where codVuelo = '".$this->datosReserva[14]."' and categoria = '".$this->datosReserva[10]. "'");
 		$codigo = mysql_fetch_row($tabla);
 		$this->cantidadAsientos = $codigo[0];
 	}
@@ -226,7 +233,15 @@ class reserva
 		conexion::query("DELETE FROM reserva WHERE codigoReserva = '$this->codigoReserva'");
 		conexion::query("DELETE FROM pasajero WHERE dni = ".$this->datosReserva[0]."");	
 		// si el vuelo tiene lista de espera reduce el numero de espera porque se libera una vacante 
-		$tabla = conexion::query("UPDATE reserva set listaEspera = listaEspera  - 1 where codVuelo = '".$this->datosReserva[13]."' and categoria = '".$this->datosReserva[10]. "' and listaEspera is not NULL and listaEspera >0 ORDER BY listaEspera ASC ");
+		$tabla = conexion::query("UPDATE reserva set listaEspera = listaEspera  - 1 where codVuelo = '".$this->datosReserva[14]."' and categoria = '".$this->datosReserva[10]. "' and listaEspera is not NULL and listaEspera >0 ORDER BY listaEspera ASC ");
+		
+	}
+	function tirarReserva()
+	{		
+		$this->datosReserva($this->codigoReserva);
+		conexion::query("UPDATE reserva SET estado = 0 where codigoReserva = '$this->codigoReserva'");
+		// si el vuelo tiene lista de espera reduce el numero de espera porque se libera una vacante 
+		$tabla = conexion::query("UPDATE reserva set listaEspera = listaEspera  - 1 where codVuelo = '".$this->datosReserva[14]."' and categoria = '".$this->datosReserva[10]. "' and listaEspera is not NULL and listaEspera >0 ORDER BY listaEspera ASC ");
 		
 	}
 	function colaEspera()
@@ -301,7 +316,7 @@ class planoLugares{
 			$tabla = conexion::query("select * from tipo where tipoAvion=$tipoAvion");
 			break;
 			default:
-				# code...
+				die("error");
 			break;
 		}
 
@@ -324,7 +339,7 @@ class planoLugares{
 		$deshabilitado = 0;
 
 		// asientos ocupados 
-		$tabla = conexion::query("select * from reserva where codVuelo = '".$objReserva->datosReserva[13]."'");
+		$tabla = conexion::query("select * from reserva where codVuelo = '".$objReserva->datosReserva[14]."'");
 		
 		while ( $butaca  = mysql_fetch_assoc($tabla)) // asigna a un array las variables de BD
 		{
