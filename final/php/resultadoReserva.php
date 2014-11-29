@@ -62,11 +62,6 @@ include "class.php";
 	?>
 
 
-
-
-
-
-
 	<footer class="bs-docs-footer col-md-12" role="contentinfo">
 		<p>Universidad Nacional de La Matanza</p>
 		<p> Programacion Web 2 - Trabajo Practico Final</p>

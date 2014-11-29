@@ -142,6 +142,14 @@ $paginaCargar = "<div class='well create-box'>
 		//muestra la pagina siguiente
 		$cargado = "<div class='created-in'>$objReserva->imprimirDatos <div class='pull-right'></div></div>";
 		echo "$cargado";
+
+		require_once("dompdf_config.inc.php");
+		$dompdf = new DOMPDF();
+		$html=$objReserva->imprimirDatos;
+		$dompdf->load_html($html);
+		$dompdf->render();
+		$dompdf->stream("AeroUNLaM_Reserva.pdf");
+
 		// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 		 	//echo $objReserva->cantidadAsientos;
@@ -190,11 +198,13 @@ $paginaCargar = "<div class='well create-box'>
 		</div>";
 		 }
 	
-
+		
 
 	
 		
 		$objConexion->desconectar();
+
+	
 	}
 if (isset($_POST['guardarEspera'])){		
 		$objConexion = new conexion;
@@ -230,6 +240,9 @@ if (isset($_POST['tirarReserva'])){
 		header('location: index.php');
 
 }
+
+	
+	
 
 	?>
 
