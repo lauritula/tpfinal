@@ -1,5 +1,7 @@
 <?php 
 require_once("dompdf/dompdf_config.inc.php");
+require_once("phpqrcode/qrlib.php");
+require_once("phpqrcode/qrconfig.php"); 
 		
 
 class conexion
