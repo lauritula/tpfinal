@@ -223,7 +223,6 @@ class reserva
 		$this->cantidadAsientos = $codigo[0];*/
 		$this->imprimirPdf = "
 		<div class='well create-box'>
-		<legend>Comprobante de reserva</legend>
 		<legend>Reserva     ".$this->datosReserva[4]."</legend>
 		<div  id='the-basics' >
 		<div class='form-group ' >
