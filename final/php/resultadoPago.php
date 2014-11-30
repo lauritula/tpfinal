@@ -40,6 +40,38 @@ include "class.php";
 		$objConexion->query("UPDATE reserva SET numTarjeta = '".$numeroTarjeta."' where codigoReserva = '$codigoReserva'");
 		$objConexion->desconectar();
 			die($numeroTarjeta);
+			echo "
+		<div class='well create-box'>
+		<legend>Comprobante de pago  <a href=\"archivo.pdf\" target=\"_blank\"><button class= ' btn btn-success' style='float: right;'>Imprimir</button></a></legend>
+		<div  id='the-basics' >
+		<div class='form-group ' >
+		<span class='col-md-6'>Tarjeta Numero: ".$numeroTarjeta."</span>
+		<span class='col-md-6'>Fecha:  ".$hoy."</span>
+		</div>
+		<div class='form-group ' >
+		<span>Origen:  ".$this->datosReserva[26] ."/". $this->datosReserva[27] ."/".  $this->datosReserva[28]."</span>
+		</div>
+		<div class='form-group ' >
+		<span>destino:  ".$this->datosReserva[30]  ."/". $this->datosReserva[31] ."/".  $this->datosReserva[32]." </span>
+		</div>
+		<div class='form-group ' >
+		<span>Nombre:".$this->datosReserva[1]."</span>
+		</div>
+		<div class='form-group ' >
+		<span>Documento:".$this->datosReserva[0]."</span>
+		</div>
+		<div class='form-group ' >
+		<span>E-mail:  ".$this->datosReserva[2]."</span>
+		</div>
+		<div class='form-group ' >
+		<span>Categoria:  ".$this->datosReserva[10]."</span>
+		</div>
+		<div class='form-group ' >
+		
+		<span>Precio:  $".$this->datosReserva[9]."</span>
+		</div>
+		
+		</div>";
 		}
 	
 
