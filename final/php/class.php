@@ -109,7 +109,6 @@ class reserva
 	}
 	function datosReserva()
 	{
-		$dompdf = new DOMPDF();
 		$conectar = new conexion();		
 		$hs24 = date('Y-m-d',strtotime($this->hoy . "1 days "));
 		$hs48 = date('Y-m-d',strtotime($this->hoy . "2 days "));
@@ -168,7 +167,7 @@ class reserva
 
 		$this->imprimirDatos = "
 		<div class='well create-box'>
-		<legend>Reserva     ".$this->datosReserva[4]."</legend>
+		<legend>Reserva     ".$this->datosReserva[4]." <button class= ' btn btn-success' style='float: right;'><a href=\"archivo.pdf\" target=\"_blank\">Imprimir</a></button></legend>
 		<div  id='the-basics' >
 		<div class='form-group ' >
 		<span class='col-md-6'>Vuelo Numero: ".$this->datosReserva[14]."</span>
@@ -214,16 +213,52 @@ class reserva
 		".$tirarReservaButton."
 		</form>
 
-
 		</div>
 		</div>";
 	/*	$tabla = conexion::query("select count(codigoReserva) cantidad from reserva where codVuelo = '".$this->datosReserva[14]."' and categoria = '".$this->datosReserva[10]. "'");
 		$codigo = mysql_fetch_row($tabla);
 		$this->cantidadAsientos = $codigo[0];*/
-		$html = "hola";
-		$dompdf->load_html($html );
-		$dompdf->render();
-		$dompdf->stream("prueba.pdf");
+		$this->imprimirPdf = "
+		<div class='well create-box'>
+		<legend>Reserva     ".$this->datosReserva[4]."</legend>
+		<div  id='the-basics' >
+		<div class='form-group ' >
+		<span class='col-md-6'>Vuelo Numero: ".$this->datosReserva[14]."</span>
+		<span class='col-md-6'>Fecha:  ".$this->datosReserva[15]."</span>
+		</div>
+		<div class='form-group ' >
+		<span>Origen:  ".$this->datosReserva[26] ."/". $this->datosReserva[27] ."/".  $this->datosReserva[28]."</span>
+		</div>
+		<div class='form-group ' >
+		<span>destino:  ".$this->datosReserva[30]  ."/". $this->datosReserva[31] ."/".  $this->datosReserva[32]." </span>
+		</div>
+		<div class='form-group ' >
+		<span>Nombre:".$this->datosReserva[1]."</span>
+		</div>
+		<div class='form-group ' >
+		<span>Documento:".$this->datosReserva[0]."</span>
+		</div>
+		<div class='form-group ' >
+		<span>E-mail:  ".$this->datosReserva[2]."</span>
+		</div>
+		<div class='form-group ' >
+		<span>Categoria:  ".$this->datosReserva[10]."</span>
+		</div>
+		<div class='form-group ' >
+		
+		<span>Precio:  $".$this->datosReserva[9]."</span>
+		</div>
+		</div>
+		</div>";
+  
+
+$dompdf = new DOMPDF();
+$dompdf->set_paper("letter", "portrait");
+$dompdf->load_html($this->imprimirPdf);//cargamos el html
+$dompdf->render();//renderizamos
+$pdf = $dompdf->output();//asignamos la salida a una variable
+file_put_contents("Reserva.pdf", $pdf);//colocamos la salida en un archivo
+
 	}
 	function buscarReserva()
 	{

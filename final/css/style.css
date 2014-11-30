@@ -1,3 +1,7 @@
+/* links*/
+a{
+  color: #FFF;
+}
 .logo{
   z-index: 2;
   float: right;
@@ -206,3 +210,4 @@ padding-bottom: 10px;
 .invisible{
   display: none;
 }
+
