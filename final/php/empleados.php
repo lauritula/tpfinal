@@ -1,3 +1,6 @@
+<?php 
+include "class.php";
+ ?>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -25,14 +28,26 @@
 
 	</nav>
 
-<form method="post" action="encuesta.php">
-		<div style="width: 200px;">
-			<div>Ingrese DNI<input TYPE='number' name='user'></div>
-			<div>Ingrese contrase&ntilde;a(solo numeros)<input TYPE='password' name='pass'></div>
-			<div><input TYPE='submit' name="boton" value='login'> <input TYPE='submit' name="boton"value='crear'></div>
+<?php 
+$hoy = date('Y-m-d');
 
-		</div>
-	</form>
+$objConexion = new conexion();
+	$objConexion->conectar("tpfinal");
+$unionTablas = "select * from pasajero p 
+			join reserva r on p.dni = r.dniPasajero
+			join vuelos v on r.codVuelo = v.codVuelo
+			join frecuencias f on v.codFrecuencia =  f.codFrecuencia
+			join aeropuerto a on f.origen = a.codAeropuerto 
+			join aeropuerto aDos on f.destino = aDos.codAeropuerto"; // une las tablas
+
+$reservasActivasTabla = $objConexion->query("$unionTablas where r.estado = 1"); // trae los vuelos activos 
+while ( $reservasActivas  = mysql_fetch_row($reservasActivasTabla)) 
+	{ 	
+		echo "<p>".$reservasActivas[0]."</p>";
+	}
+
+
+ ?>
 
 
 <footer class="bs-docs-footer col-md-12" role="contentinfo">
