@@ -14,3 +14,9 @@ Cantidad de pasajes vendidos por destino
 
 Ocupación por vuelo
 
+--------------0-------------
+Filtrar semanalmente, fecha actual a una semana anterior
+
+select date(now()),date(date(now())-1)
+
+-------------0---------------------
