@@ -1,4 +1,6 @@
 <?php 
+require_once("dompdf/dompdf_config.inc.php");
+		
 
 class conexion
 {
@@ -107,7 +109,7 @@ class reserva
 	}
 	function datosReserva()
 	{
-		
+		$dompdf = new DOMPDF();
 		$conectar = new conexion();		
 		$hs24 = date('Y-m-d',strtotime($this->hoy . "1 days "));
 		$hs48 = date('Y-m-d',strtotime($this->hoy . "2 days "));
@@ -218,6 +220,10 @@ class reserva
 	/*	$tabla = conexion::query("select count(codigoReserva) cantidad from reserva where codVuelo = '".$this->datosReserva[14]."' and categoria = '".$this->datosReserva[10]. "'");
 		$codigo = mysql_fetch_row($tabla);
 		$this->cantidadAsientos = $codigo[0];*/
+		$html = "hola";
+		$dompdf->load_html($html );
+		$dompdf->render();
+		$dompdf->stream("prueba.pdf");
 	}
 	function buscarReserva()
 	{

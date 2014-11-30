@@ -136,6 +136,7 @@ $paginaCargar = "<div class='well create-box'>
 		$objReserva->contarReservas();
 		//die($objReserva->datosReserva[21]);
 		//die($codigoVuelo);
+
 		$objPlanoLugares = new planoLugares($objReserva->datosReserva[21]);//se crea el objeto con la cantidad de lugares en el avion
 		
 		
@@ -145,14 +146,15 @@ $paginaCargar = "<div class='well create-box'>
 		 	
 
 		//muestra la pagina siguiente
+		 	//die($objReserva->imprimirDatos);
 		$cargado = "<div class='created-in'>$objReserva->imprimirDatos <div class='pull-right'></div></div>";
 		echo "$cargado";
 
-		require_once("dompdf_config.inc.php");
+		/*require_once("dompdf/dompdf_config.inc.php");
 		$dompdf = new DOMPDF();
 		$dompdf->load_html($cargado);
 		$dompdf->render();
-		$dompdf->stream("AeroUNLaM_Reserva.pdf");
+		$dompdf->stream("AeroUNLaM_Reserva.pdf");*/
 
 		// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
