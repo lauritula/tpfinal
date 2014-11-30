@@ -1,3 +1,6 @@
+<?php 
+include "class.php";
+ ?>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -25,14 +28,24 @@
 
 	</nav>
 
-<form method="post" action="encuesta.php">
-		<div style="width: 200px;">
-			<div>Ingrese DNI<input TYPE='number' name='user'></div>
-			<div>Ingrese contrase&ntilde;a(solo numeros)<input TYPE='password' name='pass'></div>
-			<div><input TYPE='submit' name="boton" value='login'> <input TYPE='submit' name="boton"value='crear'></div>
+<?php 
+$objConectar = new conexion();
+$reservasActivas = $objConectar->query("select * from pasajero p 
+			join reserva r on p.dni = r.dniPasajero
+			join vuelos v on r.codVuelo = v.codVuelo
+			join frecuencias f on v.codFrecuencia =  f.codFrecuencia
+			join aeropuerto a on f.origen = a.codAeropuerto 
+			join aeropuerto aDos on f.destino = aDos.codAeropuerto
+			where r.estado = 1");
+if ($this->hoy >= $this->datosReserva[15]) 
+{ // se deshabilita el boton cuando ya se encuentra dentro de las 24 hs del vuelo o el vuelo ya este pago 
 
-		</div>
-	</form>
+}
+if ($this->hoy > $this->datosReserva[15] &&  $this->datosReserva[12] == null)
+{// el vuelo ya partio y no se hizo checkin
+}
+
+ ?>
 
 
 <footer class="bs-docs-footer col-md-12" role="contentinfo">
