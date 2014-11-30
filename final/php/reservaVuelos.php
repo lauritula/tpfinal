@@ -165,7 +165,7 @@ $paginaCargar = "<div class='well create-box'>
 		 	$numeroEspera = $objReserva->cantidadAsientos  - $objPlanoLugares->datosTipoAvion["$categoria"];
 		 	echo  "<div class='well create-box'>
 		<legend>VUELO LLENO  </legend>	
-		<legend>Reserva     ".$objReserva->datosReserva[4]." <button class= ' btn btn-success' style='float: right;'><a href=\"archivo.pdf\" target=\"_blank\">Imprimir</a></button></legend>
+		<legend>Reserva     ".$objReserva->datosReserva[4]." <a href=\"archivo.pdf\" target=\"_blank\"><button class= ' btn btn-success' style='float: right;'>Imprimir</button></a></legend>
 		<div  id='the-basics' >
 		<div class='form-group ' >
 		<span class='col-md-6'>Vuelo Numero: ".$objReserva->datosReserva[14]."</span>
