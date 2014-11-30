@@ -77,32 +77,8 @@ include "class.php";
 		$pdf = $dompdf->output();//asignamos la salida a una variable
 		file_put_contents("ReservaPago.pdf", $pdf);//colocamos la salida en un archivo
 		  
-	$tempDir = EXAMPLE_TMP_SERVERPATH; 
-     
-    $codeContents = $comprobantePago; 
-     
-    // we need to generate filename somehow,  
-    // with md5 or with database ID used to obtains $codeContents... 
-    $fileName = '005_file_'.md5($codeContents).'.png'; 
-     
-    $pngAbsoluteFilePath = $tempDir.$fileName; 
-    $urlRelativeFilePath = EXAMPLE_TMP_URLRELPATH.$fileName; 
-     
-    // generating 
-    if (!file_exists($pngAbsoluteFilePath)) { 
-        QRcode::png($codeContents, $pngAbsoluteFilePath); 
-        echo 'File generated!'; 
-        echo '<hr />'; 
-    } else { 
-        echo 'File already generated! We can use this cached file to speed up site on common codes!'; 
-        echo '<hr />'; 
-    } 
-     
-    echo 'Server PNG File: '.$pngAbsoluteFilePath; 
-    echo '<hr />'; 
-     
-    // displaying 
-    echo '<img src="'.$urlRelativeFilePath.'" />'; 
+	
+	 echo '<img src="qr.php" />';
 }
 
 
