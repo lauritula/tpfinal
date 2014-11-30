@@ -29,21 +29,23 @@ include "class.php";
 	</nav>
 
 <?php 
-$objConectar = new conexion();
-$reservasActivas = $objConectar->query("select * from pasajero p 
+$hoy = date('Y-m-d');
+
+$objConexion = new conexion();
+	$objConexion->conectar("tpfinal");
+$unionTablas = "select * from pasajero p 
 			join reserva r on p.dni = r.dniPasajero
 			join vuelos v on r.codVuelo = v.codVuelo
 			join frecuencias f on v.codFrecuencia =  f.codFrecuencia
 			join aeropuerto a on f.origen = a.codAeropuerto 
-			join aeropuerto aDos on f.destino = aDos.codAeropuerto
-			where r.estado = 1");
-if ($this->hoy >= $this->datosReserva[15]) 
-{ // se deshabilita el boton cuando ya se encuentra dentro de las 24 hs del vuelo o el vuelo ya este pago 
+			join aeropuerto aDos on f.destino = aDos.codAeropuerto"; // une las tablas
 
-}
-if ($this->hoy > $this->datosReserva[15] &&  $this->datosReserva[12] == null)
-{// el vuelo ya partio y no se hizo checkin
-}
+$reservasActivasTabla = $objConexion->query("$unionTablas where r.estado = 1"); // trae los vuelos activos 
+while ( $reservasActivas  = mysql_fetch_row($reservasActivasTabla)) 
+	{ 	
+		echo "<p>".$reservasActivas[0]."</p>";
+	}
+
 
  ?>
 

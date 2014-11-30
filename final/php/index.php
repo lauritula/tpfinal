@@ -1,6 +1,8 @@
-<?php
-
-?>
+<?php 
+include "class.php";
+$objReserva = new reserva(000000);
+$objReserva->tirarReservasMasivas();
+ ?>
 
 <html>
 <head>

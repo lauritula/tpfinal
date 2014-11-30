@@ -295,6 +295,41 @@ file_put_contents("Reserva.pdf", $pdf);//colocamos la salida en un archivo
 	{
 		conexion::query("");
 	}
+	function tirarReservasMasivas()
+	{
+		$hoy = date('Y-m-d');
+		$contador= 0; 
+$objConexion = new conexion();
+	$objConexion->conectar("tpfinal");
+
+$reservasActivasTabla = $objConexion->query("select * from pasajero p 
+			join reserva r on p.dni = r.dniPasajero
+			join vuelos v on r.codVuelo = v.codVuelo
+			join frecuencias f on v.codFrecuencia =  f.codFrecuencia
+			join aeropuerto a on f.origen = a.codAeropuerto 
+			join aeropuerto aDos on f.destino = aDos.codAeropuerto where r.estado = 1"); // trae los vuelos activos 
+while ( $reservasActivas  = mysql_fetch_row($reservasActivasTabla)) 
+	{ 	
+		$this->codigoReserva = $reservasActivas[4];
+		if ($hoy >= $reservasActivas[15]) 
+		{ // cuando ya se encuentra dentro de las 24 hs del vuelo o el vuelo ya este pago 
+			$contador++;
+			//echo $reservasActivas[4];
+			$this->tirarReserva();
+
+
+		}
+		if ($hoy > $reservasActivas[15] &&  $reservasActivas[12] == null)
+		{// el vuelo ya partio y no se hizo checkin
+			$contador++;
+			//echo $reservasActivas[4];
+			$this->tirarReserva();
+
+		}
+
+	}
+//echo "Se cancelaron ".$contador." reservas";
+	}
 }
 
 class vuelo{
