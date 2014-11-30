@@ -168,7 +168,11 @@ class reserva
 
 		$this->imprimirDatos = "
 		<div class='well create-box'>
+<<<<<<< HEAD
 		<legend>Reserva     ".$this->datosReserva[4]." <a href=\"reserva.pdf\" target=\"_blank\"><button class= ' btn btn-success' style='float: right;'>Imprimir</button></a></legend>
+=======
+		<legend>Reserva     ".$this->datosReserva[4]." <a href=\"archivo.pdf\" target=\"_blank\"><button class= ' btn btn-success' style='float: right;'>Obtener PDF</button></a></legend>
+>>>>>>> origin/master
 		<div  id='the-basics' >
 		<div class='form-group ' >
 		<span class='col-md-6'>Vuelo Numero: ".$this->datosReserva[14]."</span>
