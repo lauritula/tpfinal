@@ -631,7 +631,7 @@ ALTER TABLE `pasajero`
 -- Indices de la tabla `reserva`
 --
 ALTER TABLE `reserva`
- ADD PRIMARY KEY (`codigoReserva`), ADD UNIQUE KEY `codigo` (`codigoReserva`,`dniPasajero`), ADD UNIQUE KEY `dniPasajero_3` (`dniPasajero`), ADD KEY `codigoAvion` (`dniPasajero`), ADD KEY `codigoDestino` (`codVuelo`), ADD KEY `dniPasajero` (`dniPasajero`), ADD KEY `codVuelo` (`codVuelo`), ADD KEY `dniPasajero_2` (`dniPasajero`);
+ ADD PRIMARY KEY (`codigoReserva`), ADD KEY `codigoAvion` (`dniPasajero`), ADD KEY `codigoDestino` (`codVuelo`), ADD KEY `dniPasajero` (`dniPasajero`), ADD KEY `codVuelo` (`codVuelo`), ADD KEY `dniPasajero_2` (`dniPasajero`);
 
 --
 -- Indices de la tabla `tipo`
