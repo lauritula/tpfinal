@@ -150,8 +150,7 @@ $paginaCargar = "<div class='well create-box'>
 
 		require_once("dompdf_config.inc.php");
 		$dompdf = new DOMPDF();
-		$html=$objReserva->imprimirDatos;
-		$dompdf->load_html($html);
+		$dompdf->load_html($cargado);
 		$dompdf->render();
 		$dompdf->stream("AeroUNLaM_Reserva.pdf");
 
