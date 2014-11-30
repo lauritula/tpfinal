@@ -17,6 +17,13 @@ Ocupación por vuelo
 --------------0-------------
 Filtrar semanalmente, fecha actual a una semana anterior
 
-select date(now()),date(date(now())-1)
+select date(now()),date(date(now())-7)
 
 -------------0---------------------
+
+prueba consulta 1
+
+Pasajes Caidos:
+$sql = "SELECT COUNT(*) FROM `reserva` WHERE `estado`= 0 
+ and fechaPago between date(now()) and date(date(now())-7)
+ORDER BY `codigoReserva` ASC" ;
