@@ -30,12 +30,16 @@ include "class.php";
 		<?php
 		if (isset($_POST['cargarPago'])){	
 			$codigoReserva=$_POST['codigoReserva'];
+			$numeroTarjeta=$_POST['numeroTarjeta'];
+			//die($numeroTarjeta);
 			$objConexion = new conexion;
 		$objConexion->conectar("tpfinal");
-		$comprontePago = ""; 
+
 		$hoy = date('Y-m-d');
 		$objConexion->query("UPDATE reserva SET fechaPago='$hoy' where codigoReserva = '$codigoReserva'");
+		$objConexion->query("UPDATE reserva SET numTarjeta = '".$numeroTarjeta."' where codigoReserva = '$codigoReserva'");
 		$objConexion->desconectar();
+			die($numeroTarjeta);
 		}
 	
 

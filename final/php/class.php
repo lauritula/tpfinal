@@ -90,6 +90,7 @@ class reserva
 	var $imprimirDatos;
 	var $hoy;
 	var $cantidadAsientos;
+	var $imprimirPdf;
 
 	function __construct($codigoReserva)
 	{
@@ -167,7 +168,7 @@ class reserva
 
 		$this->imprimirDatos = "
 		<div class='well create-box'>
-		<legend>Reserva     ".$this->datosReserva[4]." <a href=\"archivo.pdf\" target=\"_blank\"><button class= ' btn btn-success' style='float: right;'>Imprimir</button></a></legend>
+		<legend>Reserva     ".$this->datosReserva[4]." <a href=\"reserva.pdf\" target=\"_blank\"><button class= ' btn btn-success' style='float: right;'>Imprimir</button></a></legend>
 		<div  id='the-basics' >
 		<div class='form-group ' >
 		<span class='col-md-6'>Vuelo Numero: ".$this->datosReserva[14]."</span>
@@ -258,7 +259,6 @@ $dompdf->load_html($this->imprimirPdf);//cargamos el html
 $dompdf->render();//renderizamos
 $pdf = $dompdf->output();//asignamos la salida a una variable
 file_put_contents("Reserva.pdf", $pdf);//colocamos la salida en un archivo
-
 	}
 	function buscarReserva()
 	{
