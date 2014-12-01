@@ -13,6 +13,23 @@ $unionTablas = "SELECT COUNT(*) from pasajero p
 			join aeropuerto a on f.origen = a.codAeropuerto 
 			join aeropuerto aDos on f.destino = aDos.codAeropuerto ";
 
+$a= "SELECT r.codVuelo from pasajero p 
+			join reserva r on p.dni = r.dniPasajero
+			join vuelos v on r.codVuelo = v.codVuelo
+			join frecuencias f on v.codFrecuencia =  f.codFrecuencia
+			join aeropuerto a on f.origen = a.codAeropuerto 
+			join aeropuerto aDos on f.destino = aDos.codAeropuerto ";
+
+	$labelCodVueloTabla = $objConexion->query("  $a
+            where asiento is not null 
+              group by r.codVuelo");
+ while   ( $labelCodVuelo = mysql_fetch_row($labelCodVueloTabla) )
+ {
+ 	$dato3[$contar]= $labelCodVuelo[0];
+ 	$contar++;
+ }
+ $contar=0;
+
 	$asientosTomadosTabla = $objConexion->query("  $unionTablas
             where asiento is not null 
               group by r.codVuelo");
@@ -35,8 +52,7 @@ $graph = new Graph($ancho,$alto,"auto");
 $graph->SetScale('intint');//date time
 $graph->SetColor('black');
 $graph->tabtitle->Set('Pasajeros por vuelos');
-//$a=array('Vendidos', 'Caidos');
-//$graph->xaxis->SetTickLabels($a);
+$graph->xaxis->SetTickLabels($dato3);
 $graph->xaxis->title->Set('Vuelos');
 $graph->yaxis->title->Set('Ocupacion');
 
