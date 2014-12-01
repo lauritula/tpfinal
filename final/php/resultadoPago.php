@@ -57,7 +57,7 @@ include "class.php";
 		</div>		
 		</div>";
 		QRcode::png("Titular de Tarjeta: ".$nombreApellido."
-		Fecha de pago  ".$hoy."</span>
+		Fecha de pago  ".$hoy."
 		Importe:  $".$objReserva->datosReserva[9]."", 'qr.png'); // crea el qr
 		$comprobantePago =  "
 		<div class='well create-box'>

@@ -129,19 +129,21 @@ class reserva
 		$disabledButtonCheckIn = "<a href='checkIn.php'><button type='button' disabled='disabled' class=' col-md-12 btn btn-warning  sinpadding'>CHECK-IN</button></a>";//deshablitado
 		$disabledButtonPago = "<input name='pagar'  value='PAGAR VUELO' type='submit' class=' col-md-12 btn btn-success sinpadding '>";// habilitado
 		$tirarReservaButton = "<input type='submit' id='tirarReserva'NAME='tirarReserva' value='Eliminar reserva' class=' col-md-12 btn btn-danger'   />";
-		if ($this->datosReserva[8] != NULL &&($this->hoy == $this->datosReserva[16] ||  $hs48 == $this->datosReserva[16] || $hs24 == $this->datosReserva[16] )) 
+		
+		if ($this->datosReserva[8] != NULL && ($this->hoy == $this->datosReserva[16] ||  $hs48 == $this->datosReserva[16] || $hs24 == $this->datosReserva[16] )) 
 		{// se habilita el boton cuando el clinte pago y se encuentra dentro de  las 48 hs 
+
 			$disabledButtonCheckIn = "<input type='submit' class=' col-md-12 btn btn-warning sinpadding' value='CHECK-IN'>";
 			$tirarReservaButton = "<input type='submit' disabled='disabled' id='tirarReserva'NAME='tirarReserva' value='Tirar reserva' class=' col-md-12 btn btn-danger'   />";
 
 		}
-		if ($this->hoy >= $this->datosReserva[16] ||  $this->datosReserva[8] != NULL) 
+		if ( $this->datosReserva[8] != NULL) 
 			{ // se deshabilita el boton cuando ya se encuentra dentro de las 24 hs del vuelo o el vuelo ya este pago 
-				$disabledButtonPago ="<input disabled='disabled' value='PAGAR VUELO'   type='submit' class=' col-md-12 btn btn-success sinpadding '>";
+				$disabledButtonPago ="<input disabled='disabled' value='Vuelo Pagado'   type='submit' class=' col-md-12 btn btn-success sinpadding '>";
 				
 			}
 			if ($this->hoy >= $this->datosReserva[16]) 
-			{ // se deshabilita el boton cuando ya se encuentra dentro de las 24 hs del vuelo o el vuelo ya este pago 
+			{ // se deshabilita el boton cuando ya se encuentra dentro de las 24 hs del vuelo 
 				$disabledButtonCheckIn = ""; 
 			$disabledButtonPago = "";
 			$vueloPerdido = "<button  type='button' disabled='disabled' class=' col-md-12 btn btn-danger '>¡Ya supero el limite para pagar! </button>";
