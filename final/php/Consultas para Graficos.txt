@@ -23,12 +23,25 @@ select date(now()),date(date(now())-7)
 
 prueba consulta 1
 
-Pasajes Caidos:
+Pasajes Caidos toma el dia de la semana y le resta 7:
 $sql = "SELECT COUNT(*) FROM `reserva` WHERE `estado`= 0 and DATE_FORMAT(fechaReserva,'%d/%m/%Y') between
   DATE_FORMAT(date(date(now())-7),'%d/%m/%Y') and DATE_FORMAT(date(now()),'%d/%m/%Y') ORDER BY `codigoReserva` ASC" ;
 
 ------------0-------------------
 
-Pasajes Activos:
+Pasajes Activos toma el dia de la semana y le resta 7:
 $sql = "SELECT COUNT(*) FROM `reserva` WHERE `estado`= 1 and DATE_FORMAT(fechaReserva,'%d/%m/%Y') between
   DATE_FORMAT(date(date(now())-7),'%d/%m/%Y') and DATE_FORMAT(date(now()),'%d/%m/%Y') ORDER BY `codigoReserva` ASC" ;
+-----------0--------------------
+
+
+PASAJES CAIDOS TOMANDO EL NUMERO DE LA SEMANA DEL AÑO
+
+SELECT COUNT(*) FROM `reserva` WHERE `estado`= 0 and week(fechaReserva) = WEEK(date(now())) ORDER BY `codigoReserva` ASC
+
+
+
+PASAJES ACTIVOS TOMANDO EL NUMERO DE LA SEMANA DEL AÑO
+
+
+SELECT COUNT(*) FROM `reserva` WHERE `estado`= 1 and week(fechaReserva) = WEEK(date(now())) ORDER BY `codigoReserva` ASC
