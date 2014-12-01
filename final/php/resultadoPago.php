@@ -69,13 +69,13 @@ include "class.php";
 
 		<title></title>
 	</head>
-	<body>
+	<body style=' margin: 0;'>
 
 		<div class='well create-box'>
 			<legend>Comprobante de pago </legend>
 			<div  id='the-basics' >
 				<div  class='form-group ' >
-					<span class='col-md-6'>Titular de Tarjeta: ".$nombreApellido."</span>
+					<span class='col-md-6'>Titular de Tarjeta: ".$nombreApellido."</span> <img   class='right' src= qr.png />
 				</div>
 				<div >
 					<span class='col-md-6'>Fecha:  ".$hoy."</span>
@@ -85,10 +85,10 @@ include "class.php";
 					
 					<span>Precio:  $".$objReserva->datosReserva[9]."</span>
 				</div>
-				<div class='logo' style='float: right;'>
+			
 
-					<img   class='logo' src= qr.png />
-				</div>
+					
+				
 				
 			</div>	
 		</div>

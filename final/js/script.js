@@ -334,12 +334,13 @@ if (bandera == 1){
 });
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 /*deshabilita los lugares ya ocupados*/
-$("#P7").attr("disabled", true);
+//$("#P7").attr("disabled", true);
 /* BUTACAS AJAX*/
 $(function(){
+ 
   $("button").on("click", function (e) {
-    console.log("adentro")
-        $("button").removeClass("btn-info "); // hace que solo alla un boton azul
+      $("#confirmar").attr("disabled", false);
+      $('[name="1"]').removeClass("btn-info "); // hace que solo alla un boton azul
       $(this).addClass(" btn-info"); // pinta de azul
      //$(this).attr("disabled", true); // deshabilita el boton
 
@@ -352,22 +353,9 @@ $.ajax({
    });
 });
 }); 
-/*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
-/*cambio de precio economy primera */
-/*
 
-$('.primera').hide();
- $( "#selector" ).change(function(){
-    var selector=$('#selector').val();
-   
-    if (selector == "economico") {
-  $('.primera').hide();
-  $('.economy').show();
-  }
-   if (selector == "primera") {
-   $('.primera').show();
-     $('.economy').hide();
- }
- 
-});*/
-/**/
+/*confirmar asiento */
+      $('#confirmar').click(function(e){    
+window.location.href = 'index.php';
+
+       });

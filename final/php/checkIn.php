@@ -25,7 +25,7 @@
 			<li class="active"><a href="index.php">Home</a></li>
 		</ul>
 	</nav>
-<?php 
+	<?php 
 	$tipoAvion=$_POST['tipoAvion']; 
 	$codigoReserva=$_POST['codigoReserva']; 
 	$objConexion = new conexion;
@@ -35,23 +35,33 @@
 	//echo "$tipoAvion";
 	//echo $objPlano->datosTipoAvion['primera'];
 	echo "<input type='hidden' id='codigoReserva'  NAME='codigoReserva' value='".$codigoReserva."' />";
- ?>
- 	
+	$objReserva = new reserva($codigoReserva);
+	$objReserva->datosReserva();
+	?>
+	<div class= "col-md-12">
+		<a href="reserva.pdf" target="_blank"><button  id="confirmar"   disabled="disabled" class= "col-md-5  col-md-offset-3 btn btn-info">Confirmar</button></a>
+			
+	</div>
+<a href="reserva.pdf" target="_blank"><button class= ' btn btn-success' style='float: right;'>Obtener PDF</button></a>
 	<div class="primera col-md-5  col-md-offset-3"> 
-	
-			<?php echo "$objPlano->primera"; ?>
+
+		<?php echo "$objPlano->primera"; ?>
 		
 	</div>
 	<div class="economy col-md-5  col-md-offset-3"> 
 		<?php echo "$objPlano->economy"; ?>
 	</div>
-		<script src="../js/script.js"></script>
-		
+
+
+	
+
+	<script src="../js/script.js"></script>
+
 </body>
-	<footer class="bs-docs-footer col-md-12" role="contentinfo">
-		<p>Universidad Nacional de La Matanza</p>
-		<p> Programacion Web 2 - Trabajo Practico Final</p>
-		<p>Metallo, M. / Rabuñal, J. / Sanchez, M. / Tula, L.</p>
-		<p>2C 2014</p>
-	</footer>
+<footer class="bs-docs-footer col-md-12" role="contentinfo">
+	<p>Universidad Nacional de La Matanza</p>
+	<p> Programacion Web 2 - Trabajo Practico Final</p>
+	<p>Metallo, M. / Rabuñal, J. / Sanchez, M. / Tula, L.</p>
+	<p>2C 2014</p>
+</footer>
 </html>

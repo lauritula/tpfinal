@@ -223,19 +223,39 @@ class reserva
 	/*	$tabla = conexion::query("select count(codigoReserva) cantidad from reserva where codVuelo = '".$this->datosReserva[15]."' and categoria = '".$this->datosReserva[10]. "'");
 		$codigo = mysql_fetch_row($tabla);
 		$this->cantidadAsientos = $codigo[0];*/
+		if ($this->datosReserva[12] != null) { // cuando se completa el check in en la reserva 
+			// QR//////
+			QRcode::png("Reserva     ".$this->datosReserva[4]."
+			Nombre:".$this->datosReserva[1]." 
+			Documento:".$this->datosReserva[0]."
+			E-mail:  ".$this->datosReserva[2]."
+			Categoria:  ".$this->datosReserva[10]."
+			Vuelo Numero: ".$this->datosReserva[15]."
+			Fecha:  ".$this->datosReserva[16]."
+			Origen:  ".$this->datosReserva[27] ."/". $this->datosReserva[28] ."/".  $this->datosReserva[29]."
+			destino:  ".$this->datosReserva[31]  ."/". $this->datosReserva[32] ."/".  $this->datosReserva[33]." 
+			Precio:  $".$this->datosReserva[9]."
+			", 'qr.png', QR_ECLEVEL_L); // crea el qr
+			// QR//////
+			$checkInlugar = "
+			<div >
+			<span class='left'> Lugar reservado: ".$this->datosReserva[12]."</span>			 
+			</div>
+			";
+			$checkInQR= "<img   class='right' src= qr.png />";
+		}
+		else{
+			$checkInlugar = "";
+			$checkInQR= "";
+		}
 		$this->imprimirPdf = "
-<html>
-<head>
-	<link rel='stylesheet' type='text/css' href='../css/style.css'>
+<link rel='stylesheet' type='text/css' href='../css/style.css'>
 		<link rel='stylesheet' type='text/css' href='../css/bootstrap.css'>
 	<link rel='stylesheet' type='text/css' href='../css/bootstrap-theme.min.css'>
 
-	<title></title>
-</head>
-<body>
-	<div class='well create-box'>
-		<legend>Reserva     ".$this->datosReserva[4]."</legend>
-		<div  id='the-basics' >
+	<div class='pdf pdf-box'>
+		<legend>Reserva     ".$this->datosReserva[4]. " </legend>
+		<div  >
 		<div class='form-group ' >
 		<span class='col-md-6'>Vuelo Numero: ".$this->datosReserva[15]."</span>
 		<span class='col-md-6'>Fecha:  ".$this->datosReserva[16]."</span>
@@ -247,7 +267,7 @@ class reserva
 		<span>destino:  ".$this->datosReserva[31]  ."/". $this->datosReserva[32] ."/".  $this->datosReserva[33]." </span>
 		</div>
 		<div class='form-group ' >
-		<span>Nombre:".$this->datosReserva[1]."</span>
+		<span>Nombre:".$this->datosReserva[1]."</span> ".$checkInQR."
 		</div>
 		<div class='form-group ' >
 		<span>Documento:".$this->datosReserva[0]."</span>
@@ -261,12 +281,12 @@ class reserva
 		<div class='form-group ' >
 		
 		<span>Precio:  $".$this->datosReserva[9]."</span>
+		
 		</div>
+		".$checkInlugar."
 		</div>
 		</div>
 
-</body>
-</html>
 		";
   
 
