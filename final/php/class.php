@@ -315,7 +315,7 @@ while ( $reservasActivas  = mysql_fetch_row($reservasActivasTabla))
 		$this->codigoReserva = $reservasActivas[4];
 		if ($hoy >= $reservasActivas[16]) 
 		{ // cuando ya se encuentra dentro de las 24 hs del vuelo o el vuelo ya este pago 
-			$contador++;
+			//$contador++;
 			//echo $reservasActivas[4];
 			$this->tirarReserva();
 
@@ -323,7 +323,7 @@ while ( $reservasActivas  = mysql_fetch_row($reservasActivasTabla))
 		}
 		if ($hoy > $reservasActivas[16] &&  $reservasActivas[12] == null)
 		{// el vuelo ya partio y no se hizo checkin
-			$contador++;
+			//$contador++;
 			//echo $reservasActivas[4];
 			$this->tirarReserva();
 

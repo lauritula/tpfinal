@@ -56,7 +56,9 @@ include "class.php";
 		<span>Precio:  $".$objReserva->datosReserva[9]."</span>
 		</div>		
 		</div>";
-
+		QRcode::png("Titular de Tarjeta: ".$nombreApellido."
+		Fecha de pago  ".$hoy."</span>
+		Importe:  $".$objReserva->datosReserva[9]."", 'qr.png'); // crea el qr
 		$comprobantePago =  "
 		<div class='well create-box'>
 		<legend>Comprobante de pago </legend>
@@ -69,16 +71,18 @@ include "class.php";
 		
 		<span>Precio:  $".$objReserva->datosReserva[9]."</span>
 		</div>		
-		</div>";
+		</div>	
+		<img src= qr.png />";
 		$dompdf = new DOMPDF();
 		$dompdf->set_paper("letter", "portrait");
 		$dompdf->load_html($comprobantePago);//cargamos el html
 		$dompdf->render();//renderizamos
 		$pdf = $dompdf->output();//asignamos la salida a una variable
 		file_put_contents("ReservaPago.pdf", $pdf);//colocamos la salida en un archivo
-		  
+		
+
 	
-	 echo '<img src="qr.php" />';
+	
 }
 
 
