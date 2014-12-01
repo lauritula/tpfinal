@@ -26,3 +26,9 @@ prueba consulta 1
 Pasajes Caidos:
 $sql = "SELECT COUNT(*) FROM `reserva` WHERE `estado`= 0 and DATE_FORMAT(fechaReserva,'%d/%m/%Y') between
   DATE_FORMAT(date(date(now())-7),'%d/%m/%Y') and DATE_FORMAT(date(now()),'%d/%m/%Y') ORDER BY `codigoReserva` ASC" ;
+
+------------0-------------------
+
+Pasajes Activos:
+$sql = "SELECT COUNT(*) FROM `reserva` WHERE `estado`= 1 and DATE_FORMAT(fechaReserva,'%d/%m/%Y') between
+  DATE_FORMAT(date(date(now())-7),'%d/%m/%Y') and DATE_FORMAT(date(now()),'%d/%m/%Y') ORDER BY `codigoReserva` ASC" ;
