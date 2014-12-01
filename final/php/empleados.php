@@ -48,14 +48,15 @@ while ( $reservasActivas  = mysql_fetch_row($reservasActivasTabla))
 
 echo "<img src='graficoCaidosVendidos.php'>";
 echo "<img src='graficoPorCategoria.php'>";
+echo "asientos ociupaods";
+echo "<img src='graficoPasajerosPorVuelos.php'>";
 
  ?>
 
 
 <footer class="bs-docs-footer col-md-12" role="contentinfo">
 		<p>Universidad Nacional de La Matanza</p>
-		<p> Programacion Web 2 - Trabajo Practico Final</p>
-		<p>Metallo, M. / Rabuñal, J. / Sanchez, M. / Tula, L.</p>
+		<p> Programacion Web 2 -  J. / Sanchez, M. / Tula, L.</p>
 		<p>2C 2014</p>
 	</footer>
 </body>
