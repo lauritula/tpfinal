@@ -31,28 +31,20 @@ include "class.php";
 <?php 
 $hoy = date('Y-m-d');
 
-/*$objConexion = new conexion();
-	$objConexion->conectar("tpfinal");
-$unionTablas = "select * from pasajero p 
-			join reserva r on p.dni = r.dniPasajero
-			join vuelos v on r.codVuelo = v.codVuelo
-			join frecuencias f on v.codFrecuencia =  f.codFrecuencia
-			join aeropuerto a on f.origen = a.codAeropuerto 
-			join aeropuerto aDos on f.destino = aDos.codAeropuerto"; // une las tablas
-
-$reservasActivasTabla = $objConexion->query("$unionTablas where r.estado = 1"); // trae los vuelos activos 
-while ( $reservasActivas  = mysql_fetch_row($reservasActivasTabla)) 
-	{ 	
-		echo "<p>".$reservasActivas[0]."</p>";
-	}*/
-
-echo "<img src='graficoCaidosVendidos.php'>";
-echo "<img src='graficoPorCategoria.php'>";
-echo "asientos ociupaods";
-echo "<img src='graficoPasajerosPorVuelos.php'>";
+echo "<div>
+	<span>Pasajes Caidos y Vendidos</span>
+<img src='graficoCaidosVendidos.php'>
+</div>";
+echo "<div>
+	<span>Pasajes vendidos por categoria</span>
+<img src='graficoPorCategoria.php'>
+</div>";
+echo "<div>
+	<span>Lugares ocupados por vuelo</span>
+<img src='graficoPasajerosPorVuelos.php'>
+</div>";
 
  ?>
-
 
 <footer class="bs-docs-footer col-md-12" role="contentinfo">
 		<p>Universidad Nacional de La Matanza</p>
