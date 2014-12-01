@@ -32,15 +32,12 @@ include "class.php";
 $hoy = date('Y-m-d');
 
 echo "<div>
-	<span>Pasajes Caidos y Vendidos</span>
 <img src='graficoCaidosVendidos.php'>
 </div>";
 echo "<div>
-	<span>Pasajes vendidos por categoria</span>
 <img src='graficoPorCategoria.php'>
 </div>";
 echo "<div>
-	<span>Lugares ocupados por vuelo</span>
 <img src='graficoPasajerosPorVuelos.php'>
 </div>";
 
