@@ -1,16 +1,24 @@
 Cantidad de pasajes vendidos y reservas caidas
-(torta)
+(Grafico de torta)
 
-Pasajes Caidos:
 $sql = "SELECT COUNT(*) FROM `reserva` WHERE `estado`= 0 ORDER BY `codigoReserva` ASC ";
-
-Pasajes Activos:
 $sql = "SELECT COUNT(*) FROM `reserva` WHERE `estado`= 1 ORDER BY `codigoReserva` ASC ";
 
+-----------------0-------------------------
  
-Cantidad de pasajes vendidos por categoría 
+Cantidad de pasajes vendidos por categoría
+(grafico de torta)
+
+SELECT COUNT(*) FROM `reserva` WHERE `estado`=1 AND `categoria`='primera';
+SELECT COUNT(*) FROM `reserva` WHERE `estado`=1 AND `categoria`='economy';
+
+------------------0------------------ 
 
 Cantidad de pasajes vendidos por destino
+
+
+
+----------------0-----------------
 
 Ocupación por vuelo
 
