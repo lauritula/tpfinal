@@ -46,6 +46,7 @@ while ( $reservasActivas  = mysql_fetch_row($reservasActivasTabla))
 		echo "<p>".$reservasActivas[0]."</p>";
 	}
 
+echo "<img src='grafico.php'>";
 
  ?>
 

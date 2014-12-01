@@ -2,6 +2,8 @@
 require_once("dompdf/dompdf_config.inc.php");
 require_once("phpqrcode/qrlib.php");
 require_once("phpqrcode/qrconfig.php"); 
+require_once ("jpgraph/src/jpgraph.php");
+require_once ("jpgraph/src/jpgraph_line.php"); // grafico linea basica
 		
 
 class conexion
