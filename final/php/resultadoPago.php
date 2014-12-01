@@ -56,23 +56,45 @@ include "class.php";
 		<span>Precio:  $".$objReserva->datosReserva[9]."</span>
 		</div>		
 		</div>";
+		//
 		QRcode::png("Titular de Tarjeta: ".$nombreApellido."
-		Fecha de pago  ".$hoy."
+			Fecha de pago  ".$hoy."
 		Importe:  $".$objReserva->datosReserva[9]."", 'qr.png'); // crea el qr
-		$comprobantePago =  "
+		//
+		$comprobantePago =  "<html>
+	<head>
+		<link rel='stylesheet' type='text/css' href='../css/style.css'>
+		<link rel='stylesheet' type='text/css' href='../css/bootstrap.css'>
+		<link rel='stylesheet' type='text/css' href='../css/bootstrap-theme.min.css'>
+
+		<title></title>
+	</head>
+	<body>
+
 		<div class='well create-box'>
-		<legend>Comprobante de pago </legend>
-		<div  id='the-basics' >
-		<div class='form-group ' >
-		<span class='col-md-6'>Titular de Tarjeta: ".$nombreApellido."</span>
-		<span class='col-md-6'>Fecha:  ".$hoy."</span>
-		</div>		
-		<div class='form-group ' >
-		
-		<span>Precio:  $".$objReserva->datosReserva[9]."</span>
-		</div>		
-		</div>	
-		<img src= qr.png />";
+			<legend>Comprobante de pago </legend>
+			<div  id='the-basics' >
+				<div  class='form-group ' >
+					<span class='col-md-6'>Titular de Tarjeta: ".$nombreApellido."</span>
+				</div>
+				<div >
+					<span class='col-md-6'>Fecha:  ".$hoy."</span>
+				</div>
+				
+				<div class='form-group ' >
+					
+					<span>Precio:  $".$objReserva->datosReserva[9]."</span>
+				</div>
+				<div class='logo' style='float: right;'>
+
+					<img   class='logo' src= qr.png />
+				</div>
+				
+			</div>	
+		</div>
+	</body>
+	</html>
+		";
 		$dompdf = new DOMPDF();
 		$dompdf->set_paper("letter", "portrait");
 		$dompdf->load_html($comprobantePago);//cargamos el html
@@ -81,9 +103,9 @@ include "class.php";
 		file_put_contents("ReservaPago.pdf", $pdf);//colocamos la salida en un archivo
 		
 
-	
-	
-}
+
+
+	}
 
 
 
@@ -94,16 +116,16 @@ include "class.php";
 
 
 
-?>
+	?>
 
-<footer class="bs-docs-footer col-md-12" role="contentinfo">
-	<p>Universidad Nacional de La Matanza</p>
-	<p> Programacion Web 2 - Trabajo Practico Final</p>
-	<p>Metallo, M. / Rabuñal, J. / Sanchez, M. / Tula, L.</p>
-	<p>2C 2014</p>
-</footer>
+	<footer class="bs-docs-footer col-md-12" role="contentinfo">
+		<p>Universidad Nacional de La Matanza</p>
+		<p> Programacion Web 2 - Trabajo Practico Final</p>
+		<p>Metallo, M. / Rabuñal, J. / Sanchez, M. / Tula, L.</p>
+		<p>2C 2014</p>
+	</footer>
 
-<script src="../js/script.js"></script>
+	<script src="../js/script.js"></script>
 </body>
 
 </html>

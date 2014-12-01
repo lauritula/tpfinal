@@ -134,7 +134,7 @@ class reserva
 		{// se habilita el boton cuando el clinte pago y se encuentra dentro de  las 48 hs 
 
 			$disabledButtonCheckIn = "<input type='submit' class=' col-md-12 btn btn-warning sinpadding' value='CHECK-IN'>";
-			$tirarReservaButton = "<input type='submit' disabled='disabled' id='tirarReserva'NAME='tirarReserva' value='Tirar reserva' class=' col-md-12 btn btn-danger'   />";
+			$tirarReservaButton = "<input type='submit' disabled='disabled' id='tirarReserva'NAME='tirarReserva' value='Eliminar reserva' class=' col-md-12 btn btn-danger'   />";
 
 		}
 		if ( $this->datosReserva[8] != NULL) 
@@ -224,7 +224,16 @@ class reserva
 		$codigo = mysql_fetch_row($tabla);
 		$this->cantidadAsientos = $codigo[0];*/
 		$this->imprimirPdf = "
-		<div class='well create-box'>
+<html>
+<head>
+	<link rel='stylesheet' type='text/css' href='../css/style.css'>
+		<link rel='stylesheet' type='text/css' href='../css/bootstrap.css'>
+	<link rel='stylesheet' type='text/css' href='../css/bootstrap-theme.min.css'>
+
+	<title></title>
+</head>
+<body>
+	<div class='well create-box'>
 		<legend>Reserva     ".$this->datosReserva[4]."</legend>
 		<div  id='the-basics' >
 		<div class='form-group ' >
@@ -254,10 +263,15 @@ class reserva
 		<span>Precio:  $".$this->datosReserva[9]."</span>
 		</div>
 		</div>
-		</div>";
+		</div>
+
+</body>
+</html>
+		";
   
 
 $dompdf = new DOMPDF();
+
 $dompdf->set_paper("letter", "portrait");
 $dompdf->load_html($this->imprimirPdf);//cargamos el html
 $dompdf->render();//renderizamos
