@@ -27,10 +27,19 @@ $graph = new Graph($ancho,$alto,"auto");
 //$graph-> SetScale('textlin'); // texto
 //$graph->SetScale('datlin');//date time
 $graph->SetScale('intint');//date time
+$graph->SetColor('black');
+$graph->tabtitle->Set('Reservas Vendidas y Reservas Caidas');
+$a=array('Vendidos', 'Caidos');
+$graph->xaxis->SetTickLabels($a);
+$graph->xaxis->title->Set('Estado de pasaje');
+$graph->yaxis->title->Set('Cantidad (u)');
+
+
 //crear curva
 //$curva = new LinePlot($datosY,$datosX); // se establecen x e y 
 //$curva = new LinePlot($datosY); // si no se agreega otro el factor x es la suma de los elementos
 $curva = new BarPlot($datos);
+$curva->setWidth(30);
 
 //Agregar curva al grafico
 $graph->Add($curva);
