@@ -134,10 +134,10 @@ $paginaCargar = "<div class='well create-box'>
 	//die($objReserva->datosReserva[0]);
 
 		$objReserva->contarReservas();
-		//die($objReserva->datosReserva[22]);
+		//die($objReserva->datosReserva[21]);
 		//die($codigoVuelo);
 
-		$objPlanoLugares = new planoLugares($objReserva->datosReserva[22]);//se crea el objeto con la cantidad de lugares en el avion
+		$objPlanoLugares = new planoLugares($objReserva->datosReserva[21]);//se crea el objeto con la cantidad de lugares en el avion
 		
 		
 		 // revisar si el vuelo se encuentra lleno
@@ -168,14 +168,14 @@ $paginaCargar = "<div class='well create-box'>
 		<legend>Reserva     ".$objReserva->datosReserva[4]." <a href=\"reserva.pdf\" target=\"_blank\"><button class= ' btn btn-success' style='float: right;'>Obtener PDF</button></a></legend>
 		<div  id='the-basics' >
 		<div class='form-group ' >
-		<span class='col-md-6'>Vuelo Numero: ".$objReserva->datosReserva[15]."</span>
-		<span class='col-md-6'>Fecha:  ".$objReserva->datosReserva[16]."</span>
+		<span class='col-md-6'>Vuelo Numero: ".$objReserva->datosReserva[14]."</span>
+		<span class='col-md-6'>Fecha:  ".$objReserva->datosReserva[15]."</span>
 		</div>
 		<div class='form-group ' >
-		<span>Origen:  ".$objReserva->datosReserva[27] ."/". $objReserva->datosReserva[28] ."/".  $objReserva->datosReserva[29]."</span>
+		<span>Origen:  ".$objReserva->datosReserva[26] ."/". $objReserva->datosReserva[27] ."/".  $objReserva->datosReserva[28]."</span>
 		</div>
 		<div class='form-group ' >
-		<span>destino:  ".$objReserva->datosReserva[31]  ."/". $objReserva->datosReserva[32] ."/".  $objReserva->datosReserva[33]." </span>
+		<span>destino:  ".$objReserva->datosReserva[30]  ."/". $objReserva->datosReserva[31] ."/".  $objReserva->datosReserva[32]." </span>
 		</div>
 		<div class='form-group ' >
 		<span>Nombre:".$objReserva->datosReserva[1]."</span>
