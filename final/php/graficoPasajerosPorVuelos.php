@@ -33,10 +33,18 @@ $graph = new Graph($ancho,$alto,"auto");
 //$graph-> SetScale('textlin'); // texto
 //$graph->SetScale('datlin');//date time
 $graph->SetScale('intint');//date time
+$graph->SetColor('black');
+$graph->tabtitle->Set('Pasajeros por vuelos');
+//$a=array('Vendidos', 'Caidos');
+//$graph->xaxis->SetTickLabels($a);
+$graph->xaxis->title->Set('Vuelos');
+$graph->yaxis->title->Set('Ocupacion');
+
 //crear curva
 //$curva = new LinePlot($datosY,$datosX); // se establecen x e y 
 //$curva = new LinePlot($datosY); // si no se agreega otro el factor x es la suma de los elementos
 $curva = new BarPlot($dato1);
+$curva->setWidth(30);
 
 //Agregar curva al grafico
 $graph->Add($curva);
