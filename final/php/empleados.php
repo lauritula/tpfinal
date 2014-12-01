@@ -31,7 +31,7 @@ include "class.php";
 <?php 
 $hoy = date('Y-m-d');
 
-$objConexion = new conexion();
+/*$objConexion = new conexion();
 	$objConexion->conectar("tpfinal");
 $unionTablas = "select * from pasajero p 
 			join reserva r on p.dni = r.dniPasajero
@@ -44,9 +44,10 @@ $reservasActivasTabla = $objConexion->query("$unionTablas where r.estado = 1"); 
 while ( $reservasActivas  = mysql_fetch_row($reservasActivasTabla)) 
 	{ 	
 		echo "<p>".$reservasActivas[0]."</p>";
-	}
+	}*/
 
-echo "<img src='grafico.php'>";
+echo "<img src='graficoCaidosVendidos.php'>";
+echo "<img src='graficoPorCategoria.php'>";
 
  ?>
 
