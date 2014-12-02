@@ -23,13 +23,14 @@ function listado($tipoDeBusqueda,$dias){
 		<input TYPE='radio'  id='selectorEconomy' NAME='clase".$contador."' VALUE='economico' > Economy $".$fila[5]."
 		</div>";
 	}
-		$lista .= "	<tr><td>$dias</td>
+		$lista .= "	<tr>
+		<td>$dias<p>".$fila[16]."</p></td> 
 		<td name='origen'>".$fila[10].",".$fila[9].",".$fila[8]."(".$fila[1].")"."</td>
 		<td name='destino'>".$fila[14].",".$fila[12].",".$fila[13]."(".$fila[2].")"."</td>
 		<td>".$selectorCategoria."
 	
 		</td>
-		<input type='hidden'   name='fecha' value='".$fecha= before('(',$dias)."' />
+		<input type='hidden'   name='fecha' value='".$fecha= before('(',$dias)." ' />
 		<input type='hidden'   name='tipoAvion".$contador."' value='".$fila[3]."' />
 		<input type='hidden'   name='precioEconomy".$contador."' value='".$fila[5]."' />
 		<input type='hidden'   name='precioPrimera".$contador."' value='".$fila[4]."' />
@@ -45,23 +46,26 @@ function tipoBusqueda($origen, $diasBinario, $destino,$dias){
 	$objConexion = new conexion;
 	$objConexion->conectar("tpfinal");
 
-	$unionTabla = "select * from frecuencias f join aeropuerto a on f.origen = a.codAeropuerto join aeropuerto aDos on f.destino = aDos.codAeropuerto ";
+	$unionTabla = "select * from frecuencias f join aeropuerto a on f.origen = a.codAeropuerto
+	 join aeropuerto aDos on f.destino = aDos.codAeropuerto
+	 join horarios h on h.codFrecuencia = f.codFrecuencia";
+	$subConsutal =  "and f.codFrecuencia in (select hh.codFrecuencia  from horarios hh )";
 	if (!$dias && !$origen && !$destino) 
-		$resultado = $objConexion->query("$unionTabla where 1");		
+		$resultado = $objConexion->query("$unionTabla where 1 $subConsutal");		
 	if($dias && !$origen && !$destino)
-		$resultado = $objConexion->query("$unionTabla where dias LIKE '$diasBinario'");
+		$resultado = $objConexion->query("$unionTabla where dias LIKE '$diasBinario' $subConsutal");
 	if($origen && !$dias  && !$destino)
-		$resultado =  $objConexion->query("$unionTabla where origen ='$origen'");	
+		$resultado =  $objConexion->query("$unionTabla where origen ='$origen' $subConsutal");	
 	if (!$origen && !$dias &&  $destino) 
-		$resultado = $objConexion->query("$unionTabla where destino ='$destino'");	
+		$resultado = $objConexion->query("$unionTabla where destino ='$destino' $subConsutal");	
 	if ($origen && $dias &&  $destino) 
-		$resultado = $objConexion->query("$unionTabla where origen ='$origen' and dias LIKE '$diasBinario' and destino='$destino'");	
+		$resultado = $objConexion->query("$unionTabla where origen ='$origen' and dias LIKE '$diasBinario' and destino='$destino' $subConsutal");	
 	if (!$origen && $dias &&  $destino) 
-		$resultado = $objConexion->query("$unionTabla where dias LIKE '$diasBinario' and destino='$destino'");	
+		$resultado = $objConexion->query("$unionTabla where dias LIKE '$diasBinario' and destino='$destino' $subConsutal");	
 	if ($origen && !$dias &&  $destino) 
-		$resultado = $objConexion->query("$unionTabla where origen ='$origen' and destino='$destino'");	
+		$resultado = $objConexion->query("$unionTabla where origen ='$origen' and destino='$destino' $subConsutal");	
 	if ($origen && $dias &&  !$destino) 
-		$resultado = $objConexion->query("$unionTabla where origen ='$origen' and dias LIKE '$diasBinario' ");	
+		$resultado = $objConexion->query("$unionTabla where origen ='$origen' and dias LIKE '$diasBinario' $subConsutal ");	
 	$lista=listado($resultado,$dias);
 	$objConexion->desconectar();
 	return $lista;

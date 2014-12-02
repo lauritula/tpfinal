@@ -97,7 +97,7 @@ class reserva
 	var $hoy;
 	var $cantidadAsientos;
 	var $imprimirPdf;
-	var $datosCaidos
+	var $datosCaidos;
 
 	function __construct($codigoReserva)
 	{
@@ -176,6 +176,13 @@ class reserva
 			$tirarReservaButton= "";
 			$vueloPerdido = "<button  type='button' disabled='disabled' class=' col-md-12 btn btn-danger '>su reserva fue dada de baja </button>";
 		}
+		if ($this->datosReserva[12] != null ) {
+			// cuando el pasajero ya dispone de asiento (checkin realizado)
+			$disabledButtonCheckIn = ""; 
+			$disabledButtonPago = "";
+			$tirarReservaButton= "";
+			$vueloPerdido = "<button  type='button' disabled='disabled' class=' col-md-12 btn btn-danger '>Check-In realizado </button>";
+		}
 
 
 		$this->imprimirDatos = "
@@ -184,7 +191,7 @@ class reserva
 		<div  id='the-basics' >
 		<div class='form-group ' >
 		<span class='col-md-6'>Vuelo Numero: ".$this->datosReserva[15]."</span>
-		<span class='col-md-6'>Fecha:  ".$this->datosReserva[16]."</span>
+		<span class='col-md-6'>Fecha y hora:  ".$this->datosReserva[16]." - ".$this->datosReserva[35]." </span>
 		</div>
 		<div class='form-group ' >
 		<span>Origen:  ".$this->datosReserva[27] ."/". $this->datosReserva[28] ."/".  $this->datosReserva[29]."</span>
@@ -239,7 +246,7 @@ class reserva
 				E-mail:  ".$this->datosReserva[2]."
 				Categoria:  ".$this->datosReserva[10]."
 				Vuelo Numero: ".$this->datosReserva[15]."
-				Fecha:  ".$this->datosReserva[16]."
+				Fecha y hora:  ".$this->datosReserva[16]." - ".$this->datosReserva[35]."
 				Origen:  ".$this->datosReserva[27] ."/". $this->datosReserva[28] ."/".  $this->datosReserva[29]."
 				destino:  ".$this->datosReserva[31]  ."/". $this->datosReserva[32] ."/".  $this->datosReserva[33]." 
 				Precio:  $".$this->datosReserva[9]."
@@ -266,7 +273,7 @@ class reserva
 		<div  >
 		<div class='form-group ' >
 		<span class='col-md-6'>Vuelo Numero: ".$this->datosReserva[15]."</span>
-		<span class='col-md-6'>Fecha:  ".$this->datosReserva[16]."</span>
+		<span class='col-md-6'>Fecha y Hora: ".$this->datosReserva[16]." - ".$this->datosReserva[35]."</span>
 		</div>
 		<div class='form-group ' >
 		<span>Origen:  ".$this->datosReserva[27] ."/". $this->datosReserva[28] ."/".  $this->datosReserva[29]."</span>
@@ -347,11 +354,10 @@ function tirarReservasMasivas()
 	date_default_timezone_set (  'America/Argentina/Buenos_Aires' );
 	$hora = date("H:i:s");
 	$hs2mas = date('H:i:s',strtotime($hora . "2 hours  "));
-	die($hs2mas);
 	$contador= 0; 
 	$objConexion = new conexion();
 	$objConexion->conectar("tpfinal");
-	$this->datosCaidos = "<table border='1'>
+	$this->datosCaidos = "<table class='table table-bordered'>
 	<tr>
 	<td>codigo reserva</td>
 	<td>DNI</td>

@@ -169,7 +169,7 @@ $paginaCargar = "<div class='well create-box'>
 		<div  id='the-basics' >
 		<div class='form-group ' >
 		<span class='col-md-6'>Vuelo Numero: ".$objReserva->datosReserva[15]."</span>
-		<span class='col-md-6'>Fecha:  ".$objReserva->datosReserva[16]."</span>
+		<span class='col-md-6'>Fecha y Hora:  ".$this->datosReserva[16]." - ".$this->datosReserva[35]."</span>
 		</div>
 		<div class='form-group ' >
 		<span>Origen:  ".$objReserva->datosReserva[27] ."/". $objReserva->datosReserva[28] ."/".  $objReserva->datosReserva[29]."</span>
