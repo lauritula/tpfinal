@@ -45,6 +45,6 @@ $curva->setWidth(30);
 $graph->Add($curva);
 // generar el grafico desde el php
 $graph->Stroke();
-
+$objConexion->desconectar();
 ?>
 

@@ -331,17 +331,42 @@ function eliminarReserva()
 {		
 	$this->datosReserva($this->codigoReserva);
 	conexion::query("DELETE FROM reserva WHERE codigoReserva = '$this->codigoReserva'");
-	conexion::query("DELETE FROM pasajero WHERE dni = ".$this->datosReserva[0]."");	
+	//conexion::query("DELETE FROM pasajero WHERE dni = ".$this->datosReserva[0]."");	
 		// si el vuelo tiene lista de espera reduce el numero de espera porque se libera una vacante 
 	$tabla = conexion::query("UPDATE reserva set listaEspera = listaEspera  - 1 where codVuelo = '".$this->datosReserva[15]."' and categoria = '".$this->datosReserva[10]. "' and listaEspera is not NULL and listaEspera >0 ORDER BY listaEspera ASC ");
 
 }
 function tirarReserva()
-{		
+{	
 	$this->datosReserva($this->codigoReserva);
+	//	
+	$consulta = conexion::query("select max(listaEspera) from reserva 
+		where codVuelo = '".$this->datosReserva[15]."'
+		and categoria = '".$this->datosReserva[10]. "' ");// devuelve el mayor en la lista de espera 
+	$tabla = mysql_fetch_row($consulta);
+	$mayorEnLista  = $tabla[0]; //numero de espera mayor 
+	//die($mayorEnLista);
+	//
+	
 	conexion::query("UPDATE reserva SET estado = 0 where codigoReserva = '$this->codigoReserva'");
 		// si el vuelo tiene lista de espera reduce el numero de espera porque se libera una vacante 
-	$tabla = conexion::query("UPDATE reserva set listaEspera = listaEspera  - 1 where codVuelo = '".$this->datosReserva[15]."' and categoria = '".$this->datosReserva[10]. "' and listaEspera is not NULL and listaEspera >0 ORDER BY listaEspera ASC ");
+	if ($this->datosReserva[7] != $mayorEnLista) // si la reserva a elimar es el ultimo en la lsita, no se reduce el numero de espera para el resto 
+	{
+		$tabla = conexion::query("UPDATE reserva set listaEspera = listaEspera  - 1 where codVuelo = '".$this->datosReserva[15]."'
+	 and categoria = '".$this->datosReserva[10]. "' 
+	 and listaEspera is not NULL 
+	 and listaEspera >0
+	 and listaEspera > '".$this->datosReserva[7]. "'
+	  ORDER BY listaEspera ASC ");
+	}
+	//if ($this->datosReserva[13] == 0)
+	//{//die($this->datosReserva[13]);
+		$tabla = conexion::query("UPDATE reserva set listaEspera = null where codVuelo = '".$this->datosReserva[15]."'
+	 and categoria = '".$this->datosReserva[10]. "'
+	 and  codigoReserva = '$this->codigoReserva'" ); // la lista de espera se pone en null para la reserva eliminada
+
+	//}
+	
 
 }
 function colaEspera()
