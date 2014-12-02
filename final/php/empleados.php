@@ -39,11 +39,11 @@ echo "<div class='well pago-box'>
 			<div  id='the-basics' >
 				
 				<div class='form-group' >
-					<label for='username-email'>Titular de la tarjeta</label>
-					<input type='text'  id='user' class='  form-control ' name='user' placeholder='usuario'>
+					<label for='username-email'>ID</label>
+					<input type='text'  id='user' class='  form-control ' name='user' placeholder='Usuario'>
 				</div>				
 				<div class='form-group'>
-					<label for='password'>password</label>
+					<label for='password'>Password</label>
 					<input type='password'  id='pass' class='  form-control ' name='pass' placeholder='(password)'>
 				</div>				
 				<input type='submit' id='login' name='login'value='Ingresar' class=' col-md-12 btn btn-success btn-pago-submit'   />
