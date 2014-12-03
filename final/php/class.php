@@ -378,12 +378,14 @@ function tirarReservasMasivas()
 	$hoy = date('Y-m-d');
 	date_default_timezone_set (  'America/Argentina/Buenos_Aires' );
 	$hora = date("H:i:s");
-	$hs2mas = date('H:i:s',strtotime($hora . "2 hours  "));
+	//$hs2menos = date('H:i:s',strtotime($hora . "-2 hours  "));
+	//die($hs2menos);
 	$contador= 0; 
 	$objConexion = new conexion();
 	$objConexion->conectar("tpfinal");
 	$this->datosCaidos = "<table class='table table-bordered'>
 	<tr>
+	<td>Motivo de caida</td>
 	<td>codigo reserva</td>
 	<td>DNI</td>
 	<td>Nombre</td>
@@ -400,12 +402,18 @@ function tirarReservasMasivas()
 			join horarios h on h.codFrecuencia = f.codFrecuencia
 			where r.estado  = 1 and f.codFrecuencia in (select hh.codFrecuencia  from horarios hh )"); // trae los vuelos activos 
 	while ( $reservasActivas  = mysql_fetch_row($reservasActivasTabla)) 
-	{ 	
+	{ 	 
+		$hs2menos = date('H:i:s',strtotime($reservasActivas[35] . "-2 hours  ")); // dos horas menos del vuelo
+		//die($hs2menos);
 		$this->codigoReserva = $reservasActivas[4];
-		if ($hoy = $reservasActivas[16] &&  $hs2mas>$reservasActivas[35] ) 
-		{ 
+		if ($hoy == $reservasActivas[16] &&  $hs2menos<$hora  && $reservasActivas[8] != null) //cuando es el dia de hoy ,pasaron las dos horas previas y pago
+		{  // El pasajero no hizo el CHECK-IN antes de las 2hs de vuelo
 			$this->datosCaidos .= "
 			<tr>
+				<td>
+					El pasajero no hizo el CHECK-IN 
+					antes de las 2hs de vuelo
+				</td>
 				<td>
 					".$reservasActivas[4]."
 				</td>
@@ -422,20 +430,50 @@ function tirarReservasMasivas()
 					".$reservasActivas[2]."
 				</td>
 			</tr>";
-		// cuando ya se encuentra dentro de las 24 hs del vuelo o el vuelo ya este pago 
-			//$contador++;
-			//echo $reservasActivas[4];
+		
 			$this->tirarReserva();
 
 
 		}
-		if ($hoy > $reservasActivas[16] &&  $reservasActivas[12] == null)
+		if ($hoy >= $reservasActivas[16] &&  $reservasActivas[12] == null  &&  $hora>$reservasActivas[35])
 		{
 		// el vuelo ya partio y no se hizo checkin
 			//$contador++;
 			//echo $reservasActivas[4];
 			$this->datosCaidos .= "
 			<tr>
+				<td>
+					Perdio el vuelo
+				</td>
+				<td>
+					".$reservasActivas[4]."
+				</td>
+				<td>
+					".$reservasActivas[5]."
+				</td>
+					<td>
+					".$reservasActivas[1]."
+				</td>
+				<td>
+					".$reservasActivas[6]."
+				</td>
+				<td>
+					".$reservasActivas[2]."
+				</td>
+			</tr>";
+			$this->tirarReserva();
+
+		}
+		elseif ($hoy == $reservasActivas[16] &&  $reservasActivas[8] == null)
+		{
+		// se supero eltiempo para pagar (confirmar la reserva )
+			//$contador++;
+			//echo $reservasActivas[4];
+			$this->datosCaidos .= "
+			<tr>
+				<td>
+					No confirmo la reserva
+				</td>
 				<td>
 					".$reservasActivas[4]."
 				</td>

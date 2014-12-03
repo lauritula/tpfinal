@@ -1,0 +1,57 @@
+consultas test
+
+DELETE FROM `tpfinal`.`reserva` WHERE `reserva`.`codigoReserva` = 'AD24SI';
+DELETE FROM `tpfinal`.`reserva` WHERE `reserva`.`codigoReserva` = 'FD79JX';
+DELETE FROM `tpfinal`.`reserva` WHERE `reserva`.`codigoReserva` = 'FR98XU';
+DELETE FROM `tpfinal`.`reserva` WHERE `reserva`.`codigoReserva` = 'JK86KL';
+DELETE FROM `tpfinal`.`reserva` WHERE `reserva`.`codigoReserva` = 'JV55AC';
+DELETE FROM `tpfinal`.`reserva` WHERE `reserva`.`codigoReserva` = 'KU71FB';
+DELETE FROM `tpfinal`.`reserva` WHERE `reserva`.`codigoReserva` = 'LL86WY';
+DELETE FROM `tpfinal`.`reserva` WHERE `reserva`.`codigoReserva` = 'MV80PK';
+DELETE FROM `tpfinal`.`reserva` WHERE `reserva`.`codigoReserva` = 'QX38ZX';
+DELETE FROM `tpfinal`.`reserva` WHERE `reserva`.`codigoReserva` = 'TH89CE';
+DELETE FROM `tpfinal`.`reserva` WHERE `reserva`.`codigoReserva` = 'VC18UC';
+DELETE FROM `tpfinal`.`reserva` WHERE `reserva`.`codigoReserva` = 'WX30MF';
+DELETE FROM `tpfinal`.`reserva` WHERE `reserva`.`codigoReserva` = 'ZP48JT';
+DELETE FROM `tpfinal`.`reserva` WHERE `reserva`.`codigoReserva` = 'ZT21DO';
+
+INSERT INTO `reserva` (`codigoReserva`, `dniPasajero`, `codVuelo`, `listaEspera`, `fechaPago`, `monto`, `categoria`, `numTarjeta`, `asiento`, `estado`, `fechaReserva`) VALUES
+('AD24SI', 23234234, 'VB33XY', NULL, NULL, 1952.01, 'primera', NULL, NULL, 1, '2014-12-02 09:36:21'),
+('ZP48JT', 23234234, 'VB33XY', NULL, NULL, 1952.01, 'primera', NULL, NULL, 1, '2014-12-02 09:36:54'),
+('WX30MF', 23234234, 'VB33XY', NULL, NULL, 1952.01, 'primera', NULL, NULL, 1, '2014-12-02 09:38:05'),
+('VC18UC', 23234234, 'VB33XY', 3, NULL, 1952.01, 'primera', NULL, NULL, 1, '2014-12-02 09:38:53'),
+('TH89CE', 23234234, 'VB33XY', NULL, NULL, 1952.01, 'primera', NULL, NULL, 1, '2014-12-02 09:37:59'),
+('QX38ZX', 23234234, 'VB33XY', NULL, NULL, 1952.01, 'primera', NULL, NULL, 1, '2014-12-02 09:40:39'),
+('MV80PK', 23234234, 'VB33XY', 1, NULL, 1952.01, 'primera', NULL, NULL, 1, '2014-12-02 09:36:51'),
+('LL86WY', 23234234, 'VB33XY', 2, NULL, 1952.01, 'primera', NULL, NULL, 1, '2014-12-02 09:37:56'),
+('KU71FB', 23234234, 'VB33XY', NULL, NULL, 1952.01, 'primera', NULL, NULL, 1, '2014-12-02 09:38:02'),
+('JV55AC', 23234234, 'VB33XY', 4, NULL, 1952.01, 'primera', NULL, NULL, 1, '2014-12-02 09:44:52'),
+('JK86KL', 23234234, 'VB33XY', NULL, NULL, 1952.01, 'primera', NULL, NULL, 1, '2014-12-02 09:38:09'),
+('FR98XU', 23234234, 'VB33XY', NULL, NULL, 1952.01, 'primera', NULL, NULL, 1, '2014-12-02 09:36:57'),
+('FD79JX', 23234234, 'VB33XY', NULL, NULL, 1952.01, 'primera', NULL, NULL, 1, '2014-12-02 09:36:46'),
+('ZT21DO', 23234234, 'VB33XY', 0, NULL, 1952.01, 'primera', NULL, NULL, 1, '2014-12-02 09:36:49');
+
+////// ver
+SELECT * FROM `reserva` WHERE codVuelo = 'VB33XY'
+/// pagan
+update  reserva set fechaPago = '2014-11-25' WHERE codVuelo = 'VB33XY'
+
+/// ver reservas activas 
+select * from pasajero p 
+			join reserva r on p.dni = r.dniPasajero
+			join vuelos v on r.codVuelo = v.codVuelo
+			join frecuencias f on v.codFrecuencia =  f.codFrecuencia
+			join aeropuerto a on f.origen = a.codAeropuerto 
+			join aeropuerto aDos on f.destino = aDos.codAeropuerto 
+			join horarios h on h.codFrecuencia = f.codFrecuencia
+			where r.estado  = 1 and f.codFrecuencia in (select hh.codFrecuencia  from horarios hh )
+
+			// datosde reservas
+			select * from pasajero p 
+			join reserva r on p.dni = r.dniPasajero
+			join vuelos v on r.codVuelo = v.codVuelo
+			join frecuencias f on v.codFrecuencia =  f.codFrecuencia
+			join aeropuerto a on f.origen = a.codAeropuerto 
+			join aeropuerto aDos on f.destino = aDos.codAeropuerto 
+			join horarios h on h.codFrecuencia = f.codFrecuencia
+			where r.codigoReserva  = '$this->codigoReserva' and f.codFrecuencia in (select hh.codFrecuencia  from horarios hh )
