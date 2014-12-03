@@ -1,6 +1,6 @@
 <?php 
 include "class.php";
- ?>
+?>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -21,44 +21,50 @@ include "class.php";
 	<title>Adminitracion</title>
 </head>
 <body>
-<nav class="navbar navbar-inverse" role="navigation">
+	<nav class="navbar navbar-inverse" role="navigation">
 		<ul  class="nav navbar-nav">
 			<li class="active"><a href="index.php">Home</a></li>
 		</ul>
 
 	</nav>
-	<form action='empleados.php' method='post' role='search'>
-	<input type='submit' id='tirarReservas'NAME='tirarReservas' value='Eliminar reserva' class=' col-md-6 btn btn-info'>
-</form>
+	<div >
+		<form action='empleados.php' method='post' role='search' >
+			<input type='submit' id='tirarReservas'NAME='tirarReservas' value='Eliminar reserva' class=' col-md-6 btn btn-info'>
+		</form>
 
-<form action='empleados.php' method='post' role='search'>
-	<input type='submit' id='graficos'NAME='graficos' value='Graficos semanales' class=' col-md-6 btn btn-info'>
-</form>
-
-<?php 
-$hoy = date('Y-m-d');
-if (isset($_POST['graficos'])) {
-	
-
-echo "<div>
-<img src='graficoCaidosVendidos.php'>
-</div>";
-echo "<div>
-<img src='graficoPorCategoria.php'>
-</div>";
-echo "<div>
-<img src='graficoPasajerosPorVuelos.php'>
-</div>";
-}
-if (isset($_POST['tirarReservas'])) {
-$objReserva = new reserva(000000);
-$objReserva->tirarReservasMasivas();
-echo $objReserva->datosCaidos;
-}
- ?>
+		<form action='empleados.php' method='post' role='search'>
+			<input type='submit' id='graficos'NAME='graficos' value='Graficos semanales' class=' col-md-6 btn btn-info'>
+		</form>
+	</div>
+	<?php 
+	$hoy = date('Y-m-d');
+	if (isset($_POST['graficos'])) {
 
 
-<footer class="bs-docs-footer col-md-12" role="contentinfo">
+		echo "<div>
+		<img src='graficoCaidosVendidos.php'>
+		</div>";
+		echo "<div>
+		<img src='graficoPorCategoria.php'>
+		</div>";
+		echo "<div>
+		<img src='graficoPasajerosPorVuelos.php'>
+		</div>";
+	}
+	if (isset($_POST['tirarReservas'])) {
+		$objReserva = new reserva(000000);
+		$objReserva->tirarReservasMasivas();
+		echo" <div class='col-md-12'>
+		$objReserva->datosCaidos
+		</div>";
+		echo "<div class='col-md-12'>
+		$objReserva->vacantesDisponibles
+		</div>";
+	}
+	?>
+
+
+	<footer class="bs-docs-footer col-md-12" role="contentinfo">
 		<p>Universidad Nacional de La Matanza</p>
 		<p> Programacion Web 2 -  J. / Sanchez, M. / Tula, L.</p>
 		<p>2C 2014</p>

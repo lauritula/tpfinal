@@ -98,6 +98,7 @@ class reserva
 	var $cantidadAsientos;
 	var $imprimirPdf;
 	var $datosCaidos;
+	var $vacantesDisponibles;
 
 	function __construct($codigoReserva)
 	{
@@ -353,47 +354,90 @@ function tirarReserva()
 	if ($this->datosReserva[7] != $mayorEnLista) // si la reserva a elimar es el ultimo en la lsita, no se reduce el numero de espera para el resto 
 	{
 		$tabla = conexion::query("UPDATE reserva set listaEspera = listaEspera  - 1 where codVuelo = '".$this->datosReserva[15]."'
-	 and categoria = '".$this->datosReserva[10]. "' 
-	 and listaEspera is not NULL 
-	 and listaEspera >0
-	 and listaEspera > '".$this->datosReserva[7]. "'
-	  ORDER BY listaEspera ASC ");
+			and categoria = '".$this->datosReserva[10]. "' 
+			and listaEspera is not NULL 
+			and listaEspera >0
+			and listaEspera > '".$this->datosReserva[7]. "'
+			ORDER BY listaEspera ASC ");
 	}
 	//if ($this->datosReserva[13] == 0)
 	//{//die($this->datosReserva[13]);
-		$tabla = conexion::query("UPDATE reserva set listaEspera = null where codVuelo = '".$this->datosReserva[15]."'
-	 and categoria = '".$this->datosReserva[10]. "'
+	$tabla = conexion::query("UPDATE reserva set listaEspera = null where codVuelo = '".$this->datosReserva[15]."'
+		and categoria = '".$this->datosReserva[10]. "'
 	 and  codigoReserva = '$this->codigoReserva'" ); // la lista de espera se pone en null para la reserva eliminada
 
 	//}
 	
 
 }
-function colaEspera()
+function listaEspera()
 {
-	conexion::query("");
-}
-function tirarReservasMasivas()
-{
-	$hoy = date('Y-m-d');
-	date_default_timezone_set (  'America/Argentina/Buenos_Aires' );
-	$hora = date("H:i:s");
-	//$hs2menos = date('H:i:s',strtotime($hora . "-2 hours  "));
-	//die($hs2menos);
-	$contador= 0; 
-	$objConexion = new conexion();
-	$objConexion->conectar("tpfinal");
-	$this->datosCaidos = "<table class='table table-bordered'>
+	
+	$reservasEnEsperaTabla = conexion::query("select * from pasajero p 
+		join reserva r on p.dni = r.dniPasajero
+		join vuelos v on r.codVuelo = v.codVuelo
+		join frecuencias f on v.codFrecuencia =  f.codFrecuencia
+		join aeropuerto a on f.origen = a.codAeropuerto 
+		join aeropuerto aDos on f.destino = aDos.codAeropuerto 
+		join horarios h on h.codFrecuencia = f.codFrecuencia
+			where r.estado  = 1 and listaEspera = 0 and listaEspera is not null and f.codFrecuencia in (select hh.codFrecuencia  from horarios hh )"); // trae los vuelos activos 
+
+	$this->vacantesDisponibles = "<table class='table table-bordered'>
+	<caption><legend>Pasajeros con vacante para viajar</legend></caption>
 	<tr>
-	<td>Motivo de caida</td>
 	<td>codigo reserva</td>
 	<td>DNI</td>
 	<td>Nombre</td>
 	<td>codigo Vuelo</td>
 	<td>Email</td>
 	</tr> ";
+	while ( $reservasEnEspera  = mysql_fetch_row($reservasEnEsperaTabla)) 
+	{ 
+		$this->vacantesDisponibles .=
+		"<tr class = 'success'>
+		<td>
+		".$reservasEnEspera[4]."
+		</td>
+		<td>
+		".$reservasEnEspera[5]."
+		</td>
+		<td>
+		".$reservasEnEspera[1]."
+		</td>
+		<td>
+		".$reservasEnEspera[6]."
+		</td>
+		<td>
+		".$reservasEnEspera[2]."
+		</td>
+		</tr>";
+			conexion::query("update reserva set listaEspera = null where codigoReserva= '".$reservasEnEspera[4]."' "); // establece null una vez notificado en la tabla 
+		}
+		$this->vacantesDisponibles .= "</table>";
+	}
+	function tirarReservasMasivas()
+	{
+		$hoy = date('Y-m-d');
+		date_default_timezone_set (  'America/Argentina/Buenos_Aires' );
+		$hora = date("H:i:s");
+	//$hs2menos = date('H:i:s',strtotime($hora . "-2 hours  "));
+	//die($hs2menos);
+		$contador= 0; 
+		$objConexion = new conexion();
+		$objConexion->conectar("tpfinal");
+		$this->datosCaidos = "<table class='table table-bordered'>
+		<caption><legend>Reservas eliminadas</legend></caption>
+		<tr>
+		<td>Motivo de caida</td>
+		<td>codigo reserva</td>
+		<td>DNI</td>
+		<td>Nombre</td>
+		<td>codigo Vuelo</td>
+		<td>Email</td>
+		</tr> ";
 
-	$reservasActivasTabla = $objConexion->query("select * from pasajero p 
+
+		$reservasActivasTabla = $objConexion->query("select * from pasajero p 
 			join reserva r on p.dni = r.dniPasajero
 			join vuelos v on r.codVuelo = v.codVuelo
 			join frecuencias f on v.codFrecuencia =  f.codFrecuencia
@@ -401,36 +445,36 @@ function tirarReservasMasivas()
 			join aeropuerto aDos on f.destino = aDos.codAeropuerto 
 			join horarios h on h.codFrecuencia = f.codFrecuencia
 			where r.estado  = 1 and f.codFrecuencia in (select hh.codFrecuencia  from horarios hh )"); // trae los vuelos activos 
-	while ( $reservasActivas  = mysql_fetch_row($reservasActivasTabla)) 
-	{ 	 
+		while ( $reservasActivas  = mysql_fetch_row($reservasActivasTabla)) 
+		{ 	 
 		$hs2menos = date('H:i:s',strtotime($reservasActivas[35] . "-2 hours  ")); // dos horas menos del vuelo
 		//die($hs2menos);
 		$this->codigoReserva = $reservasActivas[4];
 		if ($hoy == $reservasActivas[16] &&  $hs2menos<$hora  && $reservasActivas[8] != null) //cuando es el dia de hoy ,pasaron las dos horas previas y pago
 		{  // El pasajero no hizo el CHECK-IN antes de las 2hs de vuelo
 			$this->datosCaidos .= "
-			<tr>
-				<td>
-					El pasajero no hizo el CHECK-IN 
-					antes de las 2hs de vuelo
-				</td>
-				<td>
-					".$reservasActivas[4]."
-				</td>
-				<td>
-					".$reservasActivas[5]."
-				</td>
-					<td>
-					".$reservasActivas[1]."
-				</td>
-				<td>
-					".$reservasActivas[6]."
-				</td>
-				<td>
-					".$reservasActivas[2]."
-				</td>
+			<tr class='danger'>
+			<td>
+			El pasajero no hizo el CHECK-IN 
+			antes de las 2hs de vuelo
+			</td>
+			<td>
+			".$reservasActivas[4]."
+			</td>
+			<td>
+			".$reservasActivas[5]."
+			</td>
+			<td>
+			".$reservasActivas[1]."
+			</td>
+			<td>
+			".$reservasActivas[6]."
+			</td>
+			<td>
+			".$reservasActivas[2]."
+			</td>
 			</tr>";
-		
+
 			$this->tirarReserva();
 
 
@@ -441,25 +485,25 @@ function tirarReservasMasivas()
 			//$contador++;
 			//echo $reservasActivas[4];
 			$this->datosCaidos .= "
-			<tr>
-				<td>
-					Perdio el vuelo
-				</td>
-				<td>
-					".$reservasActivas[4]."
-				</td>
-				<td>
-					".$reservasActivas[5]."
-				</td>
-					<td>
-					".$reservasActivas[1]."
-				</td>
-				<td>
-					".$reservasActivas[6]."
-				</td>
-				<td>
-					".$reservasActivas[2]."
-				</td>
+			<tr class='danger'>
+			<td>
+			Perdio el vuelo
+			</td>
+			<td>
+			".$reservasActivas[4]."
+			</td>
+			<td>
+			".$reservasActivas[5]."
+			</td>
+			<td>
+			".$reservasActivas[1]."
+			</td>
+			<td>
+			".$reservasActivas[6]."
+			</td>
+			<td>
+			".$reservasActivas[2]."
+			</td>
 			</tr>";
 			$this->tirarReserva();
 
@@ -470,33 +514,38 @@ function tirarReservasMasivas()
 			//$contador++;
 			//echo $reservasActivas[4];
 			$this->datosCaidos .= "
-			<tr>
-				<td>
-					No confirmo la reserva
-				</td>
-				<td>
-					".$reservasActivas[4]."
-				</td>
-				<td>
-					".$reservasActivas[5]."
-				</td>
-					<td>
-					".$reservasActivas[1]."
-				</td>
-				<td>
-					".$reservasActivas[6]."
-				</td>
-				<td>
-					".$reservasActivas[2]."
-				</td>
+			<tr class='danger'>
+			<td>
+			No confirmo la reserva
+			</td>
+			<td>
+			".$reservasActivas[4]."
+			</td>
+			<td>
+			".$reservasActivas[5]."
+			</td>
+			<td>
+			".$reservasActivas[1]."
+			</td>
+			<td>
+			".$reservasActivas[6]."
+			</td>
+			<td>
+			".$reservasActivas[2]."
+			</td>
 			</tr>";
 			$this->tirarReserva();
+			// imprime tabla con vacantes 
+			
+
+			
+			
 
 		}
 
 	}
 	$this->datosCaidos .= "</table>";
-//echo "Se cancelaron ".$contador." reservas";
+	$this->listaEspera();	
 }
 }
 
