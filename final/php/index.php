@@ -96,6 +96,7 @@ $objReserva->tirarReservasMasivas();*/
 		<p> Programacion Web 2 - Trabajo Practico Final</p>
 		<p>Metallo, M. / Rabuñal, J. / Sanchez, M. / Tula, L.</p>
 		<p>2C 2014</p>
+		<p><a class='acceso' href="empleados.php">Acceso empleados</a></p>
 	</footer>
 	<!-- typeahead y calendario  -->
 	
