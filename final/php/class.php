@@ -460,7 +460,7 @@ function listaEspera()
 			$this->codigoReserva = $reservasActivas[4];
 			if ($hoy == $reservasActivas[16] &&  $hs2menos<$hora && $hora <$reservasActivas[35]  && $reservasActivas[8] != null) //cuando es el dia de hoy ,pasaron las dos horas previas y pago
 			{  // El pasajero no hizo el CHECK-IN antes de las 2hs de vuelo
-				die("2hs check");
+				//die("2hs check");
 				$this->datosCaidos .= "
 				<tr class='danger'>
 				<td>
@@ -489,7 +489,7 @@ function listaEspera()
 
 			}
 			elseif ($hoy > $reservasActivas[16] &&  $reservasActivas[12] == null ||( $hoy == $reservasActivas[16]&&  $hora>$reservasActivas[35]) )
-			{die("perdio vuelo");
+			{//die("perdio vuelo");
 			// el vuelo ya partio y no se hizo checkin
 				//$contador++;
 				//echo $reservasActivas[4];
@@ -522,7 +522,7 @@ function listaEspera()
 			// se supero eltiempo para pagar (confirmar la reserva )
 				//$contador++;
 				//echo $reservasActivas[4];
-				die("sin ocnfirmar");
+				//die("sin ocnfirmar");
 				$this->datosCaidos .= "
 				<tr class='danger'>
 				<td>
