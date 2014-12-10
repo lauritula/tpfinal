@@ -2,6 +2,9 @@
 a{
   color: #FFF;
 }
+.panel{
+  padding-bottom: 20px;
+}
 .logo{
   z-index: 2;
   float: right;
