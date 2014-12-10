@@ -27,13 +27,14 @@ include "class.php";
 		</ul>
 
 	</nav>
-	<div >
+	<div class = "text-center col-md-4 col-md-offset-4 ">
+	 <legend class="text-center">PANEL DE CONTROL</legend>
 		<form action='empleados.php' method='post' role='search' >
-			<input type='submit' id='tirarReservas'NAME='tirarReservas' value='Eliminar reserva' class=' col-md-6 btn btn-info'>
-		</form>
+			<input type='submit' id='tirarReservas'NAME='tirarReservas' value='Eliminar reserva' class=' col-md-12 btn btn-info'>
 
-		<form action='empleados.php' method='post' role='search'>
-			<input type='submit' id='graficos'NAME='graficos' value='Graficos semanales' class=' col-md-6 btn btn-info'>
+			<input type='submit' id='vacantes'NAME='vacantes' value='Notificar Vacantes' class=' col-md-12 btn btn-info'>
+	
+			<input type='submit' id='graficos'NAME='graficos' value='Graficos semanales' class=' col-md-12 btn btn-info'>
 		</form>
 	</div>
 	<?php 
@@ -57,6 +58,13 @@ include "class.php";
 		echo" <div class='col-md-12'>
 		$objReserva->datosCaidos
 		</div>";
+		echo "<div class='col-md-12'>
+		$objReserva->vacantesDisponibles
+		</div>";
+	}
+	if (isset($_POST['vacantes'])) {
+		$objReserva = new reserva(000000);
+		$objReserva->listaEspera();
 		echo "<div class='col-md-12'>
 		$objReserva->vacantesDisponibles
 		</div>";

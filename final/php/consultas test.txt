@@ -1,40 +1,40 @@
 consultas test
 
-DELETE FROM `tpfinal`.`reserva` WHERE `reserva`.`codigoReserva` = 'AD24SI';
-DELETE FROM `tpfinal`.`reserva` WHERE `reserva`.`codigoReserva` = 'FD79JX';
-DELETE FROM `tpfinal`.`reserva` WHERE `reserva`.`codigoReserva` = 'FR98XU';
-DELETE FROM `tpfinal`.`reserva` WHERE `reserva`.`codigoReserva` = 'JK86KL';
-DELETE FROM `tpfinal`.`reserva` WHERE `reserva`.`codigoReserva` = 'JV55AC';
-DELETE FROM `tpfinal`.`reserva` WHERE `reserva`.`codigoReserva` = 'KU71FB';
-DELETE FROM `tpfinal`.`reserva` WHERE `reserva`.`codigoReserva` = 'LL86WY';
-DELETE FROM `tpfinal`.`reserva` WHERE `reserva`.`codigoReserva` = 'MV80PK';
-DELETE FROM `tpfinal`.`reserva` WHERE `reserva`.`codigoReserva` = 'QX38ZX';
-DELETE FROM `tpfinal`.`reserva` WHERE `reserva`.`codigoReserva` = 'TH89CE';
-DELETE FROM `tpfinal`.`reserva` WHERE `reserva`.`codigoReserva` = 'VC18UC';
-DELETE FROM `tpfinal`.`reserva` WHERE `reserva`.`codigoReserva` = 'WX30MF';
-DELETE FROM `tpfinal`.`reserva` WHERE `reserva`.`codigoReserva` = 'ZP48JT';
-DELETE FROM `tpfinal`.`reserva` WHERE `reserva`.`codigoReserva` = 'ZT21DO';
+DELETE FROM `tpfinal`.`reserva` WHERE `reserva`.`codigoReserva` = 'AW34ZW';
+DELETE FROM `tpfinal`.`reserva` WHERE `reserva`.`codigoReserva` = 'HL50OV';
+DELETE FROM `tpfinal`.`reserva` WHERE `reserva`.`codigoReserva` = 'IT61QZ';
+DELETE FROM `tpfinal`.`reserva` WHERE `reserva`.`codigoReserva` = 'KR96BV';
+DELETE FROM `tpfinal`.`reserva` WHERE `reserva`.`codigoReserva` = 'KS88KA';
+DELETE FROM `tpfinal`.`reserva` WHERE `reserva`.`codigoReserva` = 'NN77IL';
+DELETE FROM `tpfinal`.`reserva` WHERE `reserva`.`codigoReserva` = 'NP26WB';
+DELETE FROM `tpfinal`.`reserva` WHERE `reserva`.`codigoReserva` = 'OH43DK';
+DELETE FROM `tpfinal`.`reserva` WHERE `reserva`.`codigoReserva` = 'OQ98ZB';
+DELETE FROM `tpfinal`.`reserva` WHERE `reserva`.`codigoReserva` = 'OS30QU';
+DELETE FROM `tpfinal`.`reserva` WHERE `reserva`.`codigoReserva` = 'RN61LG';
+DELETE FROM `tpfinal`.`reserva` WHERE `reserva`.`codigoReserva` = 'SS71YD';
+DELETE FROM `tpfinal`.`reserva` WHERE `reserva`.`codigoReserva` = 'SZ29UP';
+DELETE FROM `tpfinal`.`reserva` WHERE `reserva`.`codigoReserva` = 'TT47SS';
 
 INSERT INTO `reserva` (`codigoReserva`, `dniPasajero`, `codVuelo`, `listaEspera`, `fechaPago`, `monto`, `categoria`, `numTarjeta`, `asiento`, `estado`, `fechaReserva`) VALUES
-('AD24SI', 23234234, 'VB33XY', NULL, NULL, 1952.01, 'primera', NULL, NULL, 1, '2014-12-02 09:36:21'),
-('ZP48JT', 23234234, 'VB33XY', NULL, NULL, 1952.01, 'primera', NULL, NULL, 1, '2014-12-02 09:36:54'),
-('WX30MF', 23234234, 'VB33XY', NULL, NULL, 1952.01, 'primera', NULL, NULL, 1, '2014-12-02 09:38:05'),
-('VC18UC', 23234234, 'VB33XY', 3, NULL, 1952.01, 'primera', NULL, NULL, 1, '2014-12-02 09:38:53'),
-('TH89CE', 23234234, 'VB33XY', NULL, NULL, 1952.01, 'primera', NULL, NULL, 1, '2014-12-02 09:37:59'),
-('QX38ZX', 23234234, 'VB33XY', NULL, NULL, 1952.01, 'primera', NULL, NULL, 1, '2014-12-02 09:40:39'),
-('MV80PK', 23234234, 'VB33XY', 1, NULL, 1952.01, 'primera', NULL, NULL, 1, '2014-12-02 09:36:51'),
-('LL86WY', 23234234, 'VB33XY', 2, NULL, 1952.01, 'primera', NULL, NULL, 1, '2014-12-02 09:37:56'),
-('KU71FB', 23234234, 'VB33XY', NULL, NULL, 1952.01, 'primera', NULL, NULL, 1, '2014-12-02 09:38:02'),
-('JV55AC', 23234234, 'VB33XY', 4, NULL, 1952.01, 'primera', NULL, NULL, 1, '2014-12-02 09:44:52'),
-('JK86KL', 23234234, 'VB33XY', NULL, NULL, 1952.01, 'primera', NULL, NULL, 1, '2014-12-02 09:38:09'),
-('FR98XU', 23234234, 'VB33XY', NULL, NULL, 1952.01, 'primera', NULL, NULL, 1, '2014-12-02 09:36:57'),
-('FD79JX', 23234234, 'VB33XY', NULL, NULL, 1952.01, 'primera', NULL, NULL, 1, '2014-12-02 09:36:46'),
-('ZT21DO', 23234234, 'VB33XY', 0, NULL, 1952.01, 'primera', NULL, NULL, 1, '2014-12-02 09:36:49');
+('AW34ZW', 12312304, 'CE13OJ', NULL, '2014-11-25', 1952.01, 'primera', NULL, NULL, 1, '2014-12-03 08:15:21'),
+('SZ29UP', 12312308, 'CE13OJ', NULL, '2014-11-25', 1952.01, 'primera', NULL, NULL, 1, '2014-12-03 08:16:19'),
+('SS71YD', 12312311, 'CE13OJ', 1, '2014-11-25', 1952.01, 'primera', NULL, NULL, 1, '2014-12-03 08:17:04'),
+('RN61LG', 12312305, 'CE13OJ', NULL, '2014-11-25', 1952.01, 'primera', NULL, NULL, 1, '2014-12-03 08:15:32'),
+('OS30QU', 12312301, 'CE13OJ', NULL, '2014-11-25', 1952.01, 'primera', NULL, NULL, 1, '2014-12-03 08:14:35'),
+('OQ98ZB', 12312310, 'CE13OJ', NULL, '2014-11-25', 1952.01, 'primera', NULL, NULL, 1, '2014-12-03 08:16:50'),
+('OH43DK', 12312313, 'CE13OJ', 3, '2014-11-25', 1952.01, 'primera', NULL, NULL, 1, '2014-12-03 08:17:50'),
+('NP26WB', 12312302, 'CE13OJ', NULL, '2014-11-25', 1952.01, 'primera', NULL, NULL, 1, '2014-12-03 08:14:58'),
+('NN77IL', 12312303, 'CE13OJ', NULL, '2014-11-25', 1952.01, 'primera', NULL, NULL, 1, '2014-12-03 08:15:10'),
+('KS88KA', 12312306, 'CE13OJ', NULL, '2014-11-25', 1952.01, 'primera', NULL, NULL, 1, '2014-12-03 08:15:46'),
+('KR96BV', 12312312, 'CE13OJ', 2, '2014-11-25', 1952.01, 'primera', NULL, NULL, 1, '2014-12-03 08:17:34'),
+('IT61QZ', 12312307, 'CE13OJ', NULL, '2014-11-25', 1952.01, 'primera', NULL, NULL, 1, '2014-12-03 08:16:00'),
+('HL50OV', 12312314, 'CE13OJ', 4, '2014-11-25', 1952.01, 'primera', NULL, NULL, 1, '2014-12-03 08:18:04'),
+('TT47SS', 12312309, 'CE13OJ', NULL, '2014-11-25', 1952.01, 'primera', NULL, NULL, 1, '2014-12-03 08:16:36');
 
 ////// ver
-SELECT * FROM `reserva` WHERE codVuelo = 'VB33XY'
+SELECT * FROM `reserva` WHERE codVuelo = 'CE13OJ'
 /// pagan
-update  reserva set fechaPago = '2014-11-25' WHERE codVuelo = 'VB33XY'
+update  reserva set fechaPago = '2014-11-25' WHERE codVuelo = 'CE13OJ'
 
 /// ver reservas activas 
 select * from pasajero p 

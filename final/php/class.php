@@ -151,7 +151,7 @@ class reserva
 				$disabledButtonPago ="<input disabled='disabled' value='Vuelo Pagado'   type='submit' class=' col-md-12 btn btn-success sinpadding '>";
 				
 			}
-			if ($this->hoy >= $this->datosReserva[16]) 
+			if ($this->hoy >= $this->datosReserva[16] && $this->datosReserva[8] == null) 
 			{ // se deshabilita el boton cuando ya se encuentra dentro de las 24 hs del vuelo 
 				$disabledButtonCheckIn = ""; 
 				$disabledButtonPago = "";
@@ -372,8 +372,11 @@ function tirarReserva()
 }
 function listaEspera()
 {
-	
-	$reservasEnEsperaTabla = conexion::query("select * from pasajero p 
+	$this->datosCaidos .= "</table>";
+	//$this->listaEspera();	
+	$objConexion = new conexion();
+	$objConexion->conectar("tpfinal");
+	$reservasEnEsperaTabla = $objConexion->query("select * from pasajero p 
 		join reserva r on p.dni = r.dniPasajero
 		join vuelos v on r.codVuelo = v.codVuelo
 		join frecuencias f on v.codFrecuencia =  f.codFrecuencia
@@ -447,107 +450,103 @@ function listaEspera()
 			where r.estado  = 1 and f.codFrecuencia in (select hh.codFrecuencia  from horarios hh )"); // trae los vuelos activos 
 		while ( $reservasActivas  = mysql_fetch_row($reservasActivasTabla)) 
 		{ 	 
-		$hs2menos = date('H:i:s',strtotime($reservasActivas[35] . "-2 hours  ")); // dos horas menos del vuelo
-		//die($hs2menos);
-		$this->codigoReserva = $reservasActivas[4];
-		if ($hoy == $reservasActivas[16] &&  $hs2menos<$hora  && $reservasActivas[8] != null) //cuando es el dia de hoy ,pasaron las dos horas previas y pago
-		{  // El pasajero no hizo el CHECK-IN antes de las 2hs de vuelo
-			$this->datosCaidos .= "
-			<tr class='danger'>
-			<td>
-			El pasajero no hizo el CHECK-IN 
-			antes de las 2hs de vuelo
-			</td>
-			<td>
-			".$reservasActivas[4]."
-			</td>
-			<td>
-			".$reservasActivas[5]."
-			</td>
-			<td>
-			".$reservasActivas[1]."
-			</td>
-			<td>
-			".$reservasActivas[6]."
-			</td>
-			<td>
-			".$reservasActivas[2]."
-			</td>
-			</tr>";
+			$hs2menos = date('H:i:s',strtotime($reservasActivas[35] . "-2 hours  ")); // dos horas menos del vuelo
+			//die($hs2menos);
+			$this->codigoReserva = $reservasActivas[4];
+			if ($hoy == $reservasActivas[16] &&  $hs2menos<$hora  && $reservasActivas[8] != null) //cuando es el dia de hoy ,pasaron las dos horas previas y pago
+			{  // El pasajero no hizo el CHECK-IN antes de las 2hs de vuelo
+				$this->datosCaidos .= "
+				<tr class='danger'>
+				<td>
+				El pasajero no hizo el CHECK-IN 
+				antes de las 2hs de vuelo
+				</td>
+				<td>
+				".$reservasActivas[4]."
+				</td>
+				<td>
+				".$reservasActivas[5]."
+				</td>
+				<td>
+				".$reservasActivas[1]."
+				</td>
+				<td>
+				".$reservasActivas[6]."
+				</td>
+				<td>
+				".$reservasActivas[2]."
+				</td>
+				</tr>";
 
-			$this->tirarReserva();
+				$this->tirarReserva();
 
 
-		}
-		if ($hoy >= $reservasActivas[16] &&  $reservasActivas[12] == null  &&  $hora>$reservasActivas[35])
-		{
-		// el vuelo ya partio y no se hizo checkin
-			//$contador++;
-			//echo $reservasActivas[4];
-			$this->datosCaidos .= "
-			<tr class='danger'>
-			<td>
-			Perdio el vuelo
-			</td>
-			<td>
-			".$reservasActivas[4]."
-			</td>
-			<td>
-			".$reservasActivas[5]."
-			</td>
-			<td>
-			".$reservasActivas[1]."
-			</td>
-			<td>
-			".$reservasActivas[6]."
-			</td>
-			<td>
-			".$reservasActivas[2]."
-			</td>
-			</tr>";
-			$this->tirarReserva();
+			}
+			if ($hoy >= $reservasActivas[16] &&  $reservasActivas[12] == null  &&  $hora>$reservasActivas[35])
+			{
+			// el vuelo ya partio y no se hizo checkin
+				//$contador++;
+				//echo $reservasActivas[4];
+				$this->datosCaidos .= "
+				<tr class='danger'>
+				<td>
+				Perdio el vuelo
+				</td>
+				<td>
+				".$reservasActivas[4]."
+				</td>
+				<td>
+				".$reservasActivas[5]."
+				</td>
+				<td>
+				".$reservasActivas[1]."
+				</td>
+				<td>
+				".$reservasActivas[6]."
+				</td>
+				<td>
+				".$reservasActivas[2]."
+				</td>
+				</tr>";
+				$this->tirarReserva();
 
-		}
-		elseif ($hoy == $reservasActivas[16] &&  $reservasActivas[8] == null)
-		{
-		// se supero eltiempo para pagar (confirmar la reserva )
-			//$contador++;
-			//echo $reservasActivas[4];
-			$this->datosCaidos .= "
-			<tr class='danger'>
-			<td>
-			No confirmo la reserva
-			</td>
-			<td>
-			".$reservasActivas[4]."
-			</td>
-			<td>
-			".$reservasActivas[5]."
-			</td>
-			<td>
-			".$reservasActivas[1]."
-			</td>
-			<td>
-			".$reservasActivas[6]."
-			</td>
-			<td>
-			".$reservasActivas[2]."
-			</td>
-			</tr>";
-			$this->tirarReserva();
-			// imprime tabla con vacantes 
-			
-
-			
-			
+			}
+			elseif ($hoy == $reservasActivas[16] &&  $reservasActivas[8] == null)
+			{
+			// se supero eltiempo para pagar (confirmar la reserva )
+				//$contador++;
+				//echo $reservasActivas[4];
+				$this->datosCaidos .= "
+				<tr class='danger'>
+				<td>
+				No confirmo la reserva
+				</td>
+				<td>
+				".$reservasActivas[4]."
+				</td>
+				<td>
+				".$reservasActivas[5]."
+				</td>
+				<td>
+				".$reservasActivas[1]."
+				</td>
+				<td>
+				".$reservasActivas[6]."
+				</td>
+				<td>
+				".$reservasActivas[2]."
+				</td>
+				</tr>";
+				$this->tirarReserva();
+				// imprime tabla con vacantes 
+			}
 
 		}
-
+	
+		$objConexion->desconectar();
 	}
-	$this->datosCaidos .= "</table>";
-	$this->listaEspera();	
 }
-}
+
 
 class vuelo{
 	var $codigoVuelo;
