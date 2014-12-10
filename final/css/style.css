@@ -2,6 +2,10 @@
 a{
   color: #FFF;
 }
+.reservaErronea h3{
+  margin:0;
+  font-weight:300;
+}
 .acceso{
   color: #777;
 }
