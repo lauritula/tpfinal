@@ -56,6 +56,11 @@ include "class.php";
 			</div>
 			</div>";
 	}
+	else{
+		echo "<div class='reservaErronea well'>
+		<h3>La reserva << ".$numReserva." >> no es encontrada, por favor revise su numero de reserva</h3>
+	</div>";
+	}
 	
 	
 

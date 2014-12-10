@@ -19,7 +19,7 @@ include "class.php";
 	<link rel="stylesheet" type="text/css" href="../css/datepicker3.css">
 	<link href='http://fonts.googleapis.com/css?family=Roboto:700,500italic,300' rel='stylesheet' type='text/css'>
 	
-	<title>Adminitracion</title>
+	<title>Administracion</title>
 </head>
 <body>
 	<nav class="navbar navbar-inverse" role="navigation">
@@ -68,6 +68,7 @@ echo "<div class='well pago-box'>
 			header('location: empleados.php');
 
 		}
+		$objConexion->desconectar();
 	}
 
 			if (isset($_SESSION['idUsuario'])) 
@@ -115,10 +116,19 @@ echo "<div class='well pago-box'>
 					$objReserva->listaEspera();
 					echo "<div class='col-md-12'>
 					$objReserva->vacantesDisponibles
-					</div>";
+					</div>
+					<form action='empleados.php' method='post' role='search'  >
+			 			<input type='submit' id='notificar'NAME='notificar' value='Notificar por Email' class=' col-md-4 col-md-offset-4  btn btn-info'>
+					</form>";
 				}
 		
 	
+			}
+			if (isset($_POST['notificar'])) {
+				$objConexion = new conexion();
+				$objConexion->conectar("tpfinal");
+				$objConexion->query("update reserva set listaEspera = null where listaEspera = 0 "); // establece null una vez notificado en la tabla 
+				$objConexion->desconectar();
 			}
 			if (isset($_POST['salir'])) {
 					session_destroy();

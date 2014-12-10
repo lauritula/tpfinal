@@ -414,10 +414,12 @@ function listaEspera()
 		".$reservasEnEspera[2]."
 		</td>
 		</tr>";
-			conexion::query("update reserva set listaEspera = null where codigoReserva= '".$reservasEnEspera[4]."' "); // establece null una vez notificado en la tabla 
+			//conexion::query("update reserva set listaEspera = null where codigoReserva= '".$reservasEnEspera[4]."' "); // establece null una vez notificado en la tabla 
 		}
 		$this->vacantesDisponibles .= "</table>";
+		$objConexion->desconectar();
 	}
+	
 	function tirarReservasMasivas()
 	{
 		$hoy = date('Y-m-d');
