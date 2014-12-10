@@ -487,7 +487,7 @@ function listaEspera()
 
 
 			}
-			if ($hoy >= $reservasActivas[16] &&  $reservasActivas[12] == null  &&  $hora>$reservasActivas[35])
+			elseif ($hoy >= $reservasActivas[16] &&  $reservasActivas[12] == null ||( $hoy = $reservasActivas[16]&&  $hora>$reservasActivas[35]) )
 			{
 			// el vuelo ya partio y no se hizo checkin
 				//$contador++;
