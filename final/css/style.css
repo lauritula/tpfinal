@@ -66,8 +66,10 @@ padding-bottom: 10px;
   background-size: cover; 
     font-family: 'Open Sans', sans-serif!important;
 }
-.empleados{
-  background:rgba(163, 163, 163, 0.62)
+#empleados {
+  background-image: url('../imagenes/aeropuerto.jpg');
+  background-size: cover; 
+    font-family: 'Open Sans', sans-serif!important;
 }
 
 #fondoLight {

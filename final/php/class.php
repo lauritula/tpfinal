@@ -390,7 +390,7 @@ function listaEspera()
 
 	$this->vacantesDisponibles = "<table class='table table-bordered'>
 	<caption><legend>Pasajeros con vacante para viajar</legend></caption>
-	<tr>
+	<tr class = 'success'>
 	<td>codigo reserva</td>
 	<td>DNI</td>
 	<td>Nombre</td>
@@ -435,7 +435,7 @@ function listaEspera()
 		$objConexion->conectar("tpfinal");
 		$this->datosCaidos = "<table class='table table-bordered'>
 		<caption><legend>Reservas eliminadas</legend></caption>
-		<tr>
+		<tr class='danger' > 
 		<td>Motivo de caida</td>
 		<td>codigo reserva</td>
 		<td>DNI</td>

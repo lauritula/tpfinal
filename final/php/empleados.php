@@ -21,7 +21,7 @@ include "class.php";
 	
 	<title>Administracion</title>
 </head>
-<body class= "empleados">
+<body id= "empleados">
 	<nav class="navbar navbar-inverse" role="navigation">
 		<ul  class="nav navbar-nav">
 			<li class="active"><a href="index.php">Home</a></li>
@@ -107,9 +107,7 @@ echo "<div class='well pago-box'>
 					echo" <div class='col-md-12'>
 					$objReserva->datosCaidos
 					</div>";
-					echo "<div class='col-md-12'>
-					$objReserva->vacantesDisponibles
-					</div>";
+					
 				}
 				if (isset($_POST['vacantes'])) {
 					$objReserva = new reserva(000000);
@@ -137,10 +135,6 @@ echo "<div class='well pago-box'>
 	?>
 
 
-	<footer class="bs-docs-footer col-md-12" role="contentinfo">
-		<p>Universidad Nacional de La Matanza</p>
-		<p> Programacion Web 2 -  J. / Sanchez, M. / Tula, L.</p>
-		<p>2C 2014</p>
-	</footer>
+	
 </body>
 </html>
