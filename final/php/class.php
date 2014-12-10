@@ -458,7 +458,7 @@ function listaEspera()
 			$hs2menos = date('H:i:s',strtotime($reservasActivas[35] . "-2 hours  ")); // dos horas menos del vuelo
 			//die($hs2menos);
 			$this->codigoReserva = $reservasActivas[4];
-			if ($hoy == $reservasActivas[16] &&  $hs2menos<$hora  && $reservasActivas[8] != null) //cuando es el dia de hoy ,pasaron las dos horas previas y pago
+			if ($hoy == $reservasActivas[16] &&  $hs2menos>$hora  && $reservasActivas[8] != null) //cuando es el dia de hoy ,pasaron las dos horas previas y pago
 			{  // El pasajero no hizo el CHECK-IN antes de las 2hs de vuelo
 				$this->datosCaidos .= "
 				<tr class='danger'>
