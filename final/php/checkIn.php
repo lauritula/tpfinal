@@ -26,10 +26,15 @@
 		</ul>
 	</nav>
 	<?php 
+
 	$tipoAvion=$_POST['tipoAvion']; 
 	$codigoReserva=$_POST['codigoReserva']; 
+
+	if (!isset($_POST['confirmar'])){
+		
 	$objConexion = new conexion;
 	$objConexion->conectar("tpfinal");
+
 	$objPlano = new planoLugares($tipoAvion);
 	$objPlano->plano($codigoReserva);
 	//echo "$tipoAvion";
@@ -37,20 +42,34 @@
 	echo "<input type='hidden' id='codigoReserva'  NAME='codigoReserva' value='".$codigoReserva."' />";
 	$objReserva = new reserva($codigoReserva);
 	$objReserva->datosReserva();
-	?>
-	<div class= "col-md-12">
-		<a href="reserva.pdf" target="_blank"><button  id="confirmar"   disabled="disabled" class= "col-md-5  col-md-offset-3 btn btn-info">Confirmar</button></a>
+	
+	echo "<div class= 'col-md-12'>
+	<form action='checkIn.php' method='post'  role='search'>
+		<button  type='submit' id='confirmar'  name='confirmar' disabled='disabled' class= 'col-md-5  col-md-offset-3 btn btn-info'>Confirmar</button>
+		<input type='hidden' id='tipoAvion'  NAME='tipoAvion' value=".$objReserva->datosReserva[22]."/> 
+		<input type='hidden' id='codigoReserva'  NAME='codigoReserva' value='".$objReserva->codigoReserva."' />
+	</form>" ;
 			
-	</div>
-	<div class="primera col-md-5  col-md-offset-3"> 
+	echo "</div>
+	<div class='primera col-md-5  col-md-offset-3'> 
 
-		<?php echo "$objPlano->primera"; ?>
+		$objPlano->primera"; 
 		
-	</div>
-	<div class="economy col-md-5  col-md-offset-3"> 
-		<?php echo "$objPlano->economy"; ?>
-	</div>
+	echo "</div>
+	<div class='economy col-md-5  col-md-offset-3'> 
+	$objPlano->economy
+	</div>";
+}
 
+if (isset($_POST['confirmar']))
+{
+	$objReserva = new reserva($codigoReserva);
+//	die($codigoReserva);
+	$objReserva->datosReserva();
+	header('location: Reserva.pdf');
+		//header('location: index.php');
+}
+ ?>
 
 	
 

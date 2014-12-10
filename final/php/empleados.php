@@ -21,7 +21,7 @@ include "class.php";
 	
 	<title>Administracion</title>
 </head>
-<body>
+<body class= "empleados">
 	<nav class="navbar navbar-inverse" role="navigation">
 		<ul  class="nav navbar-nav">
 			<li class="active"><a href="index.php">Home</a></li>

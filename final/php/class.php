@@ -119,7 +119,8 @@ class reserva
 	}
 	function datosReserva()
 	{
-		$conectar = new conexion();		
+		$conectar = new conexion();
+		$conectar->conectar("tpfinal");		
 		$hs24 = date('Y-m-d',strtotime($this->hoy . "1 days "));
 		$hs48 = date('Y-m-d',strtotime($this->hoy . "2 days "));
 
@@ -236,6 +237,7 @@ class reserva
 
 		</div>
 		</div>";
+
 	/*	$tabla = conexion::query("select count(codigoReserva) cantidad from reserva where codVuelo = '".$this->datosReserva[15]."' and categoria = '".$this->datosReserva[10]. "'");
 		$codigo = mysql_fetch_row($tabla);
 		$this->cantidadAsientos = $codigo[0];*/
@@ -251,6 +253,7 @@ class reserva
 				Origen:  ".$this->datosReserva[27] ."/". $this->datosReserva[28] ."/".  $this->datosReserva[29]."
 				destino:  ".$this->datosReserva[31]  ."/". $this->datosReserva[32] ."/".  $this->datosReserva[33]." 
 				Precio:  $".$this->datosReserva[9]."
+				Lugar reservado: ".$this->datosReserva[12]."
 			", 'qr.png', QR_ECLEVEL_L); // crea el qr
 			// QR//////
 			$checkInlugar = "
@@ -616,7 +619,7 @@ class planoLugares{
 			$tabla = conexion::query("select * from tipo where tipoAvion=$tipoAvion");
 			break;
 			default:
-			die("error");
+			die("error plano lugares");
 			break;
 		}
 
