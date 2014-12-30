@@ -6,7 +6,7 @@ require_once ("jpgraph/src/jpgraph.php");
 require_once ("jpgraph/src/jpgraph_line.php"); // grafico linea basica
 require_once ("jpgraph/src/jpgraph_date.php"); // grafico linea basica
 require_once ("jpgraph/src/jpgraph_bar.php"); // grafico linea basica
-		
+
 
 class conexion
 {
@@ -71,10 +71,10 @@ class pasajero
 		$codigoReserva = mysql_fetch_row($tabla);
 		$objReserva = new reserva($codigoReserva[0]);
 		if ($codigoReserva[1] == 1) {
-		
-		
-		$objReserva->datosReserva();
-		echo " <legend>Usted ya dispone de la siguiente reserva... desea eliminarla y crear una nuevamente? </legend>$objReserva->imprimirDatos";
+
+
+			$objReserva->datosReserva();
+			echo " <legend>Usted ya dispone de la siguiente reserva... desea eliminarla y crear una nuevamente? </legend>$objReserva->imprimirDatos";
 		// eliminar reserva para crear otra 
 		/*echo "<form action='reservaVuelos.php' method='post' role='search'> 
 		<input type='hidden' id='codigoReserva'  NAME='codigoReserva' value='".$objReserva->codigoReserva."' />
@@ -85,8 +85,8 @@ class pasajero
 	}
 	
 	
-	}
-	
+}
+
 }
 
 class reserva
@@ -97,6 +97,7 @@ class reserva
 	var $hoy;
 	var $cantidadAsientos;
 	var $imprimirPdf;
+	var $datosCaidos
 
 	function __construct($codigoReserva)
 	{
@@ -112,6 +113,7 @@ class reserva
 		$conectar = new conexion();
 		
 		$conectar->query("INSERT INTO reserva (codigoReserva,dniPasajero,codVuelo,monto,categoria,estado) VALUES ('$this->codigoReserva',$dni,'$codigoVuelo',$monto,'$categoria',1)");
+		$conectar->query("INSERT INTO horarios (codVuelo,horarios) VALUES ('$codigoVuelo','00:')");
 
 	}
 	function datosReserva()
@@ -125,8 +127,10 @@ class reserva
 			join vuelos v on r.codVuelo = v.codVuelo
 			join frecuencias f on v.codFrecuencia =  f.codFrecuencia
 			join aeropuerto a on f.origen = a.codAeropuerto 
-			join aeropuerto aDos on f.destino = aDos.codAeropuerto
-			where r.codigoReserva  = '$this->codigoReserva'");
+			join aeropuerto aDos on f.destino = aDos.codAeropuerto 
+			join horarios h on h.codFrecuencia = f.codFrecuencia
+			where r.codigoReserva  = '$this->codigoReserva' and f.codFrecuencia in (select hh.codFrecuencia  from horarios hh )");
+
 		$this->datosReserva =  mysql_fetch_row($tabla);
 
 		$vueloPerdido = "";
@@ -149,8 +153,8 @@ class reserva
 			if ($this->hoy >= $this->datosReserva[16]) 
 			{ // se deshabilita el boton cuando ya se encuentra dentro de las 24 hs del vuelo 
 				$disabledButtonCheckIn = ""; 
-			$disabledButtonPago = "";
-			$vueloPerdido = "<button  type='button' disabled='disabled' class=' col-md-12 btn btn-danger '>¡Ya supero el limite para pagar! </button>";
+				$disabledButtonPago = "";
+				$vueloPerdido = "<button  type='button' disabled='disabled' class=' col-md-12 btn btn-danger '>¡Ya supero el limite para pagar! </button>";
 				
 			}
 			if ($this->hoy > $this->datosReserva[16])
@@ -230,15 +234,15 @@ class reserva
 		if ($this->datosReserva[12] != null) { // cuando se completa el check in en la reserva 
 			// QR//////
 			QRcode::png("Reserva     ".$this->datosReserva[4]."
-			Nombre:".$this->datosReserva[1]." 
-			Documento:".$this->datosReserva[0]."
-			E-mail:  ".$this->datosReserva[2]."
-			Categoria:  ".$this->datosReserva[10]."
-			Vuelo Numero: ".$this->datosReserva[15]."
-			Fecha:  ".$this->datosReserva[16]."
-			Origen:  ".$this->datosReserva[27] ."/". $this->datosReserva[28] ."/".  $this->datosReserva[29]."
-			destino:  ".$this->datosReserva[31]  ."/". $this->datosReserva[32] ."/".  $this->datosReserva[33]." 
-			Precio:  $".$this->datosReserva[9]."
+				Nombre:".$this->datosReserva[1]." 
+				Documento:".$this->datosReserva[0]."
+				E-mail:  ".$this->datosReserva[2]."
+				Categoria:  ".$this->datosReserva[10]."
+				Vuelo Numero: ".$this->datosReserva[15]."
+				Fecha:  ".$this->datosReserva[16]."
+				Origen:  ".$this->datosReserva[27] ."/". $this->datosReserva[28] ."/".  $this->datosReserva[29]."
+				destino:  ".$this->datosReserva[31]  ."/". $this->datosReserva[32] ."/".  $this->datosReserva[33]." 
+				Precio:  $".$this->datosReserva[9]."
 			", 'qr.png', QR_ECLEVEL_L); // crea el qr
 			// QR//////
 			$checkInlugar = "
@@ -253,11 +257,11 @@ class reserva
 			$checkInQR= "";
 		}
 		$this->imprimirPdf = "
-<link rel='stylesheet' type='text/css' href='../css/style.css'>
+		<link rel='stylesheet' type='text/css' href='../css/style.css'>
 		<link rel='stylesheet' type='text/css' href='../css/bootstrap.css'>
-	<link rel='stylesheet' type='text/css' href='../css/bootstrap-theme.min.css'>
+		<link rel='stylesheet' type='text/css' href='../css/bootstrap-theme.min.css'>
 
-	<div class='pdf pdf-box'>
+		<div class='pdf pdf-box'>
 		<legend>Reserva     ".$this->datosReserva[4]. " </legend>
 		<div  >
 		<div class='form-group ' >
@@ -292,69 +296,102 @@ class reserva
 		</div>
 
 		";
-  
 
-$dompdf = new DOMPDF();
 
-$dompdf->set_paper("letter", "portrait");
+		$dompdf = new DOMPDF();
+
+		$dompdf->set_paper("letter", "portrait");
 $dompdf->load_html($this->imprimirPdf);//cargamos el html
 $dompdf->render();//renderizamos
 $pdf = $dompdf->output();//asignamos la salida a una variable
 file_put_contents("Reserva.pdf", $pdf);//colocamos la salida en un archivo
-	}
-	function buscarReserva()
-	{
-		$conectar = new conexion();
+}
+function buscarReserva()
+{
+	$conectar = new conexion();
 
-		$tabla=$conectar->query("select codigoReserva from reserva where codigoReserva='$this->codigoReserva' ");
-		$codigo = mysql_fetch_assoc($tabla);
-		$this->codigoReserva =  $codigo['codigoReserva'];
-	}
-	function contarReservas()
-	{
-		$tabla = conexion::query("select count(codigoReserva) cantidad from reserva where codVuelo = '".$this->datosReserva[15]."' and categoria = '".$this->datosReserva[10]. "'");
-		$codigo = mysql_fetch_row($tabla);
-		$this->cantidadAsientos = $codigo[0];
-	}
-	function eliminarReserva()
-	{		
-		$this->datosReserva($this->codigoReserva);
-		conexion::query("DELETE FROM reserva WHERE codigoReserva = '$this->codigoReserva'");
-		conexion::query("DELETE FROM pasajero WHERE dni = ".$this->datosReserva[0]."");	
+	$tabla=$conectar->query("select codigoReserva from reserva where codigoReserva='$this->codigoReserva' ");
+	$codigo = mysql_fetch_assoc($tabla);
+	$this->codigoReserva =  $codigo['codigoReserva'];
+}
+function contarReservas()
+{
+	$tabla = conexion::query("select count(codigoReserva) cantidad from reserva where codVuelo = '".$this->datosReserva[15]."' and categoria = '".$this->datosReserva[10]. "'");
+	$codigo = mysql_fetch_row($tabla);
+	$this->cantidadAsientos = $codigo[0];
+}
+function eliminarReserva()
+{		
+	$this->datosReserva($this->codigoReserva);
+	conexion::query("DELETE FROM reserva WHERE codigoReserva = '$this->codigoReserva'");
+	conexion::query("DELETE FROM pasajero WHERE dni = ".$this->datosReserva[0]."");	
 		// si el vuelo tiene lista de espera reduce el numero de espera porque se libera una vacante 
-		$tabla = conexion::query("UPDATE reserva set listaEspera = listaEspera  - 1 where codVuelo = '".$this->datosReserva[15]."' and categoria = '".$this->datosReserva[10]. "' and listaEspera is not NULL and listaEspera >0 ORDER BY listaEspera ASC ");
-		
-	}
-	function tirarReserva()
-	{		
-		$this->datosReserva($this->codigoReserva);
-		conexion::query("UPDATE reserva SET estado = 0 where codigoReserva = '$this->codigoReserva'");
+	$tabla = conexion::query("UPDATE reserva set listaEspera = listaEspera  - 1 where codVuelo = '".$this->datosReserva[15]."' and categoria = '".$this->datosReserva[10]. "' and listaEspera is not NULL and listaEspera >0 ORDER BY listaEspera ASC ");
+
+}
+function tirarReserva()
+{		
+	$this->datosReserva($this->codigoReserva);
+	conexion::query("UPDATE reserva SET estado = 0 where codigoReserva = '$this->codigoReserva'");
 		// si el vuelo tiene lista de espera reduce el numero de espera porque se libera una vacante 
-		$tabla = conexion::query("UPDATE reserva set listaEspera = listaEspera  - 1 where codVuelo = '".$this->datosReserva[15]."' and categoria = '".$this->datosReserva[10]. "' and listaEspera is not NULL and listaEspera >0 ORDER BY listaEspera ASC ");
-		
-	}
-	function colaEspera()
-	{
-		conexion::query("");
-	}
-	function tirarReservasMasivas()
-	{
-		$hoy = date('Y-m-d');
-		$contador= 0; 
-$objConexion = new conexion();
+	$tabla = conexion::query("UPDATE reserva set listaEspera = listaEspera  - 1 where codVuelo = '".$this->datosReserva[15]."' and categoria = '".$this->datosReserva[10]. "' and listaEspera is not NULL and listaEspera >0 ORDER BY listaEspera ASC ");
+
+}
+function colaEspera()
+{
+	conexion::query("");
+}
+function tirarReservasMasivas()
+{
+	$hoy = date('Y-m-d');
+	date_default_timezone_set (  'America/Argentina/Buenos_Aires' );
+	$hora = date("H:i:s");
+	$hs2mas = date('H:i:s',strtotime($hora . "2 hours  "));
+	die($hs2mas);
+	$contador= 0; 
+	$objConexion = new conexion();
 	$objConexion->conectar("tpfinal");
+	$this->datosCaidos = "<table border='1'>
+	<tr>
+	<td>codigo reserva</td>
+	<td>DNI</td>
+	<td>Nombre</td>
+	<td>codigo Vuelo</td>
+	<td>Email</td>
+	</tr> ";
 
-$reservasActivasTabla = $objConexion->query("select * from pasajero p 
+	$reservasActivasTabla = $objConexion->query("select * from pasajero p 
 			join reserva r on p.dni = r.dniPasajero
 			join vuelos v on r.codVuelo = v.codVuelo
 			join frecuencias f on v.codFrecuencia =  f.codFrecuencia
 			join aeropuerto a on f.origen = a.codAeropuerto 
-			join aeropuerto aDos on f.destino = aDos.codAeropuerto where r.estado = 1"); // trae los vuelos activos 
-while ( $reservasActivas  = mysql_fetch_row($reservasActivasTabla)) 
+			join aeropuerto aDos on f.destino = aDos.codAeropuerto 
+			join horarios h on h.codFrecuencia = f.codFrecuencia
+			where r.estado  = 1 and f.codFrecuencia in (select hh.codFrecuencia  from horarios hh )"); // trae los vuelos activos 
+	while ( $reservasActivas  = mysql_fetch_row($reservasActivasTabla)) 
 	{ 	
 		$this->codigoReserva = $reservasActivas[4];
-		if ($hoy >= $reservasActivas[16]) 
-		{ // cuando ya se encuentra dentro de las 24 hs del vuelo o el vuelo ya este pago 
+		if ($hoy = $reservasActivas[16] &&  $hs2mas>$reservasActivas[35] ) 
+		{ 
+			$this->datosCaidos .= "
+			<tr>
+				<td>
+					".$reservasActivas[4]."
+				</td>
+				<td>
+					".$reservasActivas[5]."
+				</td>
+					<td>
+					".$reservasActivas[1]."
+				</td>
+				<td>
+					".$reservasActivas[6]."
+				</td>
+				<td>
+					".$reservasActivas[2]."
+				</td>
+			</tr>";
+		// cuando ya se encuentra dentro de las 24 hs del vuelo o el vuelo ya este pago 
 			//$contador++;
 			//echo $reservasActivas[4];
 			$this->tirarReserva();
@@ -362,16 +399,36 @@ while ( $reservasActivas  = mysql_fetch_row($reservasActivasTabla))
 
 		}
 		if ($hoy > $reservasActivas[16] &&  $reservasActivas[12] == null)
-		{// el vuelo ya partio y no se hizo checkin
+		{
+		// el vuelo ya partio y no se hizo checkin
 			//$contador++;
 			//echo $reservasActivas[4];
+			$this->datosCaidos .= "
+			<tr>
+				<td>
+					".$reservasActivas[4]."
+				</td>
+				<td>
+					".$reservasActivas[5]."
+				</td>
+					<td>
+					".$reservasActivas[1]."
+				</td>
+				<td>
+					".$reservasActivas[6]."
+				</td>
+				<td>
+					".$reservasActivas[2]."
+				</td>
+			</tr>";
 			$this->tirarReserva();
 
 		}
 
 	}
+	$this->datosCaidos .= "</table>";
 //echo "Se cancelaron ".$contador." reservas";
-	}
+}
 }
 
 class vuelo{
@@ -440,7 +497,7 @@ class planoLugares{
 			$tabla = conexion::query("select * from tipo where tipoAvion=$tipoAvion");
 			break;
 			default:
-				die("error");
+			die("error");
 			break;
 		}
 
@@ -484,7 +541,7 @@ class planoLugares{
 					for ( $d=0; $d < $ocupados;  $d++) // asientos deshabilitados 
 					{		
 						if ($butacas[$d] == "P".$this->contadorPrimera  || $objReserva->datosReserva[10]!="primera")						
-						$deshabilitado = 1;				
+							$deshabilitado = 1;				
 					}
 					
 					if ($deshabilitado == 1) 
@@ -493,7 +550,7 @@ class planoLugares{
 						$asiento = $asientoDesocupado;
 
 					$this->primera .= "<td><button  name='1' value='".$codigoReserva."P".$this->contadorPrimera."'".$asiento .$this->contadorPrimera."</button></td>";
-					 $this->contadorPrimera++;
+					$this->contadorPrimera++;
 					$deshabilitado = 0; // vuelve a estanciar la variable para que lo calcule otra vez
 
 					
@@ -512,7 +569,7 @@ class planoLugares{
 			for ($j=0; $j <$this->datosTipoAvion['economyCols'] ; $j++)
 			{ 
 				for ( $d=0; $d < $ocupados;  $d++) // asientos deshabilitados 
-					{		
+				{		
 						if ($butacas[$d] == "E".$this->contadorEconomy || $objReserva->datosReserva[10]!="economy" )	//si el cliente tiene pasaje Economy 					
 						$deshabilitado = 1;				
 					}
@@ -522,14 +579,14 @@ class planoLugares{
 					else
 						$asiento = $asientoDesocupado;
 
-				$this->economy .= "<td  class='butaca'><button   name='1'value='".$codigoReserva."E".$this->contadorEconomy."'".$asiento.$this->contadorEconomy."</button></td>";
-				$this->contadorEconomy++;
+					$this->economy .= "<td  class='butaca'><button   name='1'value='".$codigoReserva."E".$this->contadorEconomy."'".$asiento.$this->contadorEconomy."</button></td>";
+					$this->contadorEconomy++;
 				$deshabilitado = 0; // vuelve a estanciar la variable para que lo calcule otra vez
 			}
 			$this->economy .= "</tr>";
 		}	
 		$this->economy .= "</table>";
-	
+
 
 	}
 

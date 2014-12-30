@@ -27,9 +27,18 @@ include "class.php";
 		</ul>
 
 	</nav>
+	<form action='empleados.php' method='post' role='search'>
+	<input type='submit' id='tirarReservas'NAME='tirarReservas' value='Eliminar reserva' class=' col-md-6 btn btn-info'>
+</form>
+
+<form action='empleados.php' method='post' role='search'>
+	<input type='submit' id='graficos'NAME='graficos' value='Graficos semanales' class=' col-md-6 btn btn-info'>
+</form>
 
 <?php 
 $hoy = date('Y-m-d');
+if (isset($_POST['graficos'])) {
+	
 
 echo "<div>
 <img src='graficoCaidosVendidos.php'>
@@ -40,8 +49,14 @@ echo "<div>
 echo "<div>
 <img src='graficoPasajerosPorVuelos.php'>
 </div>";
-
+}
+if (isset($_POST['tirarReservas'])) {
+$objReserva = new reserva(000000);
+$objReserva->tirarReservasMasivas();
+echo $objReserva->datosCaidos;
+}
  ?>
+
 
 <footer class="bs-docs-footer col-md-12" role="contentinfo">
 		<p>Universidad Nacional de La Matanza</p>

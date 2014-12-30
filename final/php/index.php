@@ -1,7 +1,11 @@
 <?php 
 include "class.php";
-$objReserva = new reserva(000000);
-$objReserva->tirarReservasMasivas();
+/*$objReserva = new reserva(000000);
+$objReserva->tirarReservasMasivas();*/
+/*	date_default_timezone_set (  'America/Argentina/Buenos_Aires' );
+	$hora = date("H:i:s");
+		$hs2mas = date('H:i:s',strtotime($hora . "2 hours  "));
+		die($hs2mas);*/
  ?>
 
 <html>

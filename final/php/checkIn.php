@@ -42,7 +42,6 @@
 		<a href="reserva.pdf" target="_blank"><button  id="confirmar"   disabled="disabled" class= "col-md-5  col-md-offset-3 btn btn-info">Confirmar</button></a>
 			
 	</div>
-<a href="reserva.pdf" target="_blank"><button class= ' btn btn-success' style='float: right;'>Obtener PDF</button></a>
 	<div class="primera col-md-5  col-md-offset-3"> 
 
 		<?php echo "$objPlano->primera"; ?>
